@@ -8,7 +8,8 @@
    Palette : Forêt profonde + Or Maniema + Bleu institutionnel
 ═══════════════════════════════════════════════════════════ */
 @theme {
-    --font-display: 'Playfair Display', 'Georgia', serif;
+    --font-display: 'Cormorant Garamond', 'Georgia', serif;
+    --font-body:    'Lora', 'Georgia', serif;
     --font-sans:    'Inter', ui-sans-serif, system-ui, sans-serif;
 
     /* ── Forest Palette ─────────────────────────────── */
@@ -91,14 +92,14 @@ body {
     background: #020d06;
 }
 
-/* Cinematic gradient overlay */
+/* Overlay — fenêtre sur la forêt : centre clair, bords sombres */
 .hero-overlay {
     background:
         linear-gradient(180deg,
-            rgba(2,13,6,0.72) 0%,
-            rgba(6,26,12,0.40) 30%,
-            rgba(10,59,26,0.30) 55%,
-            rgba(2,13,6,0.90) 100%);
+            rgba(2,13,6,0.68) 0%,
+            rgba(2,13,6,0.22) 30%,
+            rgba(2,13,6,0.28) 60%,
+            rgba(2,13,6,0.88) 100%);
 }
 
 /* Grain texture layer */
@@ -111,31 +112,44 @@ body {
     pointer-events: none;
 }
 
-/* Giant display title */
+/* Display titre — Cormorant Garamond : organique, élégant, naturel */
 .hero-display {
     font-family: var(--font-display);
-    font-size: clamp(3.5rem, 11vw, 10rem);
-    font-weight: 900;
-    line-height: 0.88;
-    letter-spacing: -0.03em;
-    text-transform: uppercase;
+    font-size: clamp(4.8rem, 14vw, 12rem);
+    font-weight: 600;
+    line-height: 0.90;
+    letter-spacing: -0.01em;
+    /* Pas d'uppercase : les empattements et les capitales naturelles de Cormorant
+       sont déjà expressifs — la forêt ne crie pas, elle murmure */
 }
 
-.hero-display .line-fill {
-    color: #ffffff;
+/* Ligne claire : texte blanc pur, poids léger pour contraste avec l'italique */
+.hero-display .line-natural {
     display: block;
+    color: rgba(255,255,255,0.93);
+    font-weight: 300;
 }
-.hero-display .line-stroke {
+/* Ligne forêt : italique doré, lettre vivante comme une liane */
+.hero-display .line-forest {
     display: block;
-    color: transparent;
-    -webkit-text-stroke: 1.5px rgba(255,255,255,0.35);
-}
-.hero-display .line-gold {
-    display: block;
-    background: linear-gradient(135deg, #f0b429 0%, #fde68a 40%, #d97706 80%);
+    font-style: italic;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f0b429 0%, #fde68a 45%, #d97706 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+/* Sous-titre : Lora (body serif naturel) */
+.hero-subtitle {
+    font-family: var(--font-body);
+    font-size: clamp(0.92rem, 1.6vw, 1.08rem);
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(255,255,255,0.58);
+    line-height: 1.75;
+    max-width: 36rem;
+    margin-bottom: 2.5rem;
 }
 
 /* Logo glow pulse */
@@ -223,15 +237,7 @@ body {
 }
 .scroll-indicator { animation: scroll-bounce 2s ease-in-out infinite; }
 
-/* ── Cinematic bars ──────────────────────────────────── */
-.hero-bar-top, .hero-bar-bottom {
-    position: absolute; left: 0; right: 0;
-    height: clamp(40px, 6vh, 80px);
-    background: #020d06;
-    z-index: 25;
-}
-.hero-bar-top    { top: 0; }
-.hero-bar-bottom { bottom: 0; }
+/* ── Cinematic bars — retirées pour laisser respirer la forêt ── */
 
 /* ── Bottom organic wave ─────────────────────────────── */
 .hero-wave {

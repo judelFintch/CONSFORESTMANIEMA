@@ -7,184 +7,127 @@
 @section('content')
 
 {{-- ════════════════════════════════════════════════════
-     HERO — Cinématographique & Forêt
+     HERO — Nature, espace, sobriété
 ════════════════════════════════════════════════════ --}}
 <section class="hero-section">
 
-    {{-- Barres cinéma (top/bottom) --}}
-    <div class="hero-bar-top"></div>
-    <div class="hero-bar-bottom"></div>
-
-    {{-- Background image avec parallax --}}
+    {{-- Photo de la forêt du Congo — image plein cadre --}}
     <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&q=85"
-             alt="Forêt tropicale du Bassin du Congo"
-             class="hero-bg-img w-full h-full object-cover scale-[1.08]"
+        <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&q=90"
+             alt="Forêt tropicale du Bassin du Congo, province du Maniema"
+             class="hero-bg-img w-full h-full object-cover scale-[1.04]"
              loading="eager"
              fetchpriority="high">
     </div>
 
-    {{-- Overlay gradient cinématique --}}
+    {{-- Overlay fenêtre : centre clair pour montrer la forêt --}}
     <div class="hero-overlay absolute inset-0 z-[2]"></div>
 
-    {{-- Grain texture --}}
+    {{-- Grain subtil —  texture organique, papier/lin --}}
     <div class="hero-grain absolute inset-0 z-[3]"></div>
 
-    {{-- Lumière verte ambiante gauche --}}
-    <div class="absolute left-0 top-1/3 w-96 h-96 bg-green-500/10 blur-[120px] rounded-full z-[4] pointer-events-none"></div>
-
-    {{-- Lumière dorée droite --}}
-    <div class="absolute right-0 top-1/4 w-80 h-80 bg-yellow-400/8 blur-[100px] rounded-full z-[4] pointer-events-none"></div>
-
-    {{-- Feuilles flottantes --}}
+    {{-- Feuilles portées par le vent (4 seulement, discrètes) --}}
     <div aria-hidden="true" class="absolute inset-0 z-[5] pointer-events-none overflow-hidden">
-        <span class="leaf leaf-1">🍃</span>
-        <span class="leaf leaf-2">🌿</span>
-        <span class="leaf leaf-3">🍀</span>
-        <span class="leaf leaf-4">🍃</span>
-        <span class="leaf leaf-5">🌱</span>
+        <span class="leaf leaf-2">🍃</span>
+        <span class="leaf leaf-4">🌿</span>
         <span class="leaf leaf-6">🍃</span>
-        <span class="leaf leaf-7">🌿</span>
-        <span class="leaf leaf-8">🍃</span>
+        <span class="leaf leaf-8">🌿</span>
     </div>
 
-    {{-- Contenu principal --}}
-    <div class="relative z-[10] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 flex flex-col items-center text-center">
+    {{-- Contenu — centré, aéré, minimaliste --}}
+    <div class="relative z-[10] w-full max-w-4xl mx-auto px-6 sm:px-8 flex flex-col items-center text-center pt-36 pb-28">
 
-        {{-- Logo + Badge Partenariat --}}
-        <div class="flex items-center gap-4 mb-10 hero-a1">
-            {{-- Logo Province du Maniema --}}
+        {{-- Logo + Province --}}
+        <div class="flex flex-col items-center gap-3 mb-10 hero-a1">
             <div class="relative">
-                <div class="absolute inset-0 rounded-full bg-gold-400/25 blur-md animate-ping" style="animation-duration: 3s;"></div>
+                <div class="absolute inset-0 rounded-full bg-gold-400/18 blur-xl scale-125"></div>
                 <img src="{{ asset('images/logo-maniema.png') }}"
-                     alt="Province du Maniema – Le Gouvernorat"
-                     class="logo-glow relative w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-gold-400/60 shadow-2xl"
+                     alt="Province du Maniema"
+                     class="logo-glow relative w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border border-gold-400/50 shadow-2xl"
                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
                 <div style="display:none"
-                     class="logo-glow relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-blue-maniema-700 to-forest-700 flex items-center justify-center border-2 border-gold-400/60 shadow-2xl">
-                    <span class="text-white font-black text-xl">M</span>
+                     class="logo-glow relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-br from-blue-maniema-700 to-forest-800 flex items-center justify-center border border-gold-400/50 shadow-2xl">
+                    <span class="text-white font-bold tracking-wider text-sm">M</span>
                 </div>
             </div>
-            <div class="text-left">
-                <p class="text-gold-400 text-xs sm:text-sm font-semibold tracking-widest uppercase">
-                    Province du Maniema
-                </p>
-                <p class="text-white/50 text-[11px] tracking-wider mt-0.5">
-                    Justice · Paix · Travail · RDC
-                </p>
-                <div class="flex items-center gap-2 mt-1.5">
-                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                    <span class="text-green-400/80 text-[11px] font-medium">Programme actif</span>
-                </div>
+            <div>
+                <p class="text-gold-300 text-[11px] font-light tracking-[0.38em] uppercase">Province du Maniema</p>
+                <p class="text-white/32 text-[10px] tracking-widest mt-0.5 font-light">Justice · Paix · Travail · RDC</p>
             </div>
         </div>
 
-        {{-- Ligne déco --}}
-        <div class="flex items-center gap-4 mb-8 w-full max-w-xs opacity-40 hero-a2">
-            <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gold-400 to-transparent"></div>
-            <span class="text-gold-400 text-xs tracking-[0.3em] uppercase font-medium">BFD SARL</span>
-            <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gold-400 to-transparent"></div>
-        </div>
+        {{-- Séparateur fin, or naturel --}}
+        <div class="w-20 h-px mb-10 hero-line"
+             style="background: linear-gradient(90deg, transparent, rgba(240,180,41,0.5), transparent)"></div>
 
-        {{-- Étiquette programme --}}
-        <div class="section-badge white mb-8 hero-a3">
-            <svg class="w-3 h-3 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"/>
-            </svg>
-            Conservation Forestière & Crédit Carbone
-        </div>
+        {{-- Titre principal — Cormorant Garamond, mêlant léger et italique doré --}}
+        <h1 class="hero-display mb-7 hero-a3">
+            <span class="line-natural">Préserver</span>
+            <em class="line-forest">la Forêt</em>
+            <span class="line-natural">du Congo</span>
+        </h1>
 
-        {{-- TITRE GÉANT --}}
-        <div class="hero-display mb-6 hero-a4">
-            <span class="line-stroke">Préserver</span>
-            <span class="line-gold">la Forêt</span>
-            <span class="line-fill" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15)">du Congo</span>
-        </div>
-
-        {{-- Sous-titre --}}
-        <p class="text-white/70 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed mb-4 font-light hero-a5">
-            Préserver la <strong class="text-white/90 font-semibold">deuxième plus grande forêt tropicale</strong>
-            du monde tout en générant un impact climatique, économique et social durable
-            pour les communautés de la <strong class="text-gold-400/90 font-semibold">province du Maniema</strong>.
+        {{-- Sous-titre — Lora italique, léger comme une brise --}}
+        <p class="hero-subtitle hero-a4">
+            BFD SARL en partenariat avec le Gouvernement de la RDC et la Province du Maniema —
+            conservation forestière, reboisement et crédits carbone certifiés REDD+.
         </p>
 
-        {{-- Partenariat badge --}}
-        <div class="flex flex-wrap items-center justify-center gap-3 mb-10 text-xs text-white/45 hero-a6">
-            <span class="flex items-center gap-1.5 bg-white/6 border border-white/12 rounded-full px-3 py-1.5">
-                🇨🇩 Gouvernement RDC
-            </span>
-            <span class="text-white/25">×</span>
-            <span class="flex items-center gap-1.5 bg-white/6 border border-white/12 rounded-full px-3 py-1.5">
-                🏢 BFD SARL
-            </span>
-            <span class="text-white/25">×</span>
-            <span class="flex items-center gap-1.5 bg-white/6 border border-white/12 rounded-full px-3 py-1.5">
-                🌿 Min. Environnement
-            </span>
+        {{-- Indicateur programme actif --}}
+        <div class="flex items-center gap-2.5 mb-10 hero-a5">
+            <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse flex-shrink-0"></span>
+            <span class="text-green-400/75 text-xs font-light tracking-widest">Programme actif</span>
+            <span class="text-white/18 text-xs">·</span>
+            <span class="text-white/35 text-xs tracking-wider font-light">Kindu, Maniema</span>
         </div>
 
         {{-- CTA --}}
-        <div class="flex flex-col sm:flex-row gap-4 items-center hero-a7">
-            <a href="{{ route('about') }}" class="btn-gold text-sm tracking-wider">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
+        <div class="flex flex-col sm:flex-row gap-4 items-center hero-a6">
+            <a href="{{ route('about') }}" class="btn-gold">
                 Découvrir le projet
             </a>
-            <a href="{{ route('carbon') }}" class="btn-ghost-white text-sm tracking-wider">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-                Crédit Carbone
+            <a href="{{ route('carbon') }}" class="btn-ghost-white">
+                Crédit Carbone →
             </a>
         </div>
 
-        {{-- Indicateur scroll --}}
-        <div class="mt-16 scroll-indicator flex flex-col items-center gap-2">
-            <span class="text-white/30 text-[10px] tracking-[0.3em] uppercase">Explorer</span>
-            <div class="w-6 h-10 border border-white/20 rounded-full flex items-start justify-center p-1.5">
-                <div class="w-1 h-2.5 bg-white/50 rounded-full"
-                     style="animation: scroll-dot 1.8s ease-in-out infinite"></div>
+        {{-- Scroll indicator minimal --}}
+        <div class="mt-20 flex flex-col items-center gap-2.5 hero-a7">
+            <span class="text-white/22 text-[9px] tracking-[0.45em] uppercase font-light">Explorer</span>
+            <div class="w-5 h-8 border border-white/15 rounded-full flex items-start justify-center pt-1.5">
+                <div class="w-px h-2 bg-white/35 rounded-full" style="animation: scroll-dot 2.2s ease-in-out infinite"></div>
             </div>
         </div>
     </div>
 
-    {{-- Métriques flottantes (desktop only) --}}
-    <div class="hidden xl:flex absolute bottom-20 left-8 z-[10] flex-col gap-3">
-        @foreach([
-            ['val' => '2e', 'label' => 'Forêt tropicale mondiale'],
-            ['val' => '336M ha', 'label' => 'Bassin du Congo'],
-        ] as $m)
-        <div class="glass-card px-4 py-3 text-left">
-            <p class="text-gold-400 font-black text-xl leading-none">{{ $m['val'] }}</p>
-            <p class="text-white/50 text-xs mt-0.5">{{ $m['label'] }}</p>
+    {{-- Métrique flottante gauche — discrète, fond vitré léger --}}
+    <div class="hidden xl:block absolute bottom-20 left-8 z-[10]">
+        <div class="glass-card px-5 py-3.5">
+            <p class="text-gold-300 font-display text-2xl font-light leading-none">2<sup class="text-sm">e</sup></p>
+            <p class="text-white/40 text-[11px] mt-1 font-light tracking-wide">Forêt tropicale mondiale</p>
         </div>
-        @endforeach
-    </div>
-    <div class="hidden xl:flex absolute bottom-20 right-8 z-[10] flex-col gap-3 items-end">
-        @foreach([
-            ['val' => 'REDD+', 'label' => 'Standard certifié'],
-            ['val' => '100%', 'label' => 'Engagement communautaire'],
-        ] as $m)
-        <div class="glass-card px-4 py-3 text-right">
-            <p class="text-green-400 font-black text-xl leading-none">{{ $m['val'] }}</p>
-            <p class="text-white/50 text-xs mt-0.5">{{ $m['label'] }}</p>
-        </div>
-        @endforeach
     </div>
 
-    {{-- Wave de bas --}}
+    {{-- Métrique flottante droite --}}
+    <div class="hidden xl:block absolute bottom-20 right-8 z-[10]">
+        <div class="glass-card px-5 py-3.5 text-right">
+            <p class="text-green-300 font-display text-xl font-light leading-none">REDD+</p>
+            <p class="text-white/40 text-[11px] mt-1 font-light tracking-wide">Crédits certifiés</p>
+        </div>
+    </div>
+
+    {{-- Vague organique bas --}}
     <div class="hero-wave">
-        <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,0 C240,90 480,90 720,45 C960,0 1200,70 1440,90 L1440,90 L0,90 Z" fill="#ffffff"/>
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,40 C320,0 640,80 960,40 C1120,20 1300,70 1440,80 L1440,80 L0,80 Z" fill="#ffffff"/>
         </svg>
     </div>
 </section>
 
 <style>
 @keyframes scroll-dot {
-    0%,100% { transform: translateY(0); opacity: 0.6; }
-    50%      { transform: translateY(12px); opacity: 1; }
+    0%,100% { transform: translateY(0); opacity: 0.4; }
+    50%      { transform: translateY(10px); opacity: 0.9; }
 }
 </style>
 
