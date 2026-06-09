@@ -35,10 +35,10 @@
     </div>
 
     {{-- Contenu — centré, aéré, minimaliste --}}
-    <div class="relative z-[10] w-full max-w-4xl mx-auto px-6 sm:px-8 flex flex-col items-center text-center pt-36 pb-28">
+    <div class="relative z-[10] w-full max-w-4xl mx-auto px-6 sm:px-8 flex flex-col items-center text-center pt-28 pb-16">
 
         {{-- Logo + Province --}}
-        <div class="flex flex-col items-center gap-3 mb-10 hero-a1">
+        <div class="flex flex-col items-center gap-2 mb-6 hero-a1">
             <div class="relative">
                 <div class="absolute inset-0 rounded-full bg-gold-400/18 blur-xl scale-125"></div>
                 <img src="{{ asset('images/logo-maniema.png') }}"
@@ -57,11 +57,11 @@
         </div>
 
         {{-- Séparateur fin, or naturel --}}
-        <div class="w-20 h-px mb-10 hero-line"
+        <div class="w-20 h-px mb-6 hero-line"
              style="background: linear-gradient(90deg, transparent, rgba(240,180,41,0.5), transparent)"></div>
 
         {{-- Titre principal — Cormorant Garamond, mêlant léger et italique doré --}}
-        <h1 class="hero-display mb-7 hero-a3">
+        <h1 class="hero-display mb-5 hero-a3">
             <span class="line-natural">Préserver</span>
             <em class="line-forest">la Forêt</em>
             <span class="line-natural">du Congo</span>
@@ -74,7 +74,7 @@
         </p>
 
         {{-- Indicateur programme actif --}}
-        <div class="flex items-center gap-2.5 mb-10 hero-a5">
+        <div class="flex items-center gap-2.5 mb-7 hero-a5">
             <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse flex-shrink-0"></span>
             <span class="text-green-400/75 text-xs font-light tracking-widest">Programme actif</span>
             <span class="text-white/18 text-xs">·</span>
@@ -91,13 +91,6 @@
             </a>
         </div>
 
-        {{-- Scroll indicator minimal --}}
-        <div class="mt-20 flex flex-col items-center gap-2.5 hero-a7">
-            <span class="text-white/22 text-[9px] tracking-[0.45em] uppercase font-light">Explorer</span>
-            <div class="w-5 h-8 border border-white/15 rounded-full flex items-start justify-center pt-1.5">
-                <div class="w-px h-2 bg-white/35 rounded-full" style="animation: scroll-dot 2.2s ease-in-out infinite"></div>
-            </div>
-        </div>
     </div>
 
     {{-- Métrique flottante gauche — discrète, fond vitré léger --}}
