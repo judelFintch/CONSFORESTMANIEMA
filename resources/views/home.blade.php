@@ -52,9 +52,7 @@
     <div class="relative z-[10] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 flex flex-col items-center text-center">
 
         {{-- Logo + Badge Partenariat --}}
-        <div class="flex items-center gap-4 mb-10"
-             x-data x-intersect.once="$el.classList.add('visible')"
-             style="opacity:0; transform:translateY(-20px); transition: opacity 0.8s, transform 0.8s">
+        <div class="flex items-center gap-4 mb-10 hero-a1">
             {{-- Logo Province du Maniema --}}
             <div class="relative">
                 <div class="absolute inset-0 rounded-full bg-gold-400/25 blur-md animate-ping" style="animation-duration: 3s;"></div>
@@ -82,14 +80,14 @@
         </div>
 
         {{-- Ligne déco --}}
-        <div class="flex items-center gap-4 mb-8 w-full max-w-xs opacity-40">
+        <div class="flex items-center gap-4 mb-8 w-full max-w-xs opacity-40 hero-a2">
             <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gold-400 to-transparent"></div>
             <span class="text-gold-400 text-xs tracking-[0.3em] uppercase font-medium">BFD SARL</span>
             <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gold-400 to-transparent"></div>
         </div>
 
         {{-- Étiquette programme --}}
-        <div class="section-badge white mb-8">
+        <div class="section-badge white mb-8 hero-a3">
             <svg class="w-3 h-3 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"/>
             </svg>
@@ -97,27 +95,21 @@
         </div>
 
         {{-- TITRE GÉANT --}}
-        <div class="hero-display mb-6"
-             x-data x-intersect.once="$el.classList.add('visible')"
-             style="opacity:0; transform:translateY(30px); transition: opacity 1s 0.2s, transform 1s 0.2s">
+        <div class="hero-display mb-6 hero-a4">
             <span class="line-stroke">Préserver</span>
             <span class="line-gold">la Forêt</span>
             <span class="line-fill" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15)">du Congo</span>
         </div>
 
         {{-- Sous-titre --}}
-        <p class="text-white/70 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed mb-4 font-light"
-           x-data x-intersect.once="$el.classList.add('visible')"
-           style="opacity:0; transform:translateY(20px); transition: opacity 0.8s 0.5s, transform 0.8s 0.5s">
+        <p class="text-white/70 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed mb-4 font-light hero-a5">
             Préserver la <strong class="text-white/90 font-semibold">deuxième plus grande forêt tropicale</strong>
             du monde tout en générant un impact climatique, économique et social durable
             pour les communautés de la <strong class="text-gold-400/90 font-semibold">province du Maniema</strong>.
         </p>
 
         {{-- Partenariat badge --}}
-        <div class="flex flex-wrap items-center justify-center gap-3 mb-10 text-xs text-white/45"
-             x-data x-intersect.once="$el.classList.add('visible')"
-             style="opacity:0; transition: opacity 0.8s 0.7s">
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-10 text-xs text-white/45 hero-a6">
             <span class="flex items-center gap-1.5 bg-white/6 border border-white/12 rounded-full px-3 py-1.5">
                 🇨🇩 Gouvernement RDC
             </span>
@@ -132,9 +124,7 @@
         </div>
 
         {{-- CTA --}}
-        <div class="flex flex-col sm:flex-row gap-4 items-center"
-             x-data x-intersect.once="$el.classList.add('visible')"
-             style="opacity:0; transform:translateY(20px); transition: opacity 0.8s 0.9s, transform 0.8s 0.9s">
+        <div class="flex flex-col sm:flex-row gap-4 items-center hero-a7">
             <a href="{{ route('about') }}" class="btn-gold text-sm tracking-wider">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -197,6 +187,93 @@
     50%      { transform: translateY(12px); opacity: 1; }
 }
 </style>
+
+
+{{-- ════════════════════════════════════════════════════
+     GALERIE 3 PHOTOS — Regard sur le Terrain
+════════════════════════════════════════════════════ --}}
+<section class="py-14 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center mb-10 reveal">
+            <p class="text-xs font-semibold tracking-[0.25em] uppercase text-gold-500 mb-2">Regard sur le terrain</p>
+            <h2 class="text-2xl sm:text-3xl font-display font-black text-gray-900 leading-tight">
+                La Forêt du Maniema <span class="gradient-text-forest">en Images</span>
+            </h2>
+        </div>
+
+        {{-- Mosaïque 3 photos : une grande + deux portraits --}}
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+
+            {{-- Photo 1 — Grande, panoramique (7/12) --}}
+            <div class="md:col-span-7 reveal-left relative group overflow-hidden rounded-2xl shadow-xl">
+                <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=900&q=80"
+                     alt="Canopée dense de la forêt tropicale du Maniema"
+                     loading="lazy"
+                     class="w-full h-64 md:h-[480px] object-cover group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 p-6">
+                    <span class="inline-block text-xs font-semibold text-gold-300 bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full mb-2 border border-white/15">
+                        🌳 Conservation active
+                    </span>
+                    <p class="text-white font-bold text-lg leading-tight drop-shadow-lg">
+                        Canopée forestière<br>du Bassin du Congo
+                    </p>
+                    <p class="text-white/60 text-xs mt-1">Province du Maniema, RDC</p>
+                </div>
+            </div>
+
+            {{-- Colonne droite — 2 photos empilées (5/12) --}}
+            <div class="md:col-span-5 flex flex-col gap-4">
+
+                {{-- Photo 2 — Rivière / écosystème --}}
+                <div class="reveal relative group overflow-hidden rounded-2xl shadow-xl flex-1">
+                    <img src="https://images.unsplash.com/photo-1565118531796-763e5082d113?w=700&q=80"
+                         alt="Rivière traversant la forêt tropicale – zone de conservation"
+                         loading="lazy"
+                         class="w-full h-52 md:h-[230px] object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-4">
+                        <span class="inline-block text-xs font-semibold text-blue-300 bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full mb-1.5 border border-white/15">
+                            💧 Ressources hydriques
+                        </span>
+                        <p class="text-white font-semibold text-sm leading-snug drop-shadow">
+                            Cours d'eau et biodiversité aquatique
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Photo 3 — Communauté / reboisement --}}
+                <div class="reveal relative group overflow-hidden rounded-2xl shadow-xl flex-1" style="animation-delay: 0.15s">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=700&q=80"
+                         alt="Reboisement communautaire – programme ConsForest Maniema"
+                         loading="lazy"
+                         class="w-full h-52 md:h-[230px] object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-4">
+                        <span class="inline-block text-xs font-semibold text-green-300 bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full mb-1.5 border border-white/15">
+                            🌱 Reboisement
+                        </span>
+                        <p class="text-white font-semibold text-sm leading-snug drop-shadow">
+                            Programme de reboisement communautaire
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Lien vers galerie complète --}}
+        <div class="text-center mt-8 reveal">
+            <a href="{{ route('gallery') }}"
+               class="inline-flex items-center gap-2 text-forest-600 hover:text-forest-800 font-semibold text-sm transition-colors group">
+                Voir toute la galerie
+                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
 
 
 {{-- ════════════════════════════════════════════════════
