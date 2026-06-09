@@ -4,112 +4,87 @@ import collapse from '@alpinejs/collapse';
 
 Alpine.plugin(intersect);
 Alpine.plugin(collapse);
-
 window.Alpine = Alpine;
 
-// ── Header Scroll Behavior ────────────────────────────────
+/* ── Header ──────────────────────────────────────────── */
 Alpine.data('header', () => ({
     scrolled: false,
     mobileOpen: false,
     init() {
-        window.addEventListener('scroll', () => {
-            this.scrolled = window.scrollY > 50;
-        });
+        const update = () => { this.scrolled = window.scrollY > 70; };
+        window.addEventListener('scroll', update, { passive: true });
+        update();
     },
-    toggleMobile() {
-        this.mobileOpen = !this.mobileOpen;
-    }
 }));
 
-// ── Counter Animation ─────────────────────────────────────
-Alpine.data('counter', (target, duration = 2000) => ({
-    current: 0,
-    target: parseInt(target),
-    started: false,
-    start() {
-        if (this.started) return;
-        this.started = true;
-        const step = this.target / (duration / 16);
-        const timer = setInterval(() => {
-            this.current = Math.min(this.current + step, this.target);
-            if (this.current >= this.target) {
-                this.current = this.target;
-                clearInterval(timer);
-            }
-        }, 16);
-    },
-    get display() {
-        return Math.floor(this.current).toLocaleString();
-    }
-}));
-
-// ── Gallery Lightbox ──────────────────────────────────────
+/* ── Gallery Lightbox ────────────────────────────────── */
 Alpine.data('gallery', () => ({
-    lightboxOpen: false,
-    currentImage: '',
-    currentCaption: '',
-    openLightbox(src, caption) {
-        this.currentImage = src;
-        this.currentCaption = caption || '';
-        this.lightboxOpen = true;
+    open: false,
+    src: '',
+    caption: '',
+    show(src, caption) {
+        this.src = src;
+        this.caption = caption || '';
+        this.open = true;
         document.body.style.overflow = 'hidden';
     },
-    closeLightbox() {
-        this.lightboxOpen = false;
+    close() {
+        this.open = false;
         document.body.style.overflow = '';
-    }
+    },
 }));
 
-// ── Contact Form ──────────────────────────────────────────
+/* ── Contact Form ────────────────────────────────────── */
 Alpine.data('contactForm', () => ({
-    submitting: false,
-    success: false,
-    error: false,
-    message: '',
-    async submit(event) {
-        this.submitting = true;
-        this.success = false;
-        this.error = false;
+    sending: false,
+    done: false,
+    fail: false,
+    msg: '',
+    async submit(e) {
+        this.sending = true; this.done = false; this.fail = false;
         try {
-            const form = event.target;
-            const data = new FormData(form);
-            const response = await fetch(form.action, {
+            const r = await fetch(e.target.action, {
                 method: 'POST',
                 headers: {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
                     'Accept': 'application/json',
                 },
-                body: data,
+                body: new FormData(e.target),
             });
-            const json = await response.json();
-            if (response.ok) {
-                this.success = true;
-                this.message = json.message || 'Message envoyé avec succès !';
-                form.reset();
-            } else {
-                this.error = true;
-                this.message = json.message || 'Une erreur s\'est produite.';
-            }
-        } catch (e) {
-            this.error = true;
-            this.message = 'Une erreur réseau s\'est produite. Veuillez réessayer.';
+            const j = await r.json();
+            if (r.ok) { this.done = true; this.msg = j.message || 'Message envoyé !'; e.target.reset(); }
+            else       { this.fail = true; this.msg = j.message || 'Erreur lors de l\'envoi.'; }
+        } catch {
+            this.fail = true; this.msg = 'Erreur réseau. Veuillez réessayer.';
         } finally {
-            this.submitting = false;
+            this.sending = false;
         }
-    }
+    },
 }));
 
-// ── Scroll Reveal ─────────────────────────────────────────
+/* ── Scroll Reveal ───────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                io.unobserve(e.target);
             }
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.animate-fade-up').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right')
+        .forEach(el => io.observe(el));
+});
+
+/* ── Hero parallax (subtle) ──────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+    const heroImg = document.querySelector('.hero-bg-img');
+    if (!heroImg || window.innerWidth < 768) return;
+    window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        heroImg.style.transform = `scale(1.08) translateY(${y * 0.25}px)`;
+    }, { passive: true });
 });
 
 Alpine.start();

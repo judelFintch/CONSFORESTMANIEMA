@@ -1,305 +1,418 @@
 @extends('layouts.app')
 
-@section('title', 'Accueil – Projet de Conservation Forestière et Crédit Carbone en RDC')
-@section('description', 'ConsForest Maniema – BFD SARL porte un programme de conservation forestière, reboisement et crédit carbone dans la province du Maniema, RDC. Protéger la deuxième plus grande forêt tropicale du monde.')
-@section('keywords', 'conservation forestière RDC, crédit carbone Congo, reboisement Maniema, forêt tropicale bassin Congo, BFD SARL, développement durable RDC')
+@section('title', 'ConsForest Maniema – Conservation Forestière & Crédit Carbone en RDC')
+@section('description', 'BFD SARL et le Gouvernorat du Maniema protègent la deuxième plus grande forêt tropicale du monde. Conservation forestière, reboisement et crédits carbone certifiés en RDC.')
+@section('keywords', 'ConsForest Maniema, conservation forêt RDC, crédit carbone Congo, BFD SARL, reboisement Maniema, bassin Congo')
 
 @section('content')
 
 {{-- ════════════════════════════════════════════════════
-     SECTION 1 : HERO
+     HERO — Cinématographique & Forêt
 ════════════════════════════════════════════════════ --}}
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+<section class="hero-section">
 
-    {{-- Background Image --}}
+    {{-- Barres cinéma (top/bottom) --}}
+    <div class="hero-bar-top"></div>
+    <div class="hero-bar-bottom"></div>
+
+    {{-- Background image avec parallax --}}
     <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&q=80"
+        <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=1920&q=85"
              alt="Forêt tropicale du Bassin du Congo"
-             class="w-full h-full object-cover"
-             loading="eager">
-        <div class="hero-overlay absolute inset-0"></div>
+             class="hero-bg-img w-full h-full object-cover scale-[1.08]"
+             loading="eager"
+             fetchpriority="high">
     </div>
 
-    {{-- Decorative Elements --}}
-    <div class="absolute top-20 left-10 w-64 h-64 bg-green-500/10 rounded-full blur-3xl z-10"></div>
-    <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl z-10"></div>
+    {{-- Overlay gradient cinématique --}}
+    <div class="hero-overlay absolute inset-0 z-[2]"></div>
 
-    {{-- Hero Content --}}
-    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 text-center">
+    {{-- Grain texture --}}
+    <div class="hero-grain absolute inset-0 z-[3]"></div>
 
-        {{-- Badge --}}
-        <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2 text-white text-sm font-medium mb-8">
-            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-            Partenariat RDC – Ministère de l'Environnement
+    {{-- Lumière verte ambiante gauche --}}
+    <div class="absolute left-0 top-1/3 w-96 h-96 bg-green-500/10 blur-[120px] rounded-full z-[4] pointer-events-none"></div>
+
+    {{-- Lumière dorée droite --}}
+    <div class="absolute right-0 top-1/4 w-80 h-80 bg-yellow-400/8 blur-[100px] rounded-full z-[4] pointer-events-none"></div>
+
+    {{-- Feuilles flottantes --}}
+    <div aria-hidden="true" class="absolute inset-0 z-[5] pointer-events-none overflow-hidden">
+        <span class="leaf leaf-1">🍃</span>
+        <span class="leaf leaf-2">🌿</span>
+        <span class="leaf leaf-3">🍀</span>
+        <span class="leaf leaf-4">🍃</span>
+        <span class="leaf leaf-5">🌱</span>
+        <span class="leaf leaf-6">🍃</span>
+        <span class="leaf leaf-7">🌿</span>
+        <span class="leaf leaf-8">🍃</span>
+    </div>
+
+    {{-- Contenu principal --}}
+    <div class="relative z-[10] w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 flex flex-col items-center text-center">
+
+        {{-- Logo + Badge Partenariat --}}
+        <div class="flex items-center gap-4 mb-10"
+             x-data x-intersect.once="$el.classList.add('visible')"
+             style="opacity:0; transform:translateY(-20px); transition: opacity 0.8s, transform 0.8s">
+            {{-- Logo Province du Maniema --}}
+            <div class="relative">
+                <div class="absolute inset-0 rounded-full bg-gold-400/25 blur-md animate-ping" style="animation-duration: 3s;"></div>
+                <img src="{{ asset('images/logo-maniema.png') }}"
+                     alt="Province du Maniema – Le Gouvernorat"
+                     class="logo-glow relative w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-gold-400/60 shadow-2xl"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div style="display:none"
+                     class="logo-glow relative w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-blue-maniema-700 to-forest-700 flex items-center justify-center border-2 border-gold-400/60 shadow-2xl">
+                    <span class="text-white font-black text-xl">M</span>
+                </div>
+            </div>
+            <div class="text-left">
+                <p class="text-gold-400 text-xs sm:text-sm font-semibold tracking-widest uppercase">
+                    Province du Maniema
+                </p>
+                <p class="text-white/50 text-[11px] tracking-wider mt-0.5">
+                    Justice · Paix · Travail · RDC
+                </p>
+                <div class="flex items-center gap-2 mt-1.5">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    <span class="text-green-400/80 text-[11px] font-medium">Programme actif</span>
+                </div>
+            </div>
         </div>
 
-        {{-- Title --}}
-        <h1 class="hero-title text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 max-w-5xl mx-auto">
-            Projet de <span class="text-green-400">Conservation Forestière</span>
-            et <span class="text-yellow-400">Crédit Carbone</span> en RDC
-        </h1>
+        {{-- Ligne déco --}}
+        <div class="flex items-center gap-4 mb-8 w-full max-w-xs opacity-40">
+            <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gold-400 to-transparent"></div>
+            <span class="text-gold-400 text-xs tracking-[0.3em] uppercase font-medium">BFD SARL</span>
+            <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gold-400 to-transparent"></div>
+        </div>
 
-        {{-- Subtitle --}}
-        <p class="text-white/85 text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed mb-10">
-            Préserver la deuxième plus grande forêt tropicale du monde tout en générant
-            un impact <strong class="text-green-300">climatique</strong>,
-            <strong class="text-yellow-300">économique</strong> et
-            <strong class="text-blue-300">social</strong> durable.
+        {{-- Étiquette programme --}}
+        <div class="section-badge white mb-8">
+            <svg class="w-3 h-3 text-gold-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd"/>
+            </svg>
+            Conservation Forestière & Crédit Carbone
+        </div>
+
+        {{-- TITRE GÉANT --}}
+        <div class="hero-display mb-6"
+             x-data x-intersect.once="$el.classList.add('visible')"
+             style="opacity:0; transform:translateY(30px); transition: opacity 1s 0.2s, transform 1s 0.2s">
+            <span class="line-stroke">Préserver</span>
+            <span class="line-gold">la Forêt</span>
+            <span class="line-fill" style="-webkit-text-stroke: 1px rgba(255,255,255,0.15)">du Congo</span>
+        </div>
+
+        {{-- Sous-titre --}}
+        <p class="text-white/70 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed mb-4 font-light"
+           x-data x-intersect.once="$el.classList.add('visible')"
+           style="opacity:0; transform:translateY(20px); transition: opacity 0.8s 0.5s, transform 0.8s 0.5s">
+            Préserver la <strong class="text-white/90 font-semibold">deuxième plus grande forêt tropicale</strong>
+            du monde tout en générant un impact climatique, économique et social durable
+            pour les communautés de la <strong class="text-gold-400/90 font-semibold">province du Maniema</strong>.
         </p>
 
-        {{-- CTA Buttons --}}
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="{{ route('about') }}" class="btn-forest text-base px-8 py-3.5">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        {{-- Partenariat badge --}}
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-10 text-xs text-white/45"
+             x-data x-intersect.once="$el.classList.add('visible')"
+             style="opacity:0; transition: opacity 0.8s 0.7s">
+            <span class="flex items-center gap-1.5 bg-white/6 border border-white/12 rounded-full px-3 py-1.5">
+                🇨🇩 Gouvernement RDC
+            </span>
+            <span class="text-white/25">×</span>
+            <span class="flex items-center gap-1.5 bg-white/6 border border-white/12 rounded-full px-3 py-1.5">
+                🏢 BFD SARL
+            </span>
+            <span class="text-white/25">×</span>
+            <span class="flex items-center gap-1.5 bg-white/6 border border-white/12 rounded-full px-3 py-1.5">
+                🌿 Min. Environnement
+            </span>
+        </div>
+
+        {{-- CTA --}}
+        <div class="flex flex-col sm:flex-row gap-4 items-center"
+             x-data x-intersect.once="$el.classList.add('visible')"
+             style="opacity:0; transform:translateY(20px); transition: opacity 0.8s 0.9s, transform 0.8s 0.9s">
+            <a href="{{ route('about') }}" class="btn-gold text-sm tracking-wider">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
                 Découvrir le projet
             </a>
-            <a href="{{ route('contact') }}" class="btn-outline text-base px-8 py-3.5">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            <a href="{{ route('carbon') }}" class="btn-ghost-white text-sm tracking-wider">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                Nous contacter
+                Crédit Carbone
             </a>
         </div>
 
-        {{-- Scroll indicator --}}
-        <div class="mt-16 animate-bounce">
-            <a href="#presentation" aria-label="Défiler">
-                <svg class="w-8 h-8 text-white/60 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                </svg>
-            </a>
+        {{-- Indicateur scroll --}}
+        <div class="mt-16 scroll-indicator flex flex-col items-center gap-2">
+            <span class="text-white/30 text-[10px] tracking-[0.3em] uppercase">Explorer</span>
+            <div class="w-6 h-10 border border-white/20 rounded-full flex items-start justify-center p-1.5">
+                <div class="w-1 h-2.5 bg-white/50 rounded-full"
+                     style="animation: scroll-dot 1.8s ease-in-out infinite"></div>
+            </div>
         </div>
     </div>
 
-    {{-- Wave SVG --}}
-    <div class="absolute bottom-0 left-0 right-0 z-20">
-        <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 80L60 68.9C120 57.8 240 35.6 360 29.3C480 23 600 32.6 720 40.1C840 47.6 960 52.9 1080 52.9C1200 52.9 1320 47.6 1380 44.9L1440 42.2V80H1380C1320 80 1200 80 1080 80C960 80 840 80 720 80C600 80 480 80 360 80C240 80 120 80 60 80H0Z" fill="white"/>
+    {{-- Métriques flottantes (desktop only) --}}
+    <div class="hidden xl:flex absolute bottom-20 left-8 z-[10] flex-col gap-3">
+        @foreach([
+            ['val' => '2e', 'label' => 'Forêt tropicale mondiale'],
+            ['val' => '336M ha', 'label' => 'Bassin du Congo'],
+        ] as $m)
+        <div class="glass-card px-4 py-3 text-left">
+            <p class="text-gold-400 font-black text-xl leading-none">{{ $m['val'] }}</p>
+            <p class="text-white/50 text-xs mt-0.5">{{ $m['label'] }}</p>
+        </div>
+        @endforeach
+    </div>
+    <div class="hidden xl:flex absolute bottom-20 right-8 z-[10] flex-col gap-3 items-end">
+        @foreach([
+            ['val' => 'REDD+', 'label' => 'Standard certifié'],
+            ['val' => '100%', 'label' => 'Engagement communautaire'],
+        ] as $m)
+        <div class="glass-card px-4 py-3 text-right">
+            <p class="text-green-400 font-black text-xl leading-none">{{ $m['val'] }}</p>
+            <p class="text-white/50 text-xs mt-0.5">{{ $m['label'] }}</p>
+        </div>
+        @endforeach
+    </div>
+
+    {{-- Wave de bas --}}
+    <div class="hero-wave">
+        <svg viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,0 C240,90 480,90 720,45 C960,0 1200,70 1440,90 L1440,90 L0,90 Z" fill="#ffffff"/>
         </svg>
+    </div>
+</section>
+
+<style>
+@keyframes scroll-dot {
+    0%,100% { transform: translateY(0); opacity: 0.6; }
+    50%      { transform: translateY(12px); opacity: 1; }
+}
+</style>
+
+
+{{-- ════════════════════════════════════════════════════
+     STRIP STATS — Chiffres en mouvement
+════════════════════════════════════════════════════ --}}
+<section class="py-16 bg-white relative overflow-hidden">
+    {{-- Décor fond --}}
+    <div class="absolute inset-0 bg-gradient-to-b from-forest-50/40 to-transparent pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 stagger">
+            @foreach([
+                ['num' => '336', 'unit' => 'Mha', 'label' => 'Forêts du Bassin Congo', 'icon' => '🌳', 'col' => 'text-forest-600'],
+                ['num' => '10000', 'unit' => '+', 'label' => 'Espèces animales', 'icon' => '🦁', 'col' => 'text-gold-500'],
+                ['num' => '80', 'unit' => 'M', 'label' => 'Personnes dépendantes', 'icon' => '👥', 'col' => 'text-blue-maniema-500'],
+                ['num' => '100', 'unit' => '%', 'label' => 'Crédits certifiés REDD+', 'icon' => '📜', 'col' => 'text-red-maniema-500'],
+            ] as $s)
+            <div class="stat-card reveal text-center p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <span class="text-4xl mb-3 block">{{ $s['icon'] }}</span>
+                <div class="{{ $s['col'] }} font-black text-4xl sm:text-5xl font-display leading-none mb-1">
+                    {{ $s['num'] }}<span class="text-xl">{{ $s['unit'] }}</span>
+                </div>
+                <p class="text-gray-500 text-xs sm:text-sm font-medium mt-1">{{ $s['label'] }}</p>
+            </div>
+            @endforeach
+        </div>
     </div>
 </section>
 
 
 {{-- ════════════════════════════════════════════════════
-     SECTION 2 : PRÉSENTATION
+     PRÉSENTATION — Deux colonnes artistiques
 ════════════════════════════════════════════════════ --}}
-<section id="presentation" class="py-20 bg-white">
+<section class="py-24 bg-white overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-center">
 
-            {{-- Text --}}
-            <div class="animate-fade-up">
-                <div class="inline-flex items-center gap-2 bg-green-50 text-green-700 rounded-full px-4 py-1.5 text-sm font-medium mb-6">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
-                    </svg>
-                    À propos du programme
+            {{-- Visual côté gauche --}}
+            <div class="relative reveal-left order-2 lg:order-1">
+                {{-- Image principale --}}
+                <div class="rounded-3xl overflow-hidden shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=700&q=80"
+                         alt="Canopée du Bassin du Congo"
+                         class="w-full h-80 lg:h-[480px] object-cover hover:scale-105 transition-transform duration-700">
                 </div>
 
-                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight mb-6">
-                    <span class="gradient-text">BFD SARL</span> — Bâtir sur des<br>
-                    Fondements Durables
+                {{-- Card flottante 1 --}}
+                <div class="absolute -bottom-5 -right-5 glass-card p-5 shadow-2xl max-w-[200px]"
+                     style="background: rgba(2,13,6,0.9); border-color: rgba(240,180,41,0.2)">
+                    <p class="text-gold-400 font-black text-3xl leading-none font-display">2e</p>
+                    <p class="text-white/80 text-xs mt-1 leading-tight">Forêt tropicale<br>la plus grande</p>
+                </div>
+
+                {{-- Card flottante 2 --}}
+                <div class="absolute -top-5 -left-5 bg-white rounded-2xl p-4 shadow-xl border border-gray-100 max-w-[160px]">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        <span class="text-xs font-semibold text-gray-600">Province</span>
+                    </div>
+                    <img src="{{ asset('images/logo-maniema.png') }}"
+                         alt="Maniema" class="w-10 h-10 rounded-full object-cover mx-auto"
+                         onerror="this.style.display='none'">
+                    <p class="text-center text-xs text-gray-500 mt-1.5 font-medium">Maniema, RDC</p>
+                </div>
+
+                {{-- Décoration cercle --}}
+                <div class="absolute -z-10 top-10 left-10 w-64 h-64 rounded-full border-2 border-dashed border-green-200/60"></div>
+            </div>
+
+            {{-- Texte côté droit --}}
+            <div class="reveal-right order-1 lg:order-2">
+                <div class="section-badge mb-6">🌿 À propos du programme</div>
+
+                <h2 class="section-title mb-6">
+                    <span class="gold">BFD SARL</span> —<br>
+                    Bâtir sur des<br>Fondements Durables
                 </h2>
 
-                <p class="text-gray-600 text-lg leading-relaxed mb-5">
-                    BFD SARL porte un programme ambitieux de <strong class="text-green-700">conservation forestière</strong>,
-                    de reboisement et de <strong class="text-blue-700">développement durable</strong> en République
-                    Démocratique du Congo, au cœur de la province du <strong>Maniema</strong>.
+                <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                    BFD SARL porte un programme ambitieux de <strong class="text-forest-700">conservation forestière</strong>,
+                    de reboisement et de développement durable au cœur de la province du Maniema, République Démocratique du Congo.
                 </p>
 
-                <p class="text-gray-600 leading-relaxed mb-8">
-                    Ce projet, réalisé en partenariat avec le <strong>Gouvernement de la RDC</strong> et le
-                    <strong>Ministère de l'Environnement et Développement Durable</strong>, vise à protéger les
-                    écosystèmes forestiers, générer des <strong class="text-green-700">crédits carbone certifiés</strong>
-                    et produire des retombées économiques et sociales concrètes pour les communautés locales.
+                <p class="text-gray-500 leading-relaxed mb-8">
+                    En partenariat avec le <strong class="text-gray-700">Gouvernement de la RDC</strong>,
+                    le <strong class="text-gray-700">Ministère de l'Environnement</strong> et le
+                    <strong class="text-gray-700">Gouvernorat du Maniema</strong>, ce programme vise à
+                    protéger les écosystèmes forestiers, générer des
+                    <strong class="text-green-700">crédits carbone certifiés</strong> et créer
+                    des retombées économiques concrètes pour les communautés locales.
                 </p>
 
-                <div class="flex flex-wrap gap-3 mb-8">
-                    @foreach(['Conservation', 'Reboisement', 'Crédit Carbone', 'Biodiversité', 'Communautés'] as $tag)
-                    <span class="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-green-50 hover:text-green-700 transition-colors">
-                        {{ $tag }}
-                    </span>
+                {{-- Points forts --}}
+                <div class="grid grid-cols-2 gap-3 mb-8">
+                    @foreach([
+                        ['icon' => '🛡️', 'label' => 'Protection active'],
+                        ['icon' => '🌱', 'label' => 'Reboisement'],
+                        ['icon' => '💨', 'label' => 'Crédits carbone'],
+                        ['icon' => '🤝', 'label' => 'Communautés'],
+                    ] as $pt)
+                    <div class="flex items-center gap-2.5 p-3 bg-forest-50 rounded-xl border border-forest-100">
+                        <span class="text-xl">{{ $pt['icon'] }}</span>
+                        <span class="text-sm font-semibold text-gray-700">{{ $pt['label'] }}</span>
+                    </div>
                     @endforeach
                 </div>
 
-                <a href="{{ route('about') }}" class="btn-primary">
+                <a href="{{ route('about') }}" class="btn-forest">
                     En savoir plus
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
                 </a>
             </div>
-
-            {{-- Image Grid --}}
-            <div class="grid grid-cols-2 gap-4 animate-fade-up">
-                <div class="space-y-4">
-                    <div class="rounded-2xl overflow-hidden h-48 card-hover">
-                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400&q=80"
-                             alt="Forêt tropicale Congo"
-                             class="w-full h-full object-cover">
-                    </div>
-                    <div class="rounded-2xl overflow-hidden h-32 card-hover">
-                        <img src="https://images.unsplash.com/photo-1567706438869-66d2b5e7b9e3?w=400&q=80"
-                             alt="Reboisement communautaire"
-                             class="w-full h-full object-cover">
-                    </div>
-                </div>
-                <div class="space-y-4 pt-8">
-                    <div class="rounded-2xl overflow-hidden h-32 card-hover">
-                        <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=400&q=80"
-                             alt="Biodiversité forestière"
-                             class="w-full h-full object-cover">
-                    </div>
-                    <div class="rounded-2xl overflow-hidden h-48 card-hover">
-                        <img src="https://images.unsplash.com/photo-1489493512598-d08130f49bea?w=400&q=80"
-                             alt="Communautés locales"
-                             class="w-full h-full object-cover">
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
 
 
 {{-- ════════════════════════════════════════════════════
-     SECTION 3 : CHIFFRES CLÉS
+     PROBLÉMATIQUE — Section sombre dramatique
 ════════════════════════════════════════════════════ --}}
-<section class="py-20 bg-gradient-to-br from-blue-950 via-green-950 to-blue-950 relative overflow-hidden">
+<section class="relative py-24 overflow-hidden bg-forest-dark">
 
-    <div class="absolute inset-0 bg-[url('data:image/svg+xml,...')] opacity-5"></div>
+    {{-- Background forêt --}}
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=1600&q=70"
+             alt="" class="w-full h-full object-cover opacity-15">
+    </div>
+    <div class="absolute inset-0 z-[1]"
+         style="background: linear-gradient(to bottom, #020d06 0%, rgba(2,13,6,0.7) 50%, #020d06 100%)"></div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-
-        <div class="text-center mb-14">
-            <div class="inline-flex items-center gap-2 bg-white/10 text-white rounded-full px-4 py-1.5 text-sm font-medium mb-4">
-                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                </svg>
-                Chiffres et impact
-            </div>
-            <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
-                Un Programme d'Envergure Mondiale
+    <div class="relative z-[2] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-14 reveal">
+            <div class="section-badge white mb-6">⚠️ La problématique</div>
+            <h2 class="section-title white mb-5">
+                Une Forêt Menacée,<br>
+                <span class="gradient-text-gold">une Planète en Danger</span>
             </h2>
-            <p class="text-white/70 text-lg max-w-2xl mx-auto">
-                Le Bassin du Congo, deuxième poumon vert de la planète, au cœur d'une initiative
-                de conservation sans précédent.
+            <p class="text-white/60 text-lg leading-relaxed">
+                Le Bassin du Congo — deuxième poumon vert de la planète — est aujourd'hui menacé
+                par des pressions humaines croissantes et irréversibles.
             </p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            @foreach([
-                ['icon' => '🌳', 'value' => '2e', 'unit' => '', 'label' => 'Forêt tropicale mondiale', 'color' => 'from-green-500 to-green-700'],
-                ['icon' => '🦎', 'value' => '10000', 'unit' => '+', 'label' => 'Espèces faunistiques', 'color' => 'from-emerald-500 to-emerald-700'],
-                ['icon' => '🌍', 'value' => '336', 'unit' => 'Mha', 'label' => 'Forêts du Bassin Congo', 'color' => 'from-teal-500 to-teal-700'],
-                ['icon' => '💨', 'value' => '8', 'unit' => '%', 'label' => 'Émissions mondiales réduites', 'color' => 'from-blue-500 to-blue-700'],
-                ['icon' => '👨‍👩‍👧', 'value' => '80', 'unit' => 'M', 'label' => 'Personnes dépendantes', 'color' => 'from-indigo-500 to-indigo-700'],
-                ['icon' => '📜', 'value' => '100', 'unit' => '%', 'label' => 'Crédits certifiés', 'color' => 'from-violet-500 to-violet-700'],
-            ] as $stat)
-            <div class="stat-card bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-5 text-center">
-                <span class="text-3xl mb-3 block">{{ $stat['icon'] }}</span>
-                <div class="text-3xl sm:text-4xl font-bold text-white mb-1">
-                    {{ $stat['value'] }}<span class="text-xl text-yellow-400">{{ $stat['unit'] }}</span>
-                </div>
-                <p class="text-white/60 text-xs leading-tight">{{ $stat['label'] }}</p>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-
-{{-- ════════════════════════════════════════════════════
-     SECTION 4 : PROBLÉMATIQUE
-════════════════════════════════════════════════════ --}}
-<section class="py-20 bg-forest-pattern">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12 animate-fade-up">
-                <div class="inline-flex items-center gap-2 bg-red-50 text-red-700 rounded-full px-4 py-1.5 text-sm font-medium mb-4">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                    </svg>
-                    La problématique
-                </div>
-                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-                    Une Forêt Menacée, une Planète en Danger
-                </h2>
-            </div>
-
-            <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-xl border border-gray-100 animate-fade-up">
-                <p class="text-gray-700 text-lg leading-relaxed mb-8 text-center italic border-l-4 border-green-500 pl-6">
-                    «&nbsp;Le Bassin du Congo abrite la deuxième plus grande forêt tropicale de la planète.
+        {{-- Citation --}}
+        <div class="max-w-4xl mx-auto mb-14 reveal">
+            <blockquote class="glass-card p-8 sm:p-10 text-center relative">
+                <div class="absolute top-4 left-6 text-gold-400/30 font-display text-8xl leading-none select-none">"</div>
+                <p class="text-white/85 text-lg sm:text-xl leading-relaxed italic relative z-10">
+                    Le Bassin du Congo abrite la deuxième plus grande forêt tropicale de la planète.
                     Véritable réservoir de biodiversité et puits naturel de carbone, cette forêt est aujourd'hui
                     menacée par la déforestation, l'exploitation illégale des ressources naturelles,
-                    l'expansion agricole et les activités minières.&nbsp;»
+                    l'expansion agricole et les activités minières.
                 </p>
+            </blockquote>
+        </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    @foreach([
-                        ['icon' => '🪓', 'title' => 'Déforestation', 'desc' => 'Exploitation non contrôlée du bois'],
-                        ['icon' => '⛏️', 'title' => 'Mines illégales', 'desc' => 'Extraction minière destructrice'],
-                        ['icon' => '🌾', 'title' => 'Agriculture', 'desc' => 'Expansion des surfaces agricoles'],
-                        ['icon' => '🔥', 'title' => 'Feux de brousse', 'desc' => 'Brûlis non contrôlés'],
-                    ] as $threat)
-                    <div class="flex items-start gap-3 p-4 bg-red-50 rounded-xl border border-red-100">
-                        <span class="text-2xl">{{ $threat['icon'] }}</span>
-                        <div>
-                            <p class="font-semibold text-gray-900 text-sm">{{ $threat['title'] }}</p>
-                            <p class="text-gray-500 text-xs mt-0.5">{{ $threat['desc'] }}</p>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
+        {{-- Menaces grid --}}
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 stagger">
+            @foreach([
+                ['icon' => '🪓', 'title' => 'Déforestation', 'desc' => 'Abattage massif non contrôlé'],
+                ['icon' => '⛏️', 'title' => 'Mines illégales', 'desc' => 'Extraction destructrice des sols'],
+                ['icon' => '🌾', 'title' => 'Agriculture', 'desc' => 'Expansion des terres agricoles'],
+                ['icon' => '🔥', 'title' => 'Feux de brousse', 'desc' => 'Brûlis non maîtrisés'],
+            ] as $t)
+            <div class="reveal glass-card p-5 text-center">
+                <span class="text-4xl mb-3 block">{{ $t['icon'] }}</span>
+                <h4 class="text-white font-bold text-sm mb-1">{{ $t['title'] }}</h4>
+                <p class="text-white/45 text-xs">{{ $t['desc'] }}</p>
             </div>
+            @endforeach
         </div>
     </div>
 </section>
 
 
 {{-- ════════════════════════════════════════════════════
-     SECTION 5 : OBJECTIFS
+     OBJECTIFS — Grille de cartes
 ════════════════════════════════════════════════════ --}}
-<section class="py-20 bg-white">
+<section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-14 animate-fade-up">
-            <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 rounded-full px-4 py-1.5 text-sm font-medium mb-4">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                </svg>
-                Nos objectifs
-            </div>
-            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-                Une Vision Claire pour un Avenir Durable
-            </h2>
-            <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-                Le programme ConsForest Maniema articule ses actions autour de sept objectifs
-                stratégiques complémentaires.
+        <div class="text-center mb-14 reveal">
+            <div class="section-badge mb-5">🎯 Nos objectifs stratégiques</div>
+            <h2 class="section-title mb-4">Une Vision Claire pour<br>un Avenir Durable</h2>
+            <p class="text-gray-500 max-w-xl mx-auto">
+                Le programme ConsForest Maniema articule ses actions autour de huit objectifs complémentaires.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 stagger">
             @foreach([
-                ['icon' => '🛡️', 'title' => 'Protection des forêts', 'desc' => 'Protéger les espaces forestiers des activités destructrices et préserver leur intégrité écologique.', 'color' => 'green', 'link' => route('conservation')],
-                ['icon' => '🌱', 'title' => 'Reboisement', 'desc' => 'Restaurer les zones forestières dégradées par des programmes intensifs de plantation d\'espèces indigènes.', 'color' => 'emerald', 'link' => route('conservation')],
-                ['icon' => '💨', 'title' => 'Crédit carbone', 'desc' => 'Mettre en place un mécanisme de certification et de valorisation des crédits carbone générés.', 'color' => 'blue', 'link' => route('carbon')],
-                ['icon' => '🦋', 'title' => 'Biodiversité', 'desc' => 'Préserver la richesse biologique exceptionnelle du Bassin du Congo et ses espèces endémiques.', 'color' => 'teal', 'link' => route('conservation')],
-                ['icon' => '👥', 'title' => 'Communautés locales', 'desc' => 'Créer des opportunités économiques durables et améliorer les conditions de vie des populations.', 'color' => 'indigo', 'link' => route('community')],
-                ['icon' => '🎓', 'title' => 'Sensibilisation', 'desc' => 'Former et sensibiliser les populations à la protection et à la gestion durable des ressources naturelles.', 'color' => 'violet', 'link' => route('community')],
-                ['icon' => '⚖️', 'title' => 'Gouvernance', 'desc' => 'Renforcer les institutions locales pour une gestion transparente et durable des forêts.', 'color' => 'amber', 'link' => route('about')],
-                ['icon' => '🌡️', 'title' => 'Climat RDC', 'desc' => 'Contribuer aux engagements climatiques nationaux et internationaux de la République Démocratique du Congo.', 'color' => 'red', 'link' => route('carbon')],
+                ['icon' => '🛡️', 'num' => '01', 'title' => 'Protection des forêts', 'desc' => 'Protéger les espaces forestiers des activités destructrices.', 'link' => route('conservation'), 'col' => 'forest'],
+                ['icon' => '🌱', 'num' => '02', 'title' => 'Reboisement', 'desc' => 'Restaurer les zones dégradées par plantation d\'espèces natives.', 'link' => route('conservation'), 'col' => 'forest'],
+                ['icon' => '💨', 'num' => '03', 'title' => 'Crédit carbone', 'desc' => 'Certifier et valoriser les crédits carbone du programme.', 'link' => route('carbon'), 'col' => 'blue'],
+                ['icon' => '🦋', 'num' => '04', 'title' => 'Biodiversité', 'desc' => 'Préserver la richesse biologique unique du Bassin du Congo.', 'link' => route('conservation'), 'col' => 'green'],
+                ['icon' => '👥', 'num' => '05', 'title' => 'Communautés', 'desc' => 'Créer des opportunités économiques durables localement.', 'link' => route('community'), 'col' => 'amber'],
+                ['icon' => '🎓', 'num' => '06', 'title' => 'Sensibilisation', 'desc' => 'Former les populations à la protection de l\'environnement.', 'link' => route('community'), 'col' => 'amber'],
+                ['icon' => '⚖️', 'num' => '07', 'title' => 'Gouvernance', 'desc' => 'Renforcer les institutions de gestion durable des forêts.', 'link' => route('about'), 'col' => 'purple'],
+                ['icon' => '🌡️', 'num' => '08', 'title' => 'Engagements RDC', 'desc' => 'Contribuer aux NDC et accords climatiques de la RDC.', 'link' => route('carbon'), 'col' => 'red'],
             ] as $obj)
-            <a href="{{ $obj['link'] }}"
-               class="card-hover bg-white border-2 border-gray-100 hover:border-{{ $obj['color'] }}-200 rounded-2xl p-6 group animate-fade-up block">
-                <div class="w-12 h-12 bg-{{ $obj['color'] }}-50 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                    {{ $obj['icon'] }}
+            <a href="{{ $obj['link'] }}" class="feature-card reveal group block">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="text-3xl">{{ $obj['icon'] }}</div>
+                    <span class="text-xs font-bold text-gray-200 font-display">{{ $obj['num'] }}</span>
                 </div>
-                <h3 class="font-bold text-gray-900 mb-2 group-hover:text-{{ $obj['color'] }}-700 transition-colors">
+                <h3 class="font-bold text-gray-900 text-sm mb-2 group-hover:text-forest-700 transition-colors">
                     {{ $obj['title'] }}
                 </h3>
-                <p class="text-gray-500 text-sm leading-relaxed">{{ $obj['desc'] }}</p>
+                <p class="text-gray-400 text-xs leading-relaxed">{{ $obj['desc'] }}</p>
+                <div class="mt-4 flex items-center gap-1 text-forest-600 text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                    Découvrir
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </div>
             </a>
             @endforeach
         </div>
@@ -308,171 +421,117 @@
 
 
 {{-- ════════════════════════════════════════════════════
-     SECTION 6 : IMPACT ATTENDU
+     IMPACT — Triptyque
 ════════════════════════════════════════════════════ --}}
-<section class="py-20 bg-institutional-pattern">
+<section class="py-24 bg-forest-pattern relative overflow-hidden">
+    {{-- Deco forêt fond --}}
+    <div class="absolute right-0 top-0 w-96 h-96 bg-forest-100/50 rounded-full blur-3xl pointer-events-none"></div>
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-14 animate-fade-up">
-            <div class="inline-flex items-center gap-2 bg-white text-green-700 rounded-full px-4 py-1.5 text-sm font-medium mb-4 shadow-sm">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.293 7.293A1 1 0 0112 7z" clip-rule="evenodd"/>
-                </svg>
-                Impact attendu
-            </div>
-            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-                Trois Dimensions d'Impact
+        <div class="text-center mb-14 reveal">
+            <div class="section-badge mb-5">📈 Impact attendu</div>
+            <h2 class="section-title mb-4">
+                Trois Dimensions<br>d'Impact Concret
             </h2>
-            <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-                Le programme ConsForest Maniema génère un impact concret et mesurable
-                sur trois plans essentiels.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-            {{-- Impact Environnemental --}}
-            <div class="impact-card animate-fade-up">
-                <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center text-3xl mb-6">🌿</div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Impact Environnemental</h3>
-                <ul class="space-y-3">
-                    @foreach([
-                        'Réduction significative de la déforestation',
-                        'Séquestration accrue du CO₂ atmosphérique',
-                        'Protection de la biodiversité locale',
-                        'Restauration des zones dégradées',
-                        'Stabilisation des cycles hydrologiques',
-                    ] as $item)
-                    <li class="flex items-start gap-2 text-gray-600 text-sm">
-                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        {{ $item }}
-                    </li>
-                    @endforeach
-                </ul>
-                <div class="mt-6 pt-5 border-t border-green-100">
-                    <a href="{{ route('conservation') }}" class="text-green-700 font-semibold text-sm hover:text-green-800 flex items-center gap-1">
-                        En savoir plus
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-
-            {{-- Impact Économique --}}
-            <div class="impact-card animate-fade-up" style="background: linear-gradient(135deg, #fff 0%, #eff6ff 100%); border-color: #bfdbfe;">
-                <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-3xl mb-6">💹</div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Impact Économique</h3>
-                <ul class="space-y-3">
-                    @foreach([
-                        'Génération de crédits carbone certifiés',
-                        'Revenus durables pour les communautés',
-                        'Création d\'emplois locaux verts',
-                        'Diversification des sources de revenus',
-                        'Attractivité pour les investisseurs verts',
-                    ] as $item)
-                    <li class="flex items-start gap-2 text-gray-600 text-sm">
-                        <svg class="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        {{ $item }}
-                    </li>
-                    @endforeach
-                </ul>
-                <div class="mt-6 pt-5 border-t border-blue-100">
-                    <a href="{{ route('carbon') }}" class="text-blue-700 font-semibold text-sm hover:text-blue-800 flex items-center gap-1">
-                        En savoir plus
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-
-            {{-- Impact Social --}}
-            <div class="impact-card animate-fade-up" style="background: linear-gradient(135deg, #fff 0%, #fefce8 100%); border-color: #fde68a;">
-                <div class="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center text-3xl mb-6">🤝</div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Impact Social</h3>
-                <ul class="space-y-3">
-                    @foreach([
-                        'Amélioration des conditions de vie',
-                        'Renforcement des capacités locales',
-                        'Participation communautaire active',
-                        'Éducation environnementale',
-                        'Gouvernance forestière inclusive',
-                    ] as $item)
-                    <li class="flex items-start gap-2 text-gray-600 text-sm">
-                        <svg class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        {{ $item }}
-                    </li>
-                    @endforeach
-                </ul>
-                <div class="mt-6 pt-5 border-t border-amber-100">
-                    <a href="{{ route('community') }}" class="text-amber-700 font-semibold text-sm hover:text-amber-800 flex items-center gap-1">
-                        En savoir plus
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-{{-- ════════════════════════════════════════════════════
-     SECTION 7 : ACTUALITÉS RÉCENTES
-════════════════════════════════════════════════════ --}}
-@if($latestNews && $latestNews->count() > 0)
-<section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-12">
-            <div>
-                <div class="inline-flex items-center gap-2 bg-green-50 text-green-700 rounded-full px-4 py-1.5 text-sm font-medium mb-3">
-                    Actualités
-                </div>
-                <h2 class="text-3xl font-bold text-gray-900">Dernières Nouvelles</h2>
-            </div>
-            <a href="{{ route('news.index') }}" class="btn-forest mt-4 sm:mt-0 text-sm">
-                Toutes les actualités
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-            </a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            {{-- Environnemental --}}
+            <div class="impact-card reveal bg-gradient-to-br from-forest-900 to-forest-700 text-white">
+                <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-3xl mb-6">🌿</div>
+                <h3 class="font-display font-bold text-xl mb-4">Impact Environnemental</h3>
+                <ul class="space-y-2.5">
+                    @foreach(['Réduction de la déforestation', 'Séquestration accrue du CO₂', 'Protection de la biodiversité', 'Restauration des zones dégradées', 'Stabilisation des cycles hydrologiques'] as $i)
+                    <li class="flex items-start gap-2 text-white/75 text-sm">
+                        <svg class="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        {{ $i }}
+                    </li>
+                    @endforeach
+                </ul>
+                <a href="{{ route('conservation') }}" class="mt-6 inline-flex items-center gap-1.5 text-green-300 text-xs font-semibold hover:text-green-100 transition-colors">
+                    En savoir plus →
+                </a>
+            </div>
+
+            {{-- Économique --}}
+            <div class="impact-card reveal bg-gradient-to-br from-blue-maniema-900 to-blue-maniema-700 text-white" style="transition-delay:100ms">
+                <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-3xl mb-6">💹</div>
+                <h3 class="font-display font-bold text-xl mb-4">Impact Économique</h3>
+                <ul class="space-y-2.5">
+                    @foreach(['Génération de crédits carbone certifiés', 'Revenus durables pour les communautés', 'Création d\'emplois locaux verts', 'Diversification des sources de revenus', 'Attractivité pour les investisseurs ESG'] as $i)
+                    <li class="flex items-start gap-2 text-white/75 text-sm">
+                        <svg class="w-4 h-4 text-blue-300 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        {{ $i }}
+                    </li>
+                    @endforeach
+                </ul>
+                <a href="{{ route('carbon') }}" class="mt-6 inline-flex items-center gap-1.5 text-blue-300 text-xs font-semibold hover:text-blue-100 transition-colors">
+                    En savoir plus →
+                </a>
+            </div>
+
+            {{-- Social --}}
+            <div class="impact-card reveal bg-gradient-to-br from-gold-700 to-gold-500 text-white" style="transition-delay:200ms">
+                <div class="w-14 h-14 bg-white/15 rounded-2xl flex items-center justify-center text-3xl mb-6">🤝</div>
+                <h3 class="font-display font-bold text-xl mb-4">Impact Social</h3>
+                <ul class="space-y-2.5">
+                    @foreach(['Amélioration des conditions de vie', 'Renforcement des capacités locales', 'Participation communautaire active', 'Éducation environnementale', 'Gouvernance forestière inclusive'] as $i)
+                    <li class="flex items-start gap-2 text-white/85 text-sm">
+                        <svg class="w-4 h-4 text-white flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        {{ $i }}
+                    </li>
+                    @endforeach
+                </ul>
+                <a href="{{ route('community') }}" class="mt-6 inline-flex items-center gap-1.5 text-white text-xs font-semibold hover:text-white/80 transition-colors">
+                    En savoir plus →
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{{-- ════════════════════════════════════════════════════
+     ACTUALITÉS
+════════════════════════════════════════════════════ --}}
+@if($latestNews && $latestNews->count() > 0)
+<section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-12 reveal">
+            <div>
+                <div class="section-badge mb-4">📰 Dernières nouvelles</div>
+                <h2 class="section-title">Actualités du Programme</h2>
+            </div>
+            <a href="{{ route('news.index') }}" class="btn-forest text-sm flex-shrink-0">
+                Toutes les actualités →
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger">
             @foreach($latestNews as $article)
-            <article class="news-card card-hover bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm animate-fade-up">
-                <div class="h-48 overflow-hidden bg-gray-100">
+            <article class="news-card reveal bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow group">
+                <a href="{{ route('news.show', $article->slug) }}" class="block overflow-hidden h-48">
                     @if($article->cover_image)
-                        <img src="{{ asset('storage/' . $article->cover_image) }}"
-                             alt="{{ $article->title }}" class="w-full h-full object-cover">
+                        <img src="{{ asset('storage/' . $article->cover_image) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     @else
-                        <div class="w-full h-full bg-gradient-to-br from-green-800 to-blue-900 flex items-center justify-center">
-                            <span class="text-5xl">🌳</span>
+                        <div class="w-full h-full bg-gradient-to-br from-forest-900 to-blue-maniema-900 flex items-center justify-center">
+                            <span class="text-6xl">🌳</span>
                         </div>
                     @endif
-                </div>
+                </a>
                 <div class="p-5">
                     <div class="flex items-center gap-2 mb-3">
-                        <span class="text-xs bg-green-50 text-green-700 font-medium px-2.5 py-1 rounded-full">
-                            {{ $article->category_label }}
-                        </span>
+                        <span class="text-xs bg-forest-50 text-forest-700 font-semibold px-3 py-1 rounded-full">{{ $article->category_label }}</span>
                         <span class="text-xs text-gray-400">{{ $article->formatted_date }}</span>
                     </div>
-                    <h3 class="font-bold text-gray-900 mb-2 line-clamp-2">{{ $article->title }}</h3>
+                    <h3 class="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-forest-700 transition-colors">
+                        <a href="{{ route('news.show', $article->slug) }}">{{ $article->title }}</a>
+                    </h3>
                     <p class="text-gray-500 text-sm leading-relaxed line-clamp-3 mb-4">{{ $article->excerpt }}</p>
-                    <a href="{{ route('news.show', $article->slug) }}"
-                       class="text-green-700 font-semibold text-sm hover:text-green-800 flex items-center gap-1 transition-colors">
+                    <a href="{{ route('news.show', $article->slug) }}" class="text-forest-600 font-semibold text-sm flex items-center gap-1 hover:text-forest-800 transition-colors">
                         Lire l'article
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                     </a>
                 </div>
             </article>
@@ -484,29 +543,37 @@
 
 
 {{-- ════════════════════════════════════════════════════
-     SECTION 8 : PARTENAIRES
+     PARTENAIRES — Strip
 ════════════════════════════════════════════════════ --}}
-<section class="py-16 bg-gray-50 border-t border-gray-100">
+<section class="py-14 bg-gray-50 border-y border-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-10">
-            <p class="text-gray-500 text-sm uppercase tracking-widest font-medium">
-                Nos partenaires institutionnels
-            </p>
-        </div>
-        <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16">
+        <p class="text-center text-xs text-gray-400 uppercase tracking-[0.25em] font-semibold mb-8">
+            Partenaires institutionnels
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-8 md:gap-14">
             @foreach([
-                ['name' => 'BFD SARL', 'subtitle' => 'Bâtir sur des Fondements Durables'],
-                ['name' => 'Gouvernement RDC', 'subtitle' => 'République Démocratique du Congo'],
-                ['name' => 'Min. Environnement', 'subtitle' => 'Développement Durable'],
-                ['name' => 'Province Maniema', 'subtitle' => 'Gouvernorat Provincial'],
-                ['name' => 'Partenaires Intl.', 'subtitle' => 'Organisations Techniques'],
-            ] as $partner)
-            <div class="text-center group">
-                <div class="w-16 h-16 mx-auto mb-2 rounded-xl bg-white shadow-md border border-gray-100 flex items-center justify-center group-hover:shadow-lg transition-shadow duration-300 group-hover:border-green-200">
-                    <span class="text-blue-800 font-bold text-xs leading-tight text-center px-1">{{ substr($partner['name'], 0, 5) }}</span>
+                ['name' => 'BFD SARL', 'sub' => 'Porteur de projet', 'img' => null],
+                ['name' => 'Gouv. RDC', 'sub' => 'Partenaire inst.', 'img' => null],
+                ['name' => 'Min. Env.', 'sub' => 'Autorité tutelle', 'img' => null],
+                ['name' => 'Maniema', 'sub' => 'Gouvernorat', 'img' => asset('images/logo-maniema.png')],
+                ['name' => 'Partenaires', 'sub' => 'Techniques intl.', 'img' => null],
+            ] as $p)
+            <div class="partner-item text-center flex flex-col items-center gap-2">
+                <div class="w-14 h-14 rounded-full bg-white shadow-md border border-gray-100 overflow-hidden flex items-center justify-center">
+                    @if($p['img'])
+                        <img src="{{ $p['img'] }}" alt="{{ $p['name'] }}" class="w-full h-full object-cover"
+                             onerror="this.style.display='none'; this.parentElement.querySelector('.fallback').style.display='flex'">
+                        <div class="fallback" style="display:none; width:100%; height:100%; align-items:center; justify-content:center;">
+                            <span class="text-blue-maniema-700 font-black text-xs">{{ substr($p['name'],0,2) }}</span>
+                        </div>
+                    @else
+                        <span class="text-gray-600 font-black text-xs">{{ substr($p['name'],0,3) }}</span>
+                    @endif
                 </div>
-                <p class="text-gray-700 font-semibold text-sm">{{ $partner['name'] }}</p>
-                <p class="text-gray-400 text-xs">{{ $partner['subtitle'] }}</p>
+                <div>
+                    <p class="text-gray-700 font-semibold text-xs">{{ $p['name'] }}</p>
+                    <p class="text-gray-400 text-[10px]">{{ $p['sub'] }}</p>
+                </div>
             </div>
             @endforeach
         </div>
@@ -515,44 +582,48 @@
 
 
 {{-- ════════════════════════════════════════════════════
-     SECTION 9 : APPEL À L'ACTION
+     CTA FINAL — Appel à rejoindre
 ════════════════════════════════════════════════════ --}}
-<section class="relative py-24 overflow-hidden">
+<section class="relative py-28 overflow-hidden">
     <div class="absolute inset-0 z-0">
-        <img src="https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1920&q=80"
-             alt="Forêt verte RDC"
-             class="w-full h-full object-cover">
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-950/90 via-green-950/85 to-blue-950/90"></div>
+        <img src="https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1600&q=70"
+             alt="" class="w-full h-full object-cover">
+        <div class="absolute inset-0"
+             style="background: linear-gradient(135deg, rgba(3,15,33,0.92) 0%, rgba(6,26,12,0.88) 50%, rgba(3,15,33,0.92) 100%)"></div>
     </div>
 
     <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2 text-white text-sm font-medium mb-8">
-            <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
-            Rejoignez le mouvement
+        {{-- Logo centré --}}
+        <div class="flex justify-center mb-8 reveal">
+            <img src="{{ asset('images/logo-maniema.png') }}"
+                 alt="Province du Maniema"
+                 class="logo-glow w-20 h-20 rounded-full object-cover border-2 border-gold-400/40"
+                 onerror="this.style.display='none'">
         </div>
 
-        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+        <div class="section-badge white mx-auto mb-6 reveal">
+            🌍 Rejoignez le mouvement
+        </div>
+
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-display font-black text-white mb-5 leading-tight reveal">
             Ensemble, Protégeons<br>
-            <span class="text-green-400">le Poumon Vert de l'Afrique</span>
+            <span class="gradient-text-gold">le Poumon Vert de l'Afrique</span>
         </h2>
 
-        <p class="text-white/80 text-lg leading-relaxed mb-10 max-w-2xl mx-auto">
+        <p class="text-white/70 text-lg leading-relaxed mb-10 max-w-2xl mx-auto reveal">
             Que vous soyez bailleur, organisation internationale, institution gouvernementale
-            ou entreprise engagée, rejoignez ConsForest Maniema dans cette mission vitale
+            ou entreprise engagée — rejoignez ConsForest Maniema dans cette mission vitale
             pour la planète et les générations futures.
         </p>
 
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{{ route('contact') }}" class="btn-forest px-8 py-4 text-base">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center reveal">
+            <a href="{{ route('contact') }}" class="btn-gold px-10 py-4 text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
                 Contactez-nous
             </a>
-            <a href="{{ route('partners') }}" class="btn-outline px-8 py-4 text-base">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                </svg>
+            <a href="{{ route('partners') }}" class="btn-ghost-white px-10 py-4 text-sm">
                 Voir les partenaires
             </a>
         </div>
