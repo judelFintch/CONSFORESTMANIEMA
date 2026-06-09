@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php --version)",
+      "Bash(composer --version)",
+      "Bash(npm --version)",
+      "Bash(composer create-project *)",
+      "Bash(cd /tmp && composer create-project laravel/laravel consforest --prefer-dist 2>&1 | tail -10)",
+      "Read(//private/tmp/**)",
+      "Bash(rsync -av --exclude='.git' /tmp/consforest/ /Users/fintch/Desktop/projet/CONSFORESTMANIEMA/)",
+      "Bash(npm install *)",
+      "Bash(npx tailwindcss *)",
+      "Bash(mkdir -p resources/views/layouts resources/views/components resources/views/news && ls resources/views/)",
+      "Bash(php artisan *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8000/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8000/a-propos)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8000/credit-carbone)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8000/actualites)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8000/contact)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
+    ],
+    "additionalDirectories": [
+      "/Users/fintch/Desktop/projet/CONSFORESTMANIEMA/resources/views"
+    ]
+  }
+}
