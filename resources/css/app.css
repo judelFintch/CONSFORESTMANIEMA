@@ -938,6 +938,47 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   NEWSLETTER FOOTER
+═══════════════════════════════════════════════════════════ */
+.newsletter-input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.55rem 0.9rem;
+    border-radius: 0.75rem;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: #fff;
+    font-size: 0.8rem;
+    outline: none;
+    transition: border-color 0.25s, background 0.25s;
+    width: 200px;
+}
+.newsletter-input::placeholder { color: rgba(255,255,255,0.3); }
+.newsletter-input:focus {
+    background: rgba(255,255,255,0.10);
+    border-color: rgba(240,180,41,0.45);
+}
+.newsletter-input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.newsletter-btn {
+    padding: 0.55rem 1.1rem;
+    border-radius: 0.75rem;
+    background: linear-gradient(135deg, #f0b429, #d97706);
+    color: #1a0e00;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: opacity 0.2s, transform 0.2s;
+}
+.newsletter-btn:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+.newsletter-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ═══════════════════════════════════════════════════════════
+   ALPINE X-CLOAK — masque avant init pour éviter le flash
+═══════════════════════════════════════════════════════════ */
+[x-cloak] { display: none !important; }
+
+/* ═══════════════════════════════════════════════════════════
    RESPONSIVE TWEAKS
 ═══════════════════════════════════════════════════════════ */
 @media (max-width: 640px) {

@@ -95,14 +95,15 @@
                 </h3>
                 <ul class="space-y-3">
                     @foreach([
-                        ['name' => 'BFD SARL', 'sub' => 'Porteur du projet'],
-                        ['name' => 'Gouvernement RDC', 'sub' => 'Partenaire institutionnel'],
-                        ['name' => 'Min. Environnement', 'sub' => 'Autorité de tutelle'],
-                        ['name' => 'Province du Maniema', 'sub' => 'Gouvernorat provincial'],
-                        ['name' => 'Partenaires Intl.', 'sub' => 'Organisations techniques'],
+                        ['name' => 'BFD SARL',            'sub' => 'Porteur du projet',        'dot' => '#16a34a'],
+                        ['name' => 'New Goshen',           'sub' => 'Partenaire carbone REDD+', 'dot' => '#3b82f6'],
+                        ['name' => 'Gouvernement RDC',     'sub' => 'Partenaire institutionnel','dot' => '#6b7280'],
+                        ['name' => 'Min. Environnement',   'sub' => 'Autorité de tutelle',      'dot' => '#6b7280'],
+                        ['name' => 'Province du Maniema',  'sub' => 'Gouvernorat provincial',   'dot' => '#d97706'],
                     ] as $p)
                     <li class="flex items-start gap-3">
-                        <div class="w-1.5 h-1.5 rounded-full bg-forest-500 mt-2 flex-shrink-0"></div>
+                        <div class="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0"
+                             style="background: {{ $p['dot'] }};"></div>
                         <div>
                             <p class="text-white/75 text-sm font-medium">{{ $p['name'] }}</p>
                             <p class="text-white/40 text-xs">{{ $p['sub'] }}</p>
@@ -161,15 +162,58 @@
             </div>
         </div>
 
+        {{-- Newsletter --}}
+        <div class="mt-12 rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center gap-6"
+             style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);">
+            <div class="flex-1 min-w-0">
+                <h3 class="text-white font-semibold text-sm mb-1">Restez informé</h3>
+                <p class="text-white/40 text-xs leading-relaxed">
+                    Actualités terrain, rapports de conservation et opportunités de partenariat REDD+.
+                </p>
+            </div>
+            <div x-data="newsletter()" class="w-full sm:w-auto flex-shrink-0">
+                <div x-show="!success" class="flex gap-2">
+                    <input x-model="email"
+                           @keydown.enter="submit()"
+                           type="email"
+                           placeholder="votre@email.com"
+                           class="newsletter-input"
+                           :disabled="loading">
+                    <button @click="submit()"
+                            :disabled="loading || !email"
+                            class="newsletter-btn flex-shrink-0">
+                        <span x-show="!loading">S'abonner</span>
+                        <span x-show="loading" class="flex items-center gap-1.5">
+                            <svg class="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+                <p x-show="error" x-text="error" class="text-red-400 text-xs mt-1.5"></p>
+                <div x-show="success"
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 scale-95"
+                     x-transition:enter-end="opacity-100 scale-100"
+                     class="flex items-center gap-2 text-green-400 text-sm font-medium">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span x-text="message"></span>
+                </div>
+            </div>
+        </div>
+
         {{-- Bottom bar --}}
-        <div class="mt-14 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-        <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="mt-10 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+        <div class="mt-5 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p class="text-white/50 text-xs text-center">
                 &copy; {{ date('Y') }}
                 <span class="text-white/70 font-medium">ConsForest Maniema</span>
                 — BFD SARL. Tous droits réservés.
             </p>
-            <div class="flex items-center gap-3 text-[11px] text-white/25">
+            <div class="flex flex-wrap items-center justify-center gap-3 text-[11px] text-white/25">
                 <span class="flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
                     Programme actif
@@ -178,6 +222,12 @@
                 <span>Province du Maniema, RDC</span>
                 <span class="opacity-40">·</span>
                 <span class="text-gold-400/40">REDD+</span>
+                <span class="opacity-40">·</span>
+                <a href="https://www.fintchweb.com/"
+                   target="_blank" rel="noopener"
+                   class="text-white/30 hover:text-gold-400/70 transition-colors duration-200">
+                    Conçu par FintchWeb
+                </a>
             </div>
         </div>
     </div>

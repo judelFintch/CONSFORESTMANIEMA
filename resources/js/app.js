@@ -144,4 +144,43 @@ Alpine.data('forestSound', () => ({
     },
 }));
 
+/* ── Newsletter ──────────────────────────────────────── */
+Alpine.data('newsletter', () => ({
+    email:   '',
+    loading: false,
+    success: false,
+    error:   '',
+    message: '',
+
+    async submit() {
+        if (!this.email || this.loading) return;
+        this.loading = true;
+        this.error   = '';
+
+        try {
+            const r = await fetch('/newsletter/subscribe', {
+                method:  'POST',
+                headers: {
+                    'Content-Type':  'application/json',
+                    'X-CSRF-TOKEN':  document.querySelector('meta[name="csrf-token"]').content,
+                    'Accept':        'application/json',
+                },
+                body: JSON.stringify({ email: this.email }),
+            });
+            const j = await r.json();
+            if (r.ok) {
+                this.success = true;
+                this.message = j.message;
+                this.email   = '';
+            } else {
+                this.error = j.message || 'Une erreur est survenue.';
+            }
+        } catch {
+            this.error = 'Erreur réseau. Veuillez réessayer.';
+        } finally {
+            this.loading = false;
+        }
+    },
+}));
+
 Alpine.start();

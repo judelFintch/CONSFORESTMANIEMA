@@ -11,6 +11,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CertificationController;
+use App\Http\Controllers\NewsletterController;
 
 // Accueil
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -39,6 +40,9 @@ Route::get('/partenaires', [PartnersController::class, 'index'])->name('partners
 
 // Certification REDD+ et Crédit Carbone
 Route::get('/certification-credit-carbone', [CertificationController::class, 'index'])->name('certification');
+
+// Newsletter
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'store'])->name('newsletter.store');
 
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
