@@ -671,4 +671,70 @@
     </div>
 </section>
 
+{{-- ══════════════════════════════════════════
+     PANNEAU TEST FILIGRANE (local uniquement)
+══════════════════════════════════════════ --}}
+<div x-data="{
+        open: true,
+        current: 3,
+        options: [
+            { id: 1, label: 'Feuillage botanique',    sub: 'Feuilles + nervures' },
+            { id: 2, label: 'Silhouette forêt',       sub: 'Arbre tropical centré' },
+            { id: 3, label: 'Réseau carbone',         sub: 'Nœuds + lignes or' },
+            { id: 4, label: 'Contours topographiques',sub: 'Relief Maniema' },
+        ],
+        apply(id) {
+            this.current = id;
+            document.querySelectorAll('.cf-net-bg').forEach(el => {
+                el.classList.remove('cf-bg-1','cf-bg-2','cf-bg-3','cf-bg-4');
+                el.classList.add('cf-bg-' + id);
+            });
+        }
+     }"
+     class="fixed bottom-6 right-6 z-[200] select-none"
+     style="filter: drop-shadow(0 8px 30px rgba(0,0,0,0.14));">
+
+    {{-- Toggle --}}
+    <button @click="open = !open"
+            class="absolute -top-3 -right-1 w-6 h-6 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gray-700 transition-colors text-[10px] font-bold z-10">
+        <span x-text="open ? '×' : '▲'"></span>
+    </button>
+
+    <div x-show="open"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+         class="bg-white rounded-2xl border border-gray-100 p-4 w-52">
+
+        <p class="text-[9px] font-bold uppercase tracking-[0.22em] text-gray-400 mb-3 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-forest-500 inline-block"></span>
+            Filigrane — test
+        </p>
+
+        <div class="flex flex-col gap-1">
+            <template x-for="opt in options" :key="opt.id">
+                <button @click="apply(opt.id)"
+                        :class="current === opt.id
+                            ? 'bg-forest-50 border-forest-300 text-forest-800'
+                            : 'bg-gray-50 border-transparent text-gray-600 hover:bg-gray-100'"
+                        class="w-full text-left px-3 py-2 rounded-xl border text-xs font-medium transition-colors">
+                    <span class="flex items-center gap-2">
+                        <span class="w-4 h-4 rounded flex items-center justify-center text-[8px] font-bold flex-shrink-0"
+                              :class="current === opt.id ? 'bg-forest-500 text-white' : 'bg-gray-200 text-gray-500'"
+                              x-text="opt.id"></span>
+                        <span>
+                            <span class="block leading-tight" x-text="opt.label"></span>
+                            <span class="block text-[9px] font-normal opacity-60" x-text="opt.sub"></span>
+                        </span>
+                    </span>
+                </button>
+            </template>
+        </div>
+
+        <p class="text-[9px] text-gray-300 mt-3 text-center">
+            Cliquer pour appliquer en direct
+        </p>
+    </div>
+</div>
+
 @endsection
