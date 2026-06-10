@@ -233,7 +233,7 @@
 {{-- ══════════════════════════════════════════
      STATS — Chiffres clés (compact)
 ══════════════════════════════════════════ --}}
-<section class="py-10 bg-white border-b border-gray-100">
+<section class="py-10 bg-white border-b border-gray-100 cf-net-bg">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center stagger">
 
@@ -259,7 +259,7 @@
 {{-- ══════════════════════════════════════════
      LES ACTEURS — BFD + New Goshen
 ══════════════════════════════════════════ --}}
-<section class="py-16 bg-white">
+<section class="py-16 bg-white cf-net-bg">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="mb-10 reveal">
@@ -344,7 +344,7 @@
 {{-- ══════════════════════════════════════════
      NOS ACTIONS — 4 piliers
 ══════════════════════════════════════════ --}}
-<section class="py-14 bg-gray-50 border-y border-gray-100">
+<section class="py-14 bg-gray-50 border-y border-gray-100 cf-net-bg">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8 reveal">
@@ -391,7 +391,7 @@
 {{-- ══════════════════════════════════════════
      PHOTOS TERRAIN
 ══════════════════════════════════════════ --}}
-<section class="py-14 bg-white">
+<section class="py-14 bg-white cf-net-bg">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-7 reveal">
@@ -425,7 +425,7 @@
 {{-- ══════════════════════════════════════════
      MENACE + RÉPONSE — 2 colonnes
 ══════════════════════════════════════════ --}}
-<section class="py-16 bg-gray-50 border-y border-gray-100">
+<section class="py-16 bg-gray-50 border-y border-gray-100 cf-net-bg">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
 
@@ -494,7 +494,7 @@
      ACTUALITÉS (si existantes)
 ══════════════════════════════════════════ --}}
 @if($latestNews && $latestNews->count() > 0)
-<section class="py-14 bg-white">
+<section class="py-14 bg-white cf-net-bg">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-8 reveal">
@@ -548,7 +548,7 @@
 {{-- ══════════════════════════════════════════
      PARTENAIRES
 ══════════════════════════════════════════ --}}
-<section class="py-20 bg-gray-50 border-t border-gray-100">
+<section class="py-20 bg-gray-50 border-t border-gray-100 cf-net-bg">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {{-- En-tête --}}
@@ -647,7 +647,7 @@
 {{-- ══════════════════════════════════════════
      CTA FINAL
 ══════════════════════════════════════════ --}}
-<section class="py-16 border-t border-gray-100 bg-white">
+<section class="py-16 border-t border-gray-100 bg-white cf-net-bg">
     <div class="max-w-2xl mx-auto px-4 text-center reveal">
 
         <h2 class="section-title mb-4">
