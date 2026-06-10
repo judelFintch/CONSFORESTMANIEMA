@@ -676,7 +676,7 @@
 ══════════════════════════════════════════ --}}
 <div x-data="{
         open: true,
-        current: 3,
+        current: 4,
         options: [
             { id: 1, label: 'Feuillage botanique',    sub: 'Feuilles + nervures' },
             { id: 2, label: 'Silhouette forêt',       sub: 'Arbre tropical centré' },
