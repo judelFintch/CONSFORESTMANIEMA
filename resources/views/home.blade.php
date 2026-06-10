@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('title', 'ConsForest Maniema – Conservation Forestière & Crédit Carbone en RDC')
-@section('description', 'BFD SARL et New Motion protègent les forêts du Maniema et génèrent des crédits carbone certifiés REDD+ en République Démocratique du Congo.')
-@section('keywords', 'ConsForest Maniema, conservation forêt RDC, crédit carbone Congo, BFD SARL, New Motion, REDD+, Maniema, Kindu')
+@section('description', 'BFD SARL et New Goshen protègent les forêts du Maniema et génèrent des crédits carbone certifiés REDD+ en République Démocratique du Congo.')
+@section('keywords', 'ConsForest Maniema, conservation forêt RDC, crédit carbone Congo, BFD SARL, New Goshen, REDD+, Maniema, Kindu')
 
 @section('content')
 
@@ -150,7 +150,7 @@
 
         <p class="hero-subtitle hero-a4">
             <strong class="text-white/80 font-semibold not-italic">BFD SARL</strong> &amp;
-            <strong class="text-white/80 font-semibold not-italic">New Motion</strong> —
+            <strong class="text-white/80 font-semibold not-italic">New Goshen</strong> —
             conservation forestière et crédits carbone certifiés REDD+
             au cœur du Maniema.
         </p>
@@ -257,7 +257,7 @@
 
 
 {{-- ══════════════════════════════════════════
-     LES ACTEURS — BFD + New Motion
+     LES ACTEURS — BFD + New Goshen
 ══════════════════════════════════════════ --}}
 <section class="py-16 bg-white">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -294,7 +294,7 @@
                 </div>
             </div>
 
-            {{-- New Motion --}}
+            {{-- New Goshen --}}
             <div class="reveal rounded-2xl border border-gray-100 p-6 hover:border-blue-200 hover:shadow-sm transition-all duration-300">
                 <div class="flex items-center gap-3 mb-4">
                     <div class="w-10 h-10 rounded-xl bg-blue-maniema-50 flex items-center justify-center flex-shrink-0">
@@ -304,7 +304,7 @@
                     </div>
                     <div>
                         <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-blue-maniema-600">Partenaire carbone</p>
-                        <h3 class="font-bold text-gray-900 text-lg leading-tight">New Motion</h3>
+                        <h3 class="font-bold text-gray-900 text-lg leading-tight">New Goshen</h3>
                     </div>
                 </div>
                 <p class="text-gray-500 text-sm leading-relaxed mb-4">
@@ -558,7 +558,7 @@
         <div class="grid grid-cols-3 md:grid-cols-6 gap-2 items-center">
             @foreach([
                 ['name' => 'BFD SARL', 'role' => 'Porteur de projet', 'color' => '#16a34a'],
-                ['name' => 'New Motion', 'role' => 'Partenaire carbone', 'color' => '#0d4ea8'],
+                ['name' => 'New Goshen', 'role' => 'Partenaire carbone', 'color' => '#0d4ea8'],
                 ['name' => 'Gouvernement RDC', 'role' => 'Autorité nationale', 'color' => '#374151'],
                 ['name' => 'Min. Environnement', 'role' => 'Tutelle', 'color' => '#374151'],
                 ['name' => 'Maniema', 'role' => 'Province', 'color' => '#d97706', 'logo' => true],
