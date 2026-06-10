@@ -548,37 +548,92 @@
 {{-- ══════════════════════════════════════════
      PARTENAIRES
 ══════════════════════════════════════════ --}}
-<section class="py-10 bg-white border-t border-gray-100">
+<section class="py-20 bg-gray-50 border-t border-gray-100">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <p class="text-center text-[10px] text-gray-300 uppercase tracking-[0.3em] font-semibold mb-8">
-            Partenaires institutionnels
-        </p>
+        {{-- En-tête --}}
+        <div class="text-center mb-14 reveal">
+            <span class="section-badge mb-5">Écosystème</span>
+            <h2 class="section-title mb-3">Nos <span class="forest">Partenaires</span></h2>
+            <p class="text-gray-400 text-sm max-w-md mx-auto leading-relaxed">
+                Un réseau d'acteurs engagés pour la conservation forestière
+                et le développement durable au Maniema.
+            </p>
+        </div>
 
-        <div class="grid grid-cols-3 md:grid-cols-6 gap-2 items-center">
-            @foreach([
-                ['name' => 'BFD SARL', 'role' => 'Porteur de projet', 'color' => '#16a34a'],
-                ['name' => 'New Goshen', 'role' => 'Partenaire carbone', 'color' => '#0d4ea8'],
-                ['name' => 'Gouvernement RDC', 'role' => 'Autorité nationale', 'color' => '#374151'],
-                ['name' => 'Min. Environnement', 'role' => 'Tutelle', 'color' => '#374151'],
-                ['name' => 'Maniema', 'role' => 'Province', 'color' => '#d97706', 'logo' => true],
-                ['name' => 'Partenaires Intl.', 'role' => 'Organisations techniques', 'color' => '#374151'],
-            ] as $p)
-            <div class="text-center py-3 px-2 rounded-xl hover:bg-gray-50 transition-colors">
-                @if(isset($p['logo']))
-                <div class="h-7 flex items-center justify-center mb-1">
-                    <img src="{{ asset('images/logo-maniema.png') }}"
-                         alt="Maniema" class="h-6 w-6 rounded-full object-cover mx-auto"
-                         onerror="this.outerHTML='<span class=\'font-bold text-xs\' style=\'color: {{ $p['color'] }}\'>{{ $p['name'] }}</span>'">
+        {{-- Partenaires principaux --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10 reveal">
+
+            {{-- BFD SARL --}}
+            <div class="partner-card-main group" style="--pc: #16a34a;">
+                <div class="partner-monogram" style="background: rgba(22,163,74,0.10); color: #16a34a;">
+                    BFD
                 </div>
-                @else
-                <div class="h-7 flex items-center justify-center mb-1">
-                    <span class="font-bold text-xs" style="color: {{ $p['color'] }};">{{ $p['name'] }}</span>
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-1">
+                        <h3 class="font-bold text-gray-900 text-base leading-tight">BFD SARL</h3>
+                        <span class="partner-badge" style="background: rgba(22,163,74,0.10); color: #16a34a;">
+                            Porteur de projet
+                        </span>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Opérateur forestier local, gestionnaire du territoire de conservation
+                        au Maniema — Kailo &amp; Pangi.
+                    </p>
                 </div>
-                @endif
-                <p class="text-gray-300 text-[10px] leading-tight">{{ $p['role'] }}</p>
+                <div class="partner-card-bar" style="background: #16a34a;"></div>
             </div>
-            @endforeach
+
+            {{-- New Goshen --}}
+            <div class="partner-card-main group" style="--pc: #1d6fa8;">
+                <div class="partner-monogram" style="background: rgba(29,111,168,0.10); color: #1d6fa8;">
+                    NG
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-1">
+                        <h3 class="font-bold text-gray-900 text-base leading-tight">New Goshen</h3>
+                        <span class="partner-badge" style="background: rgba(29,111,168,0.10); color: #1d6fa8;">
+                            Partenaire carbone
+                        </span>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Partenaire technique pour la certification REDD+ et la commercialisation
+                        des crédits carbone sur les marchés internationaux.
+                    </p>
+                </div>
+                <div class="partner-card-bar" style="background: #1d6fa8;"></div>
+            </div>
+        </div>
+
+        {{-- Partenaires institutionnels --}}
+        <div class="reveal">
+            <p class="text-center text-[10px] text-gray-300 uppercase tracking-[0.28em] font-semibold mb-6">
+                Cadre institutionnel
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach([
+                    ['init' => 'RDC',  'name' => 'Gouvernement RDC',   'role' => 'Autorité nationale',        'color' => '#374151', 'bg' => 'rgba(55,65,81,0.08)'],
+                    ['init' => 'ME',   'name' => 'Min. Environnement', 'role' => 'Tutelle sectorielle',       'color' => '#374151', 'bg' => 'rgba(55,65,81,0.08)'],
+                    ['init' => 'MAN',  'name' => 'Province Maniema',   'role' => 'Autorité provinciale',      'color' => '#d97706', 'bg' => 'rgba(217,119,6,0.09)',  'logo' => true],
+                    ['init' => 'ONG',  'name' => 'Partenaires Intl.',  'role' => 'Organisations techniques', 'color' => '#6b7280', 'bg' => 'rgba(107,114,128,0.08)'],
+                ] as $p)
+                <div class="partner-card-inst text-center">
+                    @if(isset($p['logo']))
+                        <img src="{{ asset('images/logo-maniema.png') }}"
+                             alt="Maniema"
+                             class="w-10 h-10 rounded-full object-cover mx-auto mb-2 ring-2 ring-amber-200"
+                             onerror="this.outerHTML='<div class=\'w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2 text-xs font-bold\' style=\'background:{{ $p[\'bg\'] }};color:{{ $p[\'color\'] }}\'>{{ $p[\'init\'] }}</div>'">
+                    @else
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2 text-xs font-bold"
+                             style="background: {{ $p['bg'] }}; color: {{ $p['color'] }};">
+                            {{ $p['init'] }}
+                        </div>
+                    @endif
+                    <p class="font-semibold text-gray-800 text-xs leading-tight mb-0.5">{{ $p['name'] }}</p>
+                    <p class="text-gray-400 text-[10px] leading-tight">{{ $p['role'] }}</p>
+                </div>
+                @endforeach
+            </div>
         </div>
 
     </div>
