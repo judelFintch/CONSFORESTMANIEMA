@@ -111,14 +111,37 @@ document.addEventListener('DOMContentLoaded', () => {
     countEls.forEach(el => observer.observe(el));
 });
 
-/* ── Hero parallax (subtle) ──────────────────────────── */
-document.addEventListener('DOMContentLoaded', () => {
-    const heroImg = document.querySelector('.hero-bg-img');
-    if (!heroImg || window.innerWidth < 768) return;
-    window.addEventListener('scroll', () => {
-        const y = window.scrollY;
-        heroImg.style.transform = `scale(1.08) translateY(${y * 0.25}px)`;
-    }, { passive: true });
-});
+/* ── Son de forêt (bouton hero) ──────────────────────── */
+Alpine.data('forestSound', () => ({
+    playing: false,
+    audio:   null,
+
+    init() {
+        this.audio = new Audio('/sounds/foret.mp3');
+        this.audio.loop   = true;
+        this.audio.volume = 0.35;
+
+        /* Nettoyage quand le composant est détruit */
+        this.$watch('playing', () => {});
+    },
+
+    toggle() {
+        if (!this.audio) return;
+        if (this.playing) {
+            this.audio.pause();
+            this.playing = false;
+        } else {
+            this.audio.play().then(() => {
+                this.playing = true;
+            }).catch(() => {
+                /* Fichier absent ou blocage navigateur — silencieux */
+            });
+        }
+    },
+
+    destroy() {
+        if (this.audio) { this.audio.pause(); this.audio.src = ''; }
+    },
+}));
 
 Alpine.start();

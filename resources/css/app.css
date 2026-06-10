@@ -243,6 +243,64 @@ body {
 
 /* ── Cinematic bars — retirées pour laisser respirer la forêt ── */
 
+/* ── Ken Burns — animation wrapper forêt cinématique ── */
+@keyframes kenBurns {
+    0%   { transform: scale(1.00) translate(0%,    0%  ); }
+    33%  { transform: scale(1.12) translate(-0.8%, 0.5%); }
+    66%  { transform: scale(1.10) translate( 0.6%, -0.4%); }
+    100% { transform: scale(1.00) translate(0%,    0%  ); }
+}
+
+.hero-forest-anim {
+    animation: kenBurns 28s ease-in-out infinite;
+    transform-origin: center center;
+}
+
+/* ── Bouton son forêt ────────────────────────────────── */
+.sound-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    background: rgba(2,13,6,0.45);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.60);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    user-select: none;
+}
+.sound-btn:hover {
+    background: rgba(2,13,6,0.65);
+    border-color: rgba(255,255,255,0.30);
+    color: rgba(255,255,255,0.90);
+}
+.sound-btn.active {
+    border-color: rgba(52,201,97,0.50);
+    color: #4ade80;
+    background: rgba(2,13,6,0.55);
+}
+
+@keyframes sound-pulse {
+    0%,100% { transform: scaleY(1);   }
+    50%      { transform: scaleY(1.6); }
+}
+.sound-bar {
+    width: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    transform-origin: bottom center;
+}
+.sound-bar:nth-child(1) { height: 6px;  animation: sound-pulse 0.9s ease-in-out 0.0s infinite; }
+.sound-bar:nth-child(2) { height: 10px; animation: sound-pulse 0.9s ease-in-out 0.2s infinite; }
+.sound-bar:nth-child(3) { height: 7px;  animation: sound-pulse 0.9s ease-in-out 0.1s infinite; }
+.sound-bar:nth-child(4) { height: 9px;  animation: sound-pulse 0.9s ease-in-out 0.3s infinite; }
+
 /* ── Bottom organic wave ─────────────────────────────── */
 .hero-wave {
     position: absolute;
@@ -773,3 +831,131 @@ body {
     .hero-display { letter-spacing: -0.02em; }
     .hero-bar-top, .hero-bar-bottom { display: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   SCÈNE FORÊT ANIMÉE — Hero (CSS/SVG pur, aucune image)
+═══════════════════════════════════════════════════════════ */
+
+/* Ciel nuit forêt profonde */
+.cf-sky {
+    background: linear-gradient(180deg,
+        #000904 0%,
+        #010d06 20%,
+        #021510 45%,
+        #020d06 75%,
+        #010804 100%);
+}
+
+/* Halos lumineux — lune et reflets végétaux */
+.cf-glow {
+    background:
+        radial-gradient(ellipse 65% 45% at 50% 28%, rgba(22,163,74,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 55% at 25% 18%, rgba(8,50,22,0.07)   0%, transparent 60%),
+        radial-gradient(ellipse 30% 40% at 75% 22%, rgba(6,40,18,0.06)   0%, transparent 55%);
+}
+
+/* Sol sombre */
+.cf-floor {
+    background: linear-gradient(0deg, rgba(1,6,3,0.96) 0%, transparent 100%);
+}
+
+/* ── Balancement des couches d'arbres ── */
+@keyframes cfSway {
+    0%   { transform: translateX(0); }
+    25%  { transform: translateX(calc(var(--sw, -10px) * 0.6)); }
+    55%  { transform: translateX(var(--sw, -10px)); }
+    80%  { transform: translateX(calc(var(--sw, -10px) * -0.35)); }
+    100% { transform: translateX(0); }
+}
+
+.cf-l1 { --sw: -7px;  animation: cfSway 16s ease-in-out infinite; }
+.cf-l2 { --sw: -16px; animation: cfSway 12s ease-in-out 1.5s infinite; }
+.cf-l3 { --sw: -30px; animation: cfSway  9s ease-in-out 0.8s infinite; }
+
+/* ── Brume flottante ── */
+.cf-mist {
+    position: absolute;
+    left: -25%;
+    right: -25%;
+    border-radius: 50%;
+    filter: blur(14px);
+    pointer-events: none;
+}
+.cf-mist1 {
+    height: 55px;
+    bottom: 30%;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(195,230,210,0.10) 25%,
+        rgba(215,242,225,0.18) 50%,
+        rgba(195,230,210,0.10) 75%,
+        transparent 100%);
+    animation: cfMist 24s ease-in-out infinite alternate;
+}
+.cf-mist2 {
+    height: 42px;
+    bottom: 20%;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(195,230,210,0.07) 25%,
+        rgba(215,242,225,0.13) 50%,
+        rgba(195,230,210,0.07) 75%,
+        transparent 100%);
+    animation: cfMist 30s ease-in-out 5s infinite alternate;
+}
+@keyframes cfMist {
+    0%   { transform: translateX(-18%); opacity: 0.55; }
+    50%  { opacity: 1; }
+    100% { transform: translateX(18%);  opacity: 0.65; }
+}
+
+/* ── Lucioles ── */
+.cf-ff {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* 3 variantes de vol */
+@keyframes cfFfA {
+    0%,100% { opacity: 0; transform: translate(0,   0); }
+    12%     { opacity: 1; }
+    50%     { opacity: 0.85; transform: translate(22px,  -38px); }
+    88%     { opacity: 0.15; }
+}
+@keyframes cfFfB {
+    0%,100% { opacity: 0; transform: translate(0,   0); }
+    12%     { opacity: 0.9; }
+    50%     { opacity: 0.80; transform: translate(-18px, -30px); }
+    88%     { opacity: 0.1; }
+}
+@keyframes cfFfC {
+    0%,100% { opacity: 0; transform: translate(0,   0); }
+    10%     { opacity: 1; }
+    50%     { opacity: 0.70; transform: translate(28px,  -50px); }
+    90%     { opacity: 0; }
+}
+
+/* Couleur or (luciole chaude) */
+.cf-ff1, .cf-ff3, .cf-ff5, .cf-ff7, .cf-ff9 {
+    background: #f0b429;
+    box-shadow: 0 0 5px 2px rgba(240,180,41,0.55), 0 0 10px 4px rgba(240,180,41,0.18);
+}
+/* Couleur vert (luciole végétale) */
+.cf-ff2, .cf-ff4, .cf-ff6, .cf-ff8, .cf-ff10 {
+    background: #4ade80;
+    box-shadow: 0 0 5px 2px rgba(74,222,128,0.50), 0 0 10px 4px rgba(74,222,128,0.16);
+}
+
+.cf-ff1  { top: 63%; left: 10%; animation: cfFfA 4.5s ease-in-out 0.0s  infinite; }
+.cf-ff2  { top: 58%; left: 22%; animation: cfFfB 5.2s ease-in-out 1.1s  infinite; }
+.cf-ff3  { top: 70%; left: 33%; animation: cfFfA 3.8s ease-in-out 2.3s  infinite; }
+.cf-ff4  { top: 54%; left: 46%; animation: cfFfC 6.1s ease-in-out 0.7s  infinite; }
+.cf-ff5  { top: 67%; left: 55%; animation: cfFfB 4.3s ease-in-out 1.8s  infinite; }
+.cf-ff6  { top: 61%; left: 64%; animation: cfFfA 5.6s ease-in-out 3.1s  infinite; }
+.cf-ff7  { top: 73%; left: 74%; animation: cfFfC 4.9s ease-in-out 0.4s  infinite; }
+.cf-ff8  { top: 59%; left: 82%; animation: cfFfB 3.6s ease-in-out 2.6s  infinite; }
+.cf-ff9  { top: 66%; left: 90%; animation: cfFfA 5.0s ease-in-out 1.4s  infinite; }
+.cf-ff10 { top: 56%; left: 48%; animation: cfFfC 4.2s ease-in-out 4.0s  infinite; }

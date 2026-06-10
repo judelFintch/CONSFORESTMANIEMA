@@ -10,6 +10,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CertificationController;
 
 // Accueil
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -35,6 +36,9 @@ Route::get('/actualites/{slug}', [NewsController::class, 'show'])->name('news.sh
 
 // Partenaires
 Route::get('/partenaires', [PartnersController::class, 'index'])->name('partners');
+
+// Certification REDD+ et Crédit Carbone
+Route::get('/certification-credit-carbone', [CertificationController::class, 'index'])->name('certification');
 
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
