@@ -169,8 +169,8 @@ body {
     opacity: 0;
     pointer-events: none;
     border-radius: 50% 0 50% 0;
-    background: rgba(52, 201, 97, 0.18);
-    backdrop-filter: blur(1px);
+    background: rgba(74, 222, 128, 0.60);
+    box-shadow: 0 0 6px rgba(52, 201, 97, 0.40);
 }
 
 @keyframes leaf-fall {
@@ -191,10 +191,14 @@ body {
     66%     { margin-left: -18px; }
 }
 
-.leaf-2 { bottom: -5%; left: 22%; width: 10px; height: 14px; animation: leaf-fall   22s 4s  linear infinite, leaf-sway 5s ease-in-out infinite; }
-.leaf-4 { bottom: -5%; left: 55%; width:  8px; height: 12px; animation: leaf-fall   26s 8s  linear infinite, leaf-sway 6s ease-in-out infinite; background: rgba(240,180,41,0.12); }
-.leaf-6 { bottom: -5%; left: 78%; width: 12px; height: 16px; animation: leaf-fall-r 18s 6s  linear infinite, leaf-sway 4s ease-in-out infinite; }
-.leaf-8 { bottom: -5%; left: 88%; width:  7px; height: 10px; animation: leaf-fall   21s 3s  linear infinite, leaf-sway 5s ease-in-out infinite; background: rgba(52,201,97,0.10); }
+.leaf-2  { bottom:-5%; left:12%;  width:14px; height:18px; animation: leaf-fall   20s 1s  linear infinite, leaf-sway 5s ease-in-out infinite; }
+.leaf-4  { bottom:-5%; left:28%;  width:10px; height:14px; animation: leaf-fall   25s 5s  linear infinite, leaf-sway 6s ease-in-out infinite; background: rgba(240,180,41,0.55); box-shadow: 0 0 6px rgba(240,180,41,0.35); }
+.leaf-6  { bottom:-5%; left:45%;  width:16px; height:20px; animation: leaf-fall-r 17s 3s  linear infinite, leaf-sway 4s ease-in-out infinite; }
+.leaf-8  { bottom:-5%; left:62%;  width:12px; height:16px; animation: leaf-fall   23s 7s  linear infinite, leaf-sway 5s ease-in-out infinite; }
+.leaf-10 { bottom:-5%; left:75%;  width: 9px; height:13px; animation: leaf-fall-r 19s 2s  linear infinite, leaf-sway 6s ease-in-out infinite; background: rgba(240,180,41,0.55); box-shadow: 0 0 6px rgba(240,180,41,0.35); }
+.leaf-12 { bottom:-5%; left:88%;  width:13px; height:17px; animation: leaf-fall   27s 9s  linear infinite, leaf-sway 5s ease-in-out infinite; }
+.leaf-14 { bottom:-5%; left:5%;   width:11px; height:15px; animation: leaf-fall-r 22s 0s  linear infinite, leaf-sway 4s ease-in-out infinite; }
+.leaf-16 { bottom:-5%; left:95%;  width: 8px; height:12px; animation: leaf-fall   18s 11s linear infinite, leaf-sway 7s ease-in-out infinite; background: rgba(240,180,41,0.55); box-shadow: 0 0 6px rgba(240,180,41,0.35); }
 
 /* ── Hero entrance — CSS pur, zéro JS ───────────────── */
 /*
@@ -839,11 +843,11 @@ body {
 /* Ciel nuit forêt profonde */
 .cf-sky {
     background: linear-gradient(180deg,
-        #000904 0%,
-        #010d06 20%,
-        #021510 45%,
-        #020d06 75%,
-        #010804 100%);
+        #000200 0%,
+        #000502 18%,
+        #000803 40%,
+        #010503 75%,
+        #000200 100%);
 }
 
 /* Halos lumineux — lune et reflets végétaux */
@@ -868,9 +872,21 @@ body {
     100% { transform: translateX(0); }
 }
 
-.cf-l1 { --sw: -7px;  animation: cfSway 16s ease-in-out infinite; }
-.cf-l2 { --sw: -16px; animation: cfSway 12s ease-in-out 1.5s infinite; }
-.cf-l3 { --sw: -30px; animation: cfSway  9s ease-in-out 0.8s infinite; }
+.cf-l1 {
+    --sw: -7px;
+    animation: cfSway 16s ease-in-out infinite;
+    filter: drop-shadow(0 -3px 8px rgba(52,201,97,0.35)) drop-shadow(0 -1px 3px rgba(74,222,128,0.25));
+}
+.cf-l2 {
+    --sw: -16px;
+    animation: cfSway 12s ease-in-out 1.5s infinite;
+    filter: drop-shadow(0 -4px 10px rgba(52,201,97,0.28)) drop-shadow(0 -1px 4px rgba(74,222,128,0.18));
+}
+.cf-l3 {
+    --sw: -30px;
+    animation: cfSway 9s ease-in-out 0.8s infinite;
+    filter: drop-shadow(0 -5px 14px rgba(52,201,97,0.22)) drop-shadow(0 -2px 5px rgba(74,222,128,0.14));
+}
 
 /* ── Brume flottante ── */
 .cf-mist {

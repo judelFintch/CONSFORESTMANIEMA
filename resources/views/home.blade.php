@@ -11,28 +11,47 @@
 ══════════════════════════════════════════ --}}
 <section class="hero-section">
 
-    {{-- ═══ Scène forêt animée – CSS/SVG pur ═══ --}}
-    <div class="absolute inset-0 z-0 overflow-hidden cf-scene">
-
-        {{-- Ciel nuit forêt --}}
+    {{-- ═══ Hero : photo réelle + Ken Burns ═══ --}}
+    <div class="absolute inset-0 z-0 overflow-hidden">
+        @if(file_exists(public_path('images/hero-foret.jpg')))
+        {{-- Photo forêt réelle avec animation Ken Burns --}}
+        <div class="hero-forest-anim w-full h-full">
+            <img src="{{ asset('images/hero-foret.jpg') }}"
+                 alt="Forêt du Maniema"
+                 class="w-full h-full object-cover"
+                 loading="eager" fetchpriority="high">
+        </div>
+        @else
+        {{-- Scène forêt CSS/SVG (fallback tant que la photo n'est pas uploadée) --}}
+        <div class="absolute inset-0 cf-scene">
         <div class="absolute inset-0 cf-sky"></div>
-
-        {{-- Halo lumineux (lune sur canopée) --}}
         <div class="absolute inset-0 cf-glow"></div>
 
-        {{-- ── Couche 1 : cimes lointaines ── --}}
+        {{-- ── Couche 1 : cimes lointaines (vert clair, très visible) ── --}}
         <svg class="cf-l1 absolute bottom-0 left-0 w-full" viewBox="0 0 1440 260" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#2a8046"/>
+                    <stop offset="100%" stop-color="#1a5c30"/>
+                </linearGradient>
+            </defs>
             <path d="M0,260 L0,180 C40,165 80,155 120,150 C160,145 200,148 240,140
                      C280,132 320,122 360,118 C400,114 440,118 480,112
                      C520,106 560,98  600,102 C640,106 680,112 720,105
                      C760,98  800,90  840,95  C880,100 920,105 960,98
                      C1000,91 1040,83 1080,88 C1120,93 1160,98 1200,92
                      C1240,86 1280,78 1320,83 C1360,88 1400,95 1440,90
-                     L1440,260 Z" fill="#12422a"/>
+                     L1440,260 Z" fill="url(#g1)"/>
         </svg>
 
         {{-- ── Couche 2 : arbres intermédiaires ── --}}
         <svg class="cf-l2 absolute bottom-0 left-0 w-full" viewBox="0 0 1440 340" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+                <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#1a5c30"/>
+                    <stop offset="100%" stop-color="#0e3d1e"/>
+                </linearGradient>
+            </defs>
             <path d="M0,340 L0,260 C30,245 60,238 90,228 C120,218 145,210 175,205
                      C205,200 230,205 258,195 C286,185 308,172 338,165
                      C368,158 395,162 422,152 C449,142 472,128 500,122
@@ -42,15 +61,22 @@
                      C1002,86 1026,98 1054,90 C1082,82 1104,68 1132,75
                      C1160,82 1184,96 1212,88 C1240,80 1262,66 1290,72
                      C1318,78 1342,92 1370,85 C1398,78 1425,70 1440,68
-                     L1440,340 Z" fill="#092e1a"/>
+                     L1440,340 Z" fill="url(#g2)"/>
         </svg>
 
         {{-- ── Nappes de brume ── --}}
         <div class="cf-mist cf-mist1"></div>
         <div class="cf-mist cf-mist2"></div>
 
-        {{-- ── Couche 3 : avant-plan sombre ── --}}
+        {{-- ── Couche 3 : avant-plan sombre (grands arbres proches) ── --}}
         <svg class="cf-l3 absolute bottom-0 left-0 w-full" viewBox="0 0 1440 420" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+                <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#0d3318"/>
+                    <stop offset="40%"  stop-color="#061608"/>
+                    <stop offset="100%" stop-color="#020b04"/>
+                </linearGradient>
+            </defs>
             <path d="M0,420 L0,340 C25,325 55,318 85,305 C115,292 138,282 165,290
                      C192,298 215,310 242,295 C269,280 285,260 312,248
                      C339,236 365,235 390,248 C415,261 435,275 462,260
@@ -61,7 +87,7 @@
                      C1066,108 1082,88  1108,96  C1134,104 1156,120 1182,108
                      C1208,96  1224,76  1250,84  C1276,92  1298,110 1324,98
                      C1350,86  1366,66  1392,72  C1412,77  1432,88  1440,85
-                     L1440,420 Z" fill="#030b05"/>
+                     L1440,420 Z" fill="url(#g3)"/>
         </svg>
 
         {{-- ── Lucioles ── --}}
@@ -78,7 +104,9 @@
 
         {{-- Sol forêt --}}
         <div class="absolute bottom-0 left-0 right-0 h-28 cf-floor"></div>
-    </div>
+        </div>{{-- /cf-scene --}}
+        @endif
+    </div>{{-- /overflow-hidden --}}
 
     <div class="hero-overlay absolute inset-0 z-[2]"></div>
     <div class="hero-grain absolute inset-0 z-[3]"></div>
@@ -88,6 +116,10 @@
         <span class="leaf leaf-4"></span>
         <span class="leaf leaf-6"></span>
         <span class="leaf leaf-8"></span>
+        <span class="leaf leaf-10"></span>
+        <span class="leaf leaf-12"></span>
+        <span class="leaf leaf-14"></span>
+        <span class="leaf leaf-16"></span>
     </div>
 
     <div class="relative z-[10] w-full max-w-4xl mx-auto px-6 sm:px-8 flex flex-col items-center text-center pt-28 pb-20">
