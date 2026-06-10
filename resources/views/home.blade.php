@@ -622,7 +622,11 @@
                         <img src="{{ asset('images/logo-maniema.png') }}"
                              alt="Maniema"
                              class="w-10 h-10 rounded-full object-cover mx-auto mb-2 ring-2 ring-amber-200"
-                             onerror="this.outerHTML='<div class=\'w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2 text-xs font-bold\' style=\'background:{{ $p[\'bg\'] }};color:{{ $p[\'color\'] }}\'>{{ $p[\'init\'] }}</div>'">
+                             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+                        <div class="w-10 h-10 rounded-full items-center justify-center mx-auto mb-2 text-xs font-bold"
+                             style="display:none; background: {{ $p['bg'] }}; color: {{ $p['color'] }};">
+                            {{ $p['init'] }}
+                        </div>
                     @else
                         <div class="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2 text-xs font-bold"
                              style="background: {{ $p['bg'] }}; color: {{ $p['color'] }};">
