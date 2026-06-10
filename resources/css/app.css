@@ -84,8 +84,8 @@ body {
 ═══════════════════════════════════════════════════════════ */
 .hero-section {
     position: relative;
-    min-height: 70vh;
-    max-height: 800px;
+    min-height: 80vh;
+    max-height: 900px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -163,35 +163,38 @@ body {
     50%      { filter: drop-shadow(0 0 40px rgba(240,180,41,0.7)) drop-shadow(0 0 80px rgba(240,180,41,0.2)); }
 }
 
-/* ── Floating leaves ─────────────────────────────────── */
-.leaf { position: absolute; opacity: 0; pointer-events: none; }
+/* ── Floating particles — formes CSS pures, sans emoji ── */
+.leaf {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    border-radius: 50% 0 50% 0;
+    background: rgba(52, 201, 97, 0.18);
+    backdrop-filter: blur(1px);
+}
 
 @keyframes leaf-fall {
-    0%   { transform: translateY(100vh) rotate(0deg) translateX(0); opacity: 0; }
-    5%   { opacity: 0.5; }
-    95%  { opacity: 0.4; }
-    100% { transform: translateY(-10vh) rotate(540deg) translateX(60px); opacity: 0; }
+    0%   { transform: translateY(100vh) rotate(0deg) translateX(0);   opacity: 0; }
+    5%   { opacity: 1; }
+    95%  { opacity: 0.6; }
+    100% { transform: translateY(-10vh) rotate(480deg) translateX(50px);  opacity: 0; }
 }
 @keyframes leaf-fall-r {
-    0%   { transform: translateY(100vh) rotate(0deg) translateX(0); opacity: 0; }
-    5%   { opacity: 0.4; }
-    95%  { opacity: 0.3; }
-    100% { transform: translateY(-10vh) rotate(-360deg) translateX(-80px); opacity: 0; }
+    0%   { transform: translateY(100vh) rotate(0deg) translateX(0);   opacity: 0; }
+    5%   { opacity: 0.8; }
+    95%  { opacity: 0.5; }
+    100% { transform: translateY(-10vh) rotate(-320deg) translateX(-60px); opacity: 0; }
 }
 @keyframes leaf-sway {
     0%,100% { margin-left: 0; }
-    25%     { margin-left: 20px; }
-    75%     { margin-left: -20px; }
+    33%     { margin-left: 18px; }
+    66%     { margin-left: -18px; }
 }
 
-.leaf-1 { bottom: -5%; left: 10%;  animation: leaf-fall   18s 2s  linear infinite, leaf-sway 4s ease-in-out infinite; font-size: 1.4rem; }
-.leaf-2 { bottom: -5%; left: 25%;  animation: leaf-fall   22s 5s  linear infinite, leaf-sway 5s ease-in-out infinite; font-size: 1rem; }
-.leaf-3 { bottom: -5%; left: 42%;  animation: leaf-fall-r 19s 1s  linear infinite, leaf-sway 3s ease-in-out infinite; font-size: 1.6rem; }
-.leaf-4 { bottom: -5%; left: 58%;  animation: leaf-fall   25s 8s  linear infinite, leaf-sway 6s ease-in-out infinite; font-size: 0.9rem; }
-.leaf-5 { bottom: -5%; left: 72%;  animation: leaf-fall-r 21s 3s  linear infinite, leaf-sway 4s ease-in-out infinite; font-size: 1.2rem; }
-.leaf-6 { bottom: -5%; left: 85%;  animation: leaf-fall   17s 6s  linear infinite, leaf-sway 5s ease-in-out infinite; font-size: 1.5rem; }
-.leaf-7 { bottom: -5%; left: 5%;   animation: leaf-fall-r 23s 10s linear infinite, leaf-sway 7s ease-in-out infinite; font-size: 1rem; }
-.leaf-8 { bottom: -5%; left: 93%;  animation: leaf-fall   20s 4s  linear infinite, leaf-sway 4s ease-in-out infinite; font-size: 1.3rem; }
+.leaf-2 { bottom: -5%; left: 22%; width: 10px; height: 14px; animation: leaf-fall   22s 4s  linear infinite, leaf-sway 5s ease-in-out infinite; }
+.leaf-4 { bottom: -5%; left: 55%; width:  8px; height: 12px; animation: leaf-fall   26s 8s  linear infinite, leaf-sway 6s ease-in-out infinite; background: rgba(240,180,41,0.12); }
+.leaf-6 { bottom: -5%; left: 78%; width: 12px; height: 16px; animation: leaf-fall-r 18s 6s  linear infinite, leaf-sway 4s ease-in-out infinite; }
+.leaf-8 { bottom: -5%; left: 88%; width:  7px; height: 10px; animation: leaf-fall   21s 3s  linear infinite, leaf-sway 5s ease-in-out infinite; background: rgba(52,201,97,0.10); }
 
 /* ── Hero entrance — CSS pur, zéro JS ───────────────── */
 /*
@@ -233,10 +236,10 @@ body {
 
 /* ── Hero scroll indicator ───────────────────────────── */
 @keyframes scroll-bounce {
-    0%,100% { transform: translateY(0); opacity: 0.7; }
-    50%      { transform: translateY(10px); opacity: 1; }
+    0%,100% { transform: translateY(0);    opacity: 0.4; }
+    50%     { transform: translateY(8px);  opacity: 0.9; }
 }
-.scroll-indicator { animation: scroll-bounce 2s ease-in-out infinite; }
+.scroll-indicator { animation: scroll-bounce 2.2s ease-in-out infinite; }
 
 /* ── Cinematic bars — retirées pour laisser respirer la forêt ── */
 
@@ -252,12 +255,14 @@ body {
    HEADER
 ═══════════════════════════════════════════════════════════ */
 .site-header {
-    transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+    background: transparent;
+    transition: background 0.45s ease, box-shadow 0.45s ease, backdrop-filter 0.45s ease;
 }
 .site-header.scrolled {
-    background: rgba(2, 13, 6, 0.92) !important;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+    background: rgba(2, 11, 5, 0.88) !important;
+    backdrop-filter: blur(28px) saturate(1.4);
+    -webkit-backdrop-filter: blur(28px) saturate(1.4);
+    box-shadow: 0 1px 0 rgba(240,180,41,0.15), 0 8px 40px rgba(0,0,0,0.5);
 }
 .site-header.light {
     background: rgba(255,255,255,0.95);
@@ -265,6 +270,117 @@ body {
     box-shadow: 0 2px 20px rgba(0,0,0,0.08);
 }
 
+/* ── Nav links premium ───────────────────────────────── */
+.nav-link-premium {
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.7);
+    transition: color 0.25s ease;
+    white-space: nowrap;
+}
+.nav-link-premium::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    width: 0;
+    height: 1.5px;
+    background: linear-gradient(90deg, #f0b429 0%, #fde68a 50%, #f0b429 100%);
+    border-radius: 1px;
+    transform: translateX(-50%);
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-link-premium:hover {
+    color: rgba(255,255,255,0.95);
+}
+.nav-link-premium:hover::after {
+    width: 60%;
+}
+.nav-link-premium.active {
+    color: #ffffff;
+    font-weight: 600;
+}
+.nav-link-premium.active::after {
+    width: 100%;
+    background: linear-gradient(90deg, rgba(240,180,41,0.4) 0%, #f0b429 50%, rgba(240,180,41,0.4) 100%);
+}
+
+/* ── CTA header button ───────────────────────────────── */
+.nav-cta-btn {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 0.5rem 1.2rem;
+    border-radius: 0.4rem;
+    border: 1.5px solid;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+.nav-cta-transparent {
+    border-color: rgba(240,180,41,0.45);
+    color: rgba(240,180,41,0.85);
+    background: rgba(240,180,41,0.04);
+}
+.nav-cta-transparent:hover {
+    border-color: rgba(240,180,41,0.9);
+    color: #f0b429;
+    background: rgba(240,180,41,0.10);
+    box-shadow: 0 0 20px rgba(240,180,41,0.12);
+}
+.nav-cta-scrolled {
+    border-color: #f0b429;
+    color: #030b05;
+    background: linear-gradient(135deg, #f0b429 0%, #d97706 100%);
+    box-shadow: 0 3px 14px rgba(240,180,41,0.30);
+}
+.nav-cta-scrolled:hover {
+    background: linear-gradient(135deg, #fcd34d 0%, #f0b429 100%);
+    box-shadow: 0 4px 20px rgba(240,180,41,0.50);
+    transform: translateY(-1px);
+}
+
+/* ── Mobile nav items ────────────────────────────────── */
+.mobile-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.04em;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+.mobile-nav-item:hover {
+    color: rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.06);
+}
+.mobile-nav-item.active {
+    color: #ffffff;
+    background: rgba(240,180,41,0.08);
+    border-color: rgba(240,180,41,0.15);
+}
+.mobile-nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.20);
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+.mobile-nav-dot.active {
+    background: #f0b429;
+    box-shadow: 0 0 8px rgba(240,180,41,0.5);
+}
+
+/* Ancien .nav-item conservé pour pages intérieures */
 .nav-item {
     position: relative;
     font-size: 0.85rem;

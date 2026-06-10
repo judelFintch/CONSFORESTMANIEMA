@@ -77,6 +77,40 @@ document.addEventListener('DOMContentLoaded', () => {
         .forEach(el => io.observe(el));
 });
 
+/* ── Count-up animation ──────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+    const DURATION = 1800;
+
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function runCount(el) {
+        const target = parseInt(el.dataset.count, 10);
+        const start  = performance.now();
+        function tick(now) {
+            const progress = Math.min((now - start) / DURATION, 1);
+            const value    = Math.round(easeOutCubic(progress) * target);
+            el.textContent = value.toLocaleString('fr-FR');
+            if (progress < 1) requestAnimationFrame(tick);
+            else el.textContent = target.toLocaleString('fr-FR');
+        }
+        requestAnimationFrame(tick);
+    }
+
+    const countEls = document.querySelectorAll('.count-num[data-count]');
+    if (!countEls.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.dataset.counted) {
+                entry.target.dataset.counted = '1';
+                runCount(entry.target);
+            }
+        });
+    }, { threshold: 0.6 });
+
+    countEls.forEach(el => observer.observe(el));
+});
+
 /* ── Hero parallax (subtle) ──────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
     const heroImg = document.querySelector('.hero-bg-img');

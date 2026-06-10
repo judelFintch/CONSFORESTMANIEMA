@@ -46,19 +46,14 @@
                     Justice · Paix · Travail
                     <span class="w-4 h-px bg-gold-400/40"></span>
                 </div>
-                {{-- Réseaux --}}
-                <div class="flex gap-2">
-                    @foreach([
-                        ['bg' => 'hover:bg-blue-600', 'label' => 'Facebook', 'path' => 'M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z'],
-                        ['bg' => 'hover:bg-sky-500', 'label' => 'Twitter', 'path' => 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z'],
-                        ['bg' => 'hover:bg-blue-700', 'label' => 'LinkedIn', 'path' => 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z'],
-                    ] as $s)
-                    <a href="#" aria-label="{{ $s['label'] }}"
-                       class="w-9 h-9 bg-white/8 {{ $s['bg'] }} border border-white/10 hover:border-transparent rounded-lg flex items-center justify-center transition-all duration-200">
-                        <svg class="w-4 h-4 fill-current text-white/70" viewBox="0 0 24 24"><path d="{{ $s['path'] }}"/></svg>
-                    </a>
-                    @endforeach
-                </div>
+                {{-- Contact rapide --}}
+                <a href="{{ route('contact') }}"
+                   class="inline-flex items-center gap-2 text-white/50 hover:text-gold-400 text-xs font-medium transition-colors">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    Nous écrire
+                </a>
             </div>
 
             {{-- Col 2 : Navigation --}}
@@ -100,17 +95,17 @@
                 </h3>
                 <ul class="space-y-3">
                     @foreach([
-                        ['icon' => '🏢', 'name' => 'BFD SARL', 'sub' => 'Porteur du projet'],
-                        ['icon' => '🇨🇩', 'name' => 'Gouvernement RDC', 'sub' => 'Partenaire institutionnel'],
-                        ['icon' => '🌿', 'name' => 'Min. Environnement', 'sub' => 'Autorité de tutelle'],
-                        ['icon' => '🗺️', 'name' => 'Province du Maniema', 'sub' => 'Gouvernorat provincial'],
-                        ['icon' => '🌍', 'name' => 'Partenaires Intl.', 'sub' => 'Organisations techniques'],
+                        ['name' => 'BFD SARL', 'sub' => 'Porteur du projet'],
+                        ['name' => 'Gouvernement RDC', 'sub' => 'Partenaire institutionnel'],
+                        ['name' => 'Min. Environnement', 'sub' => 'Autorité de tutelle'],
+                        ['name' => 'Province du Maniema', 'sub' => 'Gouvernorat provincial'],
+                        ['name' => 'Partenaires Intl.', 'sub' => 'Organisations techniques'],
                     ] as $p)
                     <li class="flex items-start gap-3">
-                        <span class="text-xl mt-0.5 flex-shrink-0">{{ $p['icon'] }}</span>
+                        <div class="w-1.5 h-1.5 rounded-full bg-forest-500 mt-2 flex-shrink-0"></div>
                         <div>
                             <p class="text-white/75 text-sm font-medium">{{ $p['name'] }}</p>
-                            <p class="text-white/30 text-xs">{{ $p['sub'] }}</p>
+                            <p class="text-white/40 text-xs">{{ $p['sub'] }}</p>
                         </div>
                     </li>
                     @endforeach
@@ -148,14 +143,14 @@
                         </div>
                     </li>
                     <li class="flex items-start gap-3">
-                        <div class="w-8 h-8 bg-gold-800/40 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <svg class="w-3.5 h-3.5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        <div class="w-8 h-8 bg-forest-800/60 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <svg class="w-3.5 h-3.5 text-forest-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253"/>
                             </svg>
                         </div>
                         <div>
-                            <p class="text-white/60 text-xs font-medium">Téléphone</p>
-                            <a href="tel:+243XXXXXXXXX" class="text-white/35 hover:text-gold-400 text-xs transition-colors">+243 XXX XXX XXX</a>
+                            <p class="text-white/60 text-xs font-medium">Site web</p>
+                            <span class="text-white/40 text-xs">consforestmaniema.cd</span>
                         </div>
                     </li>
                 </ul>
@@ -169,9 +164,9 @@
         {{-- Bottom bar --}}
         <div class="mt-14 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
         <div class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p class="text-white/25 text-xs text-center">
+            <p class="text-white/50 text-xs text-center">
                 &copy; {{ date('Y') }}
-                <span class="text-white/45 font-medium">ConsForest Maniema</span>
+                <span class="text-white/70 font-medium">ConsForest Maniema</span>
                 — BFD SARL. Tous droits réservés.
             </p>
             <div class="flex items-center gap-3 text-[11px] text-white/25">
