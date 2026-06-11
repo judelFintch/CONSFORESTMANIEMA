@@ -106,7 +106,7 @@
 {{-- ══════════════════════════════════════════════════════════
      2. INTRO — 3 NIVEAUX DE CONFORMITÉ
 ══════════════════════════════════════════════════════════ --}}
-<section class="py-20 bg-white">
+<section class="py-20 bg-white cf-net-bg">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {{-- En-tête section --}}
@@ -285,7 +285,7 @@
 {{-- ══════════════════════════════════════════════════════════
      4. TIMELINE — LES 5 PHASES (ACCORDÉON ALPINE.JS)
 ══════════════════════════════════════════════════════════ --}}
-<section id="processus" class="py-24 bg-white">
+<section id="processus" class="py-24 bg-white cf-net-bg">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="text-center mb-16 reveal">
@@ -462,7 +462,7 @@
 {{-- ══════════════════════════════════════════════════════════
      6. CTA FINAL
 ══════════════════════════════════════════════════════════ --}}
-<section class="py-20 bg-white">
+<section class="py-20 bg-white cf-net-bg">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
 
         <div class="inline-flex items-center gap-2 section-badge mb-6">
