@@ -129,7 +129,11 @@
                         </div>
                         <div>
                             <p class="text-white/60 text-xs font-medium">Siège Social</p>
-                            <p class="text-white/35 text-xs leading-relaxed mt-0.5">Kinshasa, RDC<br>Bureau : Kindu, Maniema</p>
+                            <p class="text-white/35 text-xs leading-relaxed mt-0.5">
+                                8618 Av. de la Clinique, Im. Gloire à Dieu Ap. 1<br>
+                                Commune de la Gombe, Kinshasa — RDC<br>
+                                <span class="text-white/25">Bureau terrain : Kindu, Maniema</span>
+                            </p>
                         </div>
                     </li>
                     <li class="flex items-start gap-3">
@@ -140,7 +144,8 @@
                         </div>
                         <div>
                             <p class="text-white/60 text-xs font-medium">E-mail</p>
-                            <a href="mailto:info@consforestmaniema.cd" class="text-white/35 hover:text-gold-400 text-xs transition-colors">info@consforestmaniema.cd</a>
+                            <a href="mailto:info@consforestmaniema.com" class="text-white/35 hover:text-gold-400 text-xs transition-colors">info@consforestmaniema.com</a>
+                            <a href="mailto:proj.eco.kinma@gmail.com" class="text-white/35 hover:text-gold-400 text-xs transition-colors mt-0.5 block">proj.eco.kinma@gmail.com</a>
                         </div>
                     </li>
                     <li class="flex items-start gap-3">
@@ -151,7 +156,7 @@
                         </div>
                         <div>
                             <p class="text-white/60 text-xs font-medium">Site web</p>
-                            <span class="text-white/40 text-xs">consforestmaniema.cd</span>
+                            <span class="text-white/40 text-xs">consforestmaniema.com</span>
                         </div>
                     </li>
                 </ul>

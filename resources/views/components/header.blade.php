@@ -33,12 +33,12 @@ $navLinks = [
                 <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
                 Programme actif · Province du Maniema, République Démocratique du Congo
             </span>
-            <a href="mailto:info@consforestmaniema.cd"
+            <a href="mailto:info@consforestmaniema.com"
                class="hidden sm:flex items-center gap-1.5 text-[11px] text-white/40 hover:text-gold-400 transition-colors font-light tracking-wide">
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
-                info@consforestmaniema.cd
+                info@consforestmaniema.com
             </a>
         </div>
     </div>
@@ -147,8 +147,8 @@ $navLinks = [
             </a>
 
             {{-- Email rapide --}}
-            <p class="text-center text-[11px] text-white/25 mt-4 font-light">
-                info@consforestmaniema.cd
+            <p class="text-center text-[11px] text-white/25 mt-4 font-light leading-relaxed">
+                info@consforestmaniema.com<br>proj.eco.kinma@gmail.com
             </p>
         </div>
     </div>
