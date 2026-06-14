@@ -118,11 +118,9 @@ Alpine.data('forestSound', () => ({
 
     init() {
         this.audio = new Audio('/sounds/foret.mp3');
-        this.audio.loop   = true;
-        this.audio.volume = 0.35;
-
-        /* Nettoyage quand le composant est détruit */
-        this.$watch('playing', () => {});
+        this.audio.loop        = true;
+        this.audio.volume      = 0.35;
+        this.audio.preload     = 'none';
     },
 
     toggle() {
@@ -131,10 +129,12 @@ Alpine.data('forestSound', () => ({
             this.audio.pause();
             this.playing = false;
         } else {
+            /* Relance depuis le début si le fichier a fini */
+            if (this.audio.ended) this.audio.currentTime = 0;
             this.audio.play().then(() => {
                 this.playing = true;
-            }).catch(() => {
-                /* Fichier absent ou blocage navigateur — silencieux */
+            }).catch((err) => {
+                console.warn('[ForestSound] Lecture bloquée :', err.message);
             });
         }
     },
