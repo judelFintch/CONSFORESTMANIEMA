@@ -190,30 +190,21 @@
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                                <div>
-                                    <label for="phone" class="block text-xs font-semibold text-gray-700 mb-1.5">Téléphone</label>
-                                    <input type="tel" id="phone" name="phone"
-                                           value="{{ old('phone') }}"
-                                           placeholder="+243 XXX XXX XXX"
-                                           class="form-input">
-                                </div>
-                                <div>
-                                    <label for="subject" class="block text-xs font-semibold text-gray-700 mb-1.5">
-                                        Sujet <span class="text-red-500">*</span>
-                                    </label>
-                                    <select id="subject" name="subject"
-                                            class="form-input @error('subject') border-red-400 @enderror"
-                                            required>
-                                        <option value="" disabled {{ !old('subject') ? 'selected' : '' }}>Choisir un sujet</option>
-                                        @foreach(["Demande d'information générale", 'Proposition de partenariat', 'Investissement / Crédit Carbone', 'Collaboration scientifique', 'Presse & Médias', 'Question technique', 'Autre'] as $subj)
-                                        <option value="{{ $subj }}" {{ old('subject') === $subj ? 'selected' : '' }}>{{ $subj }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('subject')
-                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                    @enderror
-                                </div>
+                            <div>
+                                <label for="subject" class="block text-xs font-semibold text-gray-700 mb-1.5">
+                                    Sujet <span class="text-red-500">*</span>
+                                </label>
+                                <select id="subject" name="subject"
+                                        class="form-input @error('subject') border-red-400 @enderror"
+                                        required>
+                                    <option value="" disabled {{ !old('subject') ? 'selected' : '' }}>Choisir un sujet</option>
+                                    @foreach(["Demande d'information générale", 'Proposition de partenariat', 'Investissement / Crédit Carbone', 'Collaboration scientifique', 'Presse & Médias', 'Question technique', 'Autre'] as $subj)
+                                    <option value="{{ $subj }}" {{ old('subject') === $subj ? 'selected' : '' }}>{{ $subj }}</option>
+                                    @endforeach
+                                </select>
+                                @error('subject')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div>

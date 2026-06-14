@@ -395,19 +395,30 @@
 {{-- ══════════════════════════════════════════
      NOTRE ÉQUIPE
 ══════════════════════════════════════════ --}}
-<section id="equipe" class="py-16 bg-gray-50 cf-net-bg">
+<section id="equipe" class="py-20 bg-gray-50 cf-net-bg">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {{-- En-tête --}}
-        <div class="text-center mb-12 reveal">
+        <div class="text-center mb-14 reveal">
             <span class="section-badge mb-5">Les personnes</span>
             <h2 class="section-title mb-4">Notre <span class="forest">Équipe</span></h2>
-            <p class="text-gray-500 text-sm leading-relaxed max-w-2xl mx-auto">
-                Notre projet repose sur une équipe pluridisciplinaire composée de profils expérimentés
-                dans la gestion de projet, l'environnement, les finances, la logistique et l'administration.
-                Chaque membre contribue à la mise en œuvre efficace du programme de conservation forestière
-                et de crédit carbone.
+            <p class="text-gray-500 text-sm leading-relaxed max-w-xl mx-auto mb-8">
+                Une équipe pluridisciplinaire réunissant experts en gestion de projet, environnement,
+                finances, logistique et administration au service de la conservation forestière.
             </p>
+            {{-- Mini stats équipe --}}
+            <div class="inline-flex items-center gap-6 bg-white rounded-2xl px-6 py-3 shadow-sm border border-gray-100">
+                @foreach([
+                    ['val' => '7',   'label' => 'Membres'],
+                    ['val' => '3',   'label' => 'Domaines'],
+                    ['val' => 'RDC', 'label' => 'Terrain'],
+                ] as $s)
+                <div class="flex flex-col items-center @if(!$loop->last) border-r border-gray-100 pr-6 @endif">
+                    <span class="text-forest-700 font-black text-lg leading-none">{{ $s['val'] }}</span>
+                    <span class="text-gray-400 text-[11px] mt-0.5">{{ $s['label'] }}</span>
+                </div>
+                @endforeach
+            </div>
         </div>
 
         {{-- Grille des cartes : 3 cols desktop, 2 tablette, 1 mobile --}}
@@ -417,6 +428,8 @@
                 name="Conti Vincenzo"
                 role="Projet Portfolio Manager & Co-Fondateur"
                 subtitle="Gérant BFD – Bâtir sur des Fondements Durables"
+                description="Expert en gestion de portefeuille de projets environnementaux et co-fondateur du programme ConsForest Maniema, coordonnant l'ensemble des opérations terrain et institutionnelles."
+                photo="Conti Vincenzo.png"
                 email="proj.eco.kinma@gmail.com"
                 color="green"
             />
@@ -424,13 +437,18 @@
             <x-team-card
                 name="BASADILA Bienvenue-David"
                 role="Gérant New Goshen"
+                subtitle="Partenaire carbone REDD+"
+                description="Responsable du partenariat New Goshen pour la certification REDD+ et la commercialisation des crédits carbone sur les marchés volontaires internationaux."
+                photo="BASADILA Bienvenue-David .png"
                 email="proj.eco.kinma@gmail.com"
                 color="blue"
             />
 
             <x-team-card
                 name="Kabila Ngoie Lise"
-                role="Finances"
+                role="Responsable Finances"
+                description="Gestion financière et comptable du programme ConsForest Maniema — budgétisation, suivi des flux et reporting financier aux partenaires institutionnels."
+                photo="Kabila Ngoie Lise.png"
                 email="proj.eco.kinma@gmail.com"
                 color="gold"
             />
@@ -438,6 +456,8 @@
             <x-team-card
                 name="Gisele Kasongo"
                 role="Project Portfolio Office"
+                description="Coordinatrice PPO : suivi des livrables, reporting des indicateurs de performance et interface entre les équipes terrain et la direction du programme."
+                photo="Gisele Kasongo .png"
                 email="proj.eco.kinma@gmail.com"
                 color="green"
             />
@@ -448,22 +468,25 @@
                 :description="[
                     'Chef de Travaux à l\'Université Pédagogique Nationale (UPN).',
                     'Directeur Général de l\'Institut Supérieur d\'Études Agronomiques de Kasangulu.',
-                    'Consultant au Ministère de l\'Environnement.',
+                    'Consultant au Ministère de l\'Environnement — expertise MRV et écosystèmes forestiers.',
                 ]"
+                photo="Ir KIMBU KAHOHO Charles.png"
                 email="proj.eco.kinma@gmail.com"
                 color="blue"
             />
 
             <x-team-card
                 name="Dr. Patrique Sabwe"
-                role="DRH"
+                role="Directeur des Ressources Humaines"
+                description="Pilotage du capital humain du programme : recrutement, développement des équipes terrain et gestion des relations sociales avec les communautés locales."
                 email="proj.eco.kinma@gmail.com"
                 color="gold"
             />
 
             <x-team-card
                 name="FERUZI BIKUGI Baudouin"
-                role="Logistique Kindu"
+                role="Responsable Logistique Kindu"
+                description="Coordination logistique sur le terrain dans la province du Maniema — approvisionnement, mobilisation des équipes et gestion des opérations à Kindu."
                 email="proj.eco.kinma@gmail.com"
                 color="green"
             />
