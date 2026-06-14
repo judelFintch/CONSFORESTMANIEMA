@@ -111,39 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
     countEls.forEach(el => observer.observe(el));
 });
 
-/* ── Son de forêt (bouton hero) ──────────────────────── */
-Alpine.data('forestSound', () => ({
-    playing: false,
-    audio:   null,
-
-    init() {
-        this.audio = new Audio('/sounds/foret.mp3');
-        this.audio.loop        = true;
-        this.audio.volume      = 0.35;
-        this.audio.preload     = 'none';
-    },
-
-    toggle() {
-        if (!this.audio) return;
-        if (this.playing) {
-            this.audio.pause();
-            this.playing = false;
-        } else {
-            /* Relance depuis le début si le fichier a fini */
-            if (this.audio.ended) this.audio.currentTime = 0;
-            this.audio.play().then(() => {
-                this.playing = true;
-            }).catch((err) => {
-                console.warn('[ForestSound] Lecture bloquée :', err.message);
-            });
-        }
-    },
-
-    destroy() {
-        if (this.audio) { this.audio.pause(); this.audio.src = ''; }
-    },
-}));
-
 /* ── Newsletter ──────────────────────────────────────── */
 Alpine.data('newsletter', () => ({
     email:   '',
