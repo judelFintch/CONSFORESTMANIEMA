@@ -1125,3 +1125,99 @@ body {
 .cf-ff8  { top: 59%; left: 82%; animation: cfFfB 3.6s ease-in-out 2.6s  infinite; }
 .cf-ff9  { top: 66%; left: 90%; animation: cfFfA 5.0s ease-in-out 1.4s  infinite; }
 .cf-ff10 { top: 56%; left: 48%; animation: cfFfC 4.2s ease-in-out 4.0s  infinite; }
+
+/* ═══════════════════════════════════════════════════════════
+   TEAM — cartes équipe (homepage + about)
+═══════════════════════════════════════════════════════════ */
+
+/* ── Carte standard (grille homepage) ── */
+.team-home-card {
+    position: relative;
+    transition: transform 0.38s cubic-bezier(.4,0,.2,1),
+                box-shadow 0.38s ease,
+                border-color 0.38s ease;
+    overflow: hidden;
+}
+.team-home-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1.25rem;
+    opacity: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(240,180,41,0.07), transparent 65%);
+    transition: opacity 0.38s ease;
+    pointer-events: none;
+}
+.team-home-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(240,180,41,0.30) !important;
+    box-shadow: 0 28px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(240,180,41,0.16);
+}
+.team-home-card:hover::after { opacity: 1; }
+
+/* ── Carte vedette (co-fondateur) ── */
+.team-featured {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(240,180,41,0.20);
+    border-radius: 1.75rem;
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.team-featured::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg,
+        transparent 0%, #138038 15%, #f0b429 50%, #138038 85%, transparent 100%);
+}
+.team-featured::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    border-radius: 9999px;
+    background: radial-gradient(ellipse, rgba(240,180,41,0.05), transparent 65%);
+    pointer-events: none;
+}
+.team-featured:hover {
+    border-color: rgba(240,180,41,0.32);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.40), 0 0 0 1px rgba(240,180,41,0.12);
+}
+
+/* ── Avatar ring — gradient tournant ── */
+.avatar-ring {
+    padding: 2.5px;
+    border-radius: 9999px;
+    background: linear-gradient(145deg, #138038 0%, #f0b429 55%, #34c961 100%);
+    display: inline-block;
+    flex-shrink: 0;
+}
+.avatar-ring.ring-blue { background: linear-gradient(145deg, #0d4ea8 0%, #34c961 100%); }
+.avatar-ring.ring-gold { background: linear-gradient(145deg, #d97706 0%, #f0b429 60%, #138038 100%); }
+
+/* ── Halo pulsant derrière l'avatar vedette ── */
+@keyframes glow-pulse {
+    0%, 100% { opacity: 0.50; transform: scale(1.00); }
+    50%       { opacity: 0.85; transform: scale(1.06); }
+}
+.avatar-halo {
+    position: absolute;
+    inset: -8px;
+    border-radius: 9999px;
+    background: conic-gradient(from 0deg, #138038 0%, #f0b429 35%, #34c961 65%, #138038 100%);
+    filter: blur(10px);
+    animation: glow-pulse 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* ── Carte about page (light) ── */
+.team-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.team-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.10);
+}

@@ -393,6 +393,87 @@
 
 
 {{-- ══════════════════════════════════════════
+     NOTRE ÉQUIPE
+══════════════════════════════════════════ --}}
+<section id="equipe" class="py-16 bg-gray-50 cf-net-bg">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {{-- En-tête --}}
+        <div class="text-center mb-12 reveal">
+            <span class="section-badge mb-5">Les personnes</span>
+            <h2 class="section-title mb-4">Notre <span class="forest">Équipe</span></h2>
+            <p class="text-gray-500 text-sm leading-relaxed max-w-2xl mx-auto">
+                Notre projet repose sur une équipe pluridisciplinaire composée de profils expérimentés
+                dans la gestion de projet, l'environnement, les finances, la logistique et l'administration.
+                Chaque membre contribue à la mise en œuvre efficace du programme de conservation forestière
+                et de crédit carbone.
+            </p>
+        </div>
+
+        {{-- Grille des cartes : 3 cols desktop, 2 tablette, 1 mobile --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal">
+
+            <x-team-card
+                name="Conti Vincenzo"
+                role="Projet Portfolio Manager & Co-Fondateur"
+                subtitle="Gérant BFD – Bâtir sur des Fondements Durables"
+                email="proj.eco.kinma@gmail.com"
+                color="green"
+            />
+
+            <x-team-card
+                name="BASADILA Bienvenue-David"
+                role="Gérant New Goshen"
+                email="proj.eco.kinma@gmail.com"
+                color="blue"
+            />
+
+            <x-team-card
+                name="Kabila Ngoie Lise"
+                role="Finances"
+                email="proj.eco.kinma@gmail.com"
+                color="gold"
+            />
+
+            <x-team-card
+                name="Gisele Kasongo"
+                role="Project Portfolio Office"
+                email="proj.eco.kinma@gmail.com"
+                color="green"
+            />
+
+            <x-team-card
+                name="Ir KIMBU KAHOHO Charles"
+                role="Technicien du Projet"
+                :description="[
+                    'Chef de Travaux à l\'Université Pédagogique Nationale (UPN).',
+                    'Directeur Général de l\'Institut Supérieur d\'Études Agronomiques de Kasangulu.',
+                    'Consultant au Ministère de l\'Environnement.',
+                ]"
+                email="proj.eco.kinma@gmail.com"
+                color="blue"
+            />
+
+            <x-team-card
+                name="Dr. Patrique Sabwe"
+                role="DRH"
+                email="proj.eco.kinma@gmail.com"
+                color="gold"
+            />
+
+            <x-team-card
+                name="FERUZI BIKUGI Baudouin"
+                role="Logistique Kindu"
+                email="proj.eco.kinma@gmail.com"
+                color="green"
+            />
+
+        </div>
+    </div>
+</section>
+
+
+{{-- ══════════════════════════════════════════
      CTA
 ══════════════════════════════════════════ --}}
 <section class="py-16 border-t border-gray-100 bg-white cf-net-bg">

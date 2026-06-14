@@ -9,6 +9,7 @@ $navLinks = [
     ['route' => 'conservation', 'label' => 'Conservation'],
     ['route' => 'carbon',       'label' => 'Crédit Carbone'],
     ['route' => 'community',    'label' => 'Impact Social'],
+    ['route' => 'about',        'label' => 'Notre Équipe',  'anchor' => '#equipe'],
     ['route' => 'news.index',   'label' => 'Actualités'],
 ];
 @endphp
@@ -71,9 +72,8 @@ $navLinks = [
         {{-- ── Desktop links ───────────────────────────────────── --}}
         <div class="hidden lg:flex items-center">
             @foreach($navLinks as $link)
-            <a href="{{ route($link['route']) }}"
-               class="nav-link-premium
-                      {{ Route::is($link['route']) ? 'active' : '' }}">
+            <a href="{{ route($link['route']) }}{{ $link['anchor'] ?? '' }}"
+               class="nav-link-premium {{ Route::is($link['route']) && !isset($link['anchor']) ? 'active' : '' }}">
                 {{ $link['label'] }}
             </a>
             @endforeach
@@ -124,10 +124,10 @@ $navLinks = [
 
             <div class="space-y-0.5">
                 @foreach($navLinks as $link)
-                <a href="{{ route($link['route']) }}"
+                <a href="{{ route($link['route']) }}{{ $link['anchor'] ?? '' }}"
                    @click="mobileOpen = false"
-                   class="mobile-nav-item {{ Route::is($link['route']) ? 'active' : '' }}">
-                    <span class="mobile-nav-dot {{ Route::is($link['route']) ? 'active' : '' }}"></span>
+                   class="mobile-nav-item {{ Route::is($link['route']) && !isset($link['anchor']) ? 'active' : '' }}">
+                    <span class="mobile-nav-dot {{ Route::is($link['route']) && !isset($link['anchor']) ? 'active' : '' }}"></span>
                     {{ $link['label'] }}
                 </a>
                 @endforeach

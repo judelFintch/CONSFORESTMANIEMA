@@ -491,6 +491,338 @@
 
 
 {{-- ══════════════════════════════════════════
+     NOTRE ÉQUIPE — section homepage
+══════════════════════════════════════════ --}}
+@php
+$teamMembers = [
+    [
+        'name'     => 'Conti Vincenzo',
+        'role'     => 'Projet Portfolio Manager & Co-Fondateur',
+        'subtitle' => 'Gérant BFD – Bâtir sur des Fondements Durables',
+        'category' => 'Co-Fondateur · Direction',
+        'email'    => 'proj.eco.kinma@gmail.com',
+        'color'    => 'green',
+        'photo'    => 'conti-vincenzo.jpg',
+    ],
+    [
+        'name'     => 'BASADILA Bienvenue-David',
+        'role'     => 'Gérant New Goshen',
+        'subtitle' => null,
+        'category' => 'Direction',
+        'email'    => 'proj.eco.kinma@gmail.com',
+        'color'    => 'blue',
+        'photo'    => 'basadila-bienvenue.jpg',
+    ],
+    [
+        'name'     => 'Kabila Ngoie Lise',
+        'role'     => 'Finances',
+        'subtitle' => null,
+        'category' => 'Finance',
+        'email'    => 'proj.eco.kinma@gmail.com',
+        'color'    => 'gold',
+        'photo'    => 'kabila-ngoie-lise.jpg',
+    ],
+    [
+        'name'     => 'Gisele Kasongo',
+        'role'     => 'Project Portfolio Office',
+        'subtitle' => null,
+        'category' => 'Management',
+        'email'    => 'proj.eco.kinma@gmail.com',
+        'color'    => 'green',
+        'photo'    => 'gisele-kasongo.jpg',
+    ],
+    [
+        'name'     => 'Ir KIMBU KAHOHO Charles',
+        'role'     => 'Technicien du Projet',
+        'subtitle' => 'Chef de Travaux UPN · Dir. Gén. ISEAK · Consultant MEDD',
+        'category' => 'Technique',
+        'email'    => 'proj.eco.kinma@gmail.com',
+        'color'    => 'blue',
+        'photo'    => 'kimbu-kahoho-charles.jpg',
+    ],
+    [
+        'name'     => 'Dr. Patrique Sabwe',
+        'role'     => 'DRH',
+        'subtitle' => null,
+        'category' => 'Ressources Humaines',
+        'email'    => 'proj.eco.kinma@gmail.com',
+        'color'    => 'gold',
+        'photo'    => 'patrique-sabwe.jpg',
+    ],
+    [
+        'name'     => 'FERUZI BIKUGI Baudouin',
+        'role'     => 'Logistique Kindu',
+        'subtitle' => null,
+        'category' => 'Logistique',
+        'email'    => 'proj.eco.kinma@gmail.com',
+        'color'    => 'green',
+        'photo'    => 'feruzi-bikugi.jpg',
+    ],
+];
+
+$teamPalettes = [
+    'green' => [
+        'ring'       => '',
+        'innerFrom'  => '#0a3b1a',
+        'innerTo'    => '#16a34a',
+        'badgeBg'    => 'rgba(22,163,74,0.18)',
+        'badgeColor' => '#34c961',
+        'badgeBorder'=> 'rgba(52,201,97,0.28)',
+        'roleColor'  => '#4ade80',
+    ],
+    'blue' => [
+        'ring'       => 'ring-blue',
+        'innerFrom'  => '#051f42',
+        'innerTo'    => '#0d4ea8',
+        'badgeBg'    => 'rgba(13,78,168,0.18)',
+        'badgeColor' => '#5b9bd5',
+        'badgeBorder'=> 'rgba(39,117,197,0.28)',
+        'roleColor'  => '#93c5fd',
+    ],
+    'gold' => [
+        'ring'       => 'ring-gold',
+        'innerFrom'  => '#1a0e00',
+        'innerTo'    => '#92400e',
+        'badgeBg'    => 'rgba(240,180,41,0.15)',
+        'badgeColor' => '#f0b429',
+        'badgeBorder'=> 'rgba(240,180,41,0.28)',
+        'roleColor'  => '#fcd34d',
+    ],
+];
+
+$featured     = $teamMembers[0];
+$gridMembers  = array_slice($teamMembers, 1);
+$fp           = $teamPalettes[$featured['color']];
+
+/* Fonction helper initiales */
+$initials = fn(string $n) => mb_strtoupper(
+    collect(explode(' ', trim($n)))->map(fn($w) => mb_substr($w,0,1))->take(2)->implode('')
+);
+@endphp
+
+<section class="py-24 relative overflow-hidden"
+         style="background: linear-gradient(155deg, #020d06 0%, #030f21 45%, #061a0c 100%);">
+
+    {{-- Halo décoratif central --}}
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px]"
+             style="background: radial-gradient(ellipse at center, rgba(240,180,41,0.04) 0%, transparent 65%);"></div>
+        <div class="absolute bottom-0 right-0 w-[400px] h-[300px]"
+             style="background: radial-gradient(ellipse at bottom right, rgba(22,163,74,0.04) 0%, transparent 65%);"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        {{-- ── EN-TÊTE ────────────────────────────────────────────── --}}
+        <div class="text-center mb-14 reveal">
+            <span class="section-badge white mb-6">Les femmes &amp; hommes du projet</span>
+            <h2 class="section-title white mb-4" style="font-family: var(--font-display);">
+                Notre <span class="gold">Équipe</span>
+            </h2>
+            <p class="text-white/45 text-sm leading-relaxed max-w-xl mx-auto mb-7">
+                Une équipe pluridisciplinaire d'experts en gestion de projet, environnement,
+                finances, logistique et administration — au service de la forêt du Maniema.
+            </p>
+            {{-- Pill statistique --}}
+            <div class="inline-flex items-center gap-3 rounded-full px-5 py-2.5"
+                 style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);">
+                <span class="flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+                    <span class="text-green-400/80 text-xs font-semibold">7 membres actifs</span>
+                </span>
+                <span class="w-px h-3 bg-white/15"></span>
+                <span class="text-white/35 text-xs">Province du Maniema · RDC</span>
+            </div>
+        </div>
+
+        {{-- ── CARTE VEDETTE — Co-Fondateur ───────────────────────── --}}
+        <div class="team-featured p-8 sm:p-10 mb-6 reveal">
+            <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8 sm:gap-10">
+
+                {{-- Avatar grand format --}}
+                <div class="flex-shrink-0 relative">
+                    <div class="avatar-halo"></div>
+                    <div class="avatar-ring {{ $fp['ring'] }} relative z-10">
+                        <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-full overflow-hidden"
+                             style="background: linear-gradient(145deg, {{ $fp['innerFrom'] }}, {{ $fp['innerTo'] }});">
+                            @if(file_exists(public_path('images/team/' . $featured['photo'])))
+                                <img src="{{ asset('images/team/' . $featured['photo']) }}"
+                                     alt="{{ $featured['name'] }}"
+                                     class="w-full h-full object-cover object-top">
+                            @else
+                                <svg viewBox="0 0 144 144" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="72" cy="72" r="66" fill="none" stroke="{{ $fp['badgeColor'] }}" stroke-width="0.7" opacity="0.18"/>
+                                    <circle cx="72" cy="72" r="52" fill="none" stroke="{{ $fp['badgeColor'] }}" stroke-width="0.6" opacity="0.13"/>
+                                    <circle cx="72" cy="72" r="38" fill="none" stroke="{{ $fp['badgeColor'] }}" stroke-width="0.5" opacity="0.09"/>
+                                    <circle cx="72" cy="72" r="24" fill="none" stroke="{{ $fp['badgeColor'] }}" stroke-width="0.5" opacity="0.07"/>
+                                    <text x="72" y="80" text-anchor="middle"
+                                          font-family="Inter,ui-sans-serif,sans-serif"
+                                          font-size="34" font-weight="900"
+                                          fill="white" opacity="0.92">{{ $initials($featured['name']) }}</text>
+                                </svg>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Informations --}}
+                <div class="flex-1 min-w-0 text-center sm:text-left">
+                    {{-- Badge rôle --}}
+                    <div class="mb-4">
+                        <span class="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase px-3.5 py-1.5 rounded-full"
+                              style="background: {{ $fp['badgeBg'] }}; color: {{ $fp['badgeColor'] }}; border: 1px solid {{ $fp['badgeBorder'] }};">
+                            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                                  style="background: {{ $fp['badgeColor'] }};"></span>
+                            {{ $featured['category'] }}
+                        </span>
+                    </div>
+
+                    {{-- Nom --}}
+                    <h3 class="font-bold text-white leading-tight mb-2"
+                        style="font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2rem);">
+                        {{ $featured['name'] }}
+                    </h3>
+
+                    {{-- Fonction --}}
+                    <p class="font-semibold text-base mb-1" style="color: {{ $fp['roleColor'] }};">
+                        {{ $featured['role'] }}
+                    </p>
+
+                    @if($featured['subtitle'])
+                    <p class="text-white/40 text-sm mb-5">{{ $featured['subtitle'] }}</p>
+                    @else
+                    <div class="mb-5"></div>
+                    @endif
+
+                    {{-- Séparateur --}}
+                    <div class="hidden sm:block w-14 h-px mb-5"
+                         style="background: linear-gradient(90deg, {{ $fp['badgeColor'] }}, transparent);"></div>
+
+                    {{-- Email --}}
+                    <a href="mailto:{{ $featured['email'] }}"
+                       class="inline-flex items-center gap-2 text-xs font-semibold px-5 py-2.5 rounded-xl
+                              transition-all duration-200 hover:opacity-80"
+                       style="background: {{ $fp['badgeBg'] }}; color: {{ $fp['badgeColor'] }}; border: 1px solid {{ $fp['badgeBorder'] }};">
+                        <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        {{ $featured['email'] }}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {{-- ── GRILLE — 6 autres membres ───────────────────────────── --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+            @foreach($gridMembers as $i => $m)
+            @php $p = $teamPalettes[$m['color']]; @endphp
+
+            <div class="team-home-card glass-card p-6 flex flex-col items-center text-center reveal"
+                 style="animation-delay: {{ ($i + 1) * 0.08 }}s;">
+
+                {{-- Avatar --}}
+                <div class="mb-6 relative">
+                    <div class="avatar-ring {{ $p['ring'] }}">
+                        <div class="w-24 h-24 rounded-full overflow-hidden"
+                             style="background: linear-gradient(145deg, {{ $p['innerFrom'] }}, {{ $p['innerTo'] }});">
+                            @if(file_exists(public_path('images/team/' . $m['photo'])))
+                                <img src="{{ asset('images/team/' . $m['photo']) }}"
+                                     alt="{{ $m['name'] }}"
+                                     class="w-full h-full object-cover object-top">
+                            @else
+                                <svg viewBox="0 0 96 96" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="48" cy="48" r="43" fill="none" stroke="{{ $p['badgeColor'] }}" stroke-width="0.6" opacity="0.18"/>
+                                    <circle cx="48" cy="48" r="33" fill="none" stroke="{{ $p['badgeColor'] }}" stroke-width="0.5" opacity="0.13"/>
+                                    <circle cx="48" cy="48" r="22" fill="none" stroke="{{ $p['badgeColor'] }}" stroke-width="0.5" opacity="0.09"/>
+                                    <text x="48" y="55" text-anchor="middle"
+                                          font-family="Inter,ui-sans-serif,sans-serif"
+                                          font-size="22" font-weight="900"
+                                          fill="white" opacity="0.92">{{ $initials($m['name']) }}</text>
+                                </svg>
+                            @endif
+                        </div>
+                    </div>
+
+                    {{-- Badge catégorie --}}
+                    <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 z-10">
+                        <span class="whitespace-nowrap text-[9px] font-bold tracking-wide px-2.5 py-1 rounded-full"
+                              style="background: {{ $p['badgeBg'] }}; color: {{ $p['badgeColor'] }}; border: 1px solid {{ $p['badgeBorder'] }};">
+                            {{ $m['category'] }}
+                        </span>
+                    </div>
+                </div>
+
+                {{-- Contenu --}}
+                <div class="mt-3 w-full flex flex-col items-center flex-1">
+
+                    <h3 class="font-bold text-white text-sm leading-tight mb-1.5 px-2">
+                        {{ $m['name'] }}
+                    </h3>
+
+                    <p class="font-semibold text-xs leading-tight mb-1" style="color: {{ $p['roleColor'] }};">
+                        {{ $m['role'] }}
+                    </p>
+
+                    @if($m['subtitle'])
+                    <p class="text-white/30 text-[10px] leading-snug mt-1 mb-3 px-2">{{ $m['subtitle'] }}</p>
+                    @else
+                    <div class="mb-3"></div>
+                    @endif
+
+                    {{-- Séparateur décoratif --}}
+                    <div class="w-10 h-px my-3"
+                         style="background: linear-gradient(90deg, transparent, {{ $p['badgeColor'] }}, transparent);"></div>
+
+                    {{-- Email --}}
+                    <a href="mailto:{{ $m['email'] }}"
+                       class="inline-flex items-center gap-1.5 text-[10px] font-medium text-white/30
+                              hover:text-white/70 transition-colors duration-200 mt-auto">
+                        <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <span>Contact</span>
+                    </a>
+                </div>
+
+            </div>
+            @endforeach
+        </div>
+
+        {{-- ── CTA ─────────────────────────────────────────────────── --}}
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal">
+            <a href="{{ route('about') }}#equipe"
+               class="inline-flex items-center gap-2 text-sm font-semibold px-6 py-3 rounded-xl
+                      text-white/70 hover:text-white transition-colors duration-200 group"
+               style="border: 1px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.04);">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                Voir tous les profils
+                <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200"
+                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+            <a href="{{ route('contact') }}"
+               class="inline-flex items-center gap-2 text-sm font-semibold px-6 py-3 rounded-xl
+                      transition-all duration-200"
+               style="background: linear-gradient(135deg, #138038, #16a34a); color: white;">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+                Contacter l'équipe
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+{{-- ══════════════════════════════════════════
      ACTUALITÉS (si existantes)
 ══════════════════════════════════════════ --}}
 @if($latestNews && $latestNews->count() > 0)
