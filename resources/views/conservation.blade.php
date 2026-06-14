@@ -219,7 +219,7 @@
 {{-- ══════════════════════════════════════════
      NOTRE APPROCHE — 4 étapes
 ══════════════════════════════════════════ --}}
-<section class="py-16 bg-white cf-net-bg">
+<section class="py-16 bg-gray-50 cf-net-bg">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="text-center mb-12 reveal">
@@ -265,7 +265,7 @@
                     'color' => '#6b21a8', 'bg' => 'rgba(107,33,168,0.07)',
                 ],
             ] as $step)
-            <div class="rounded-2xl p-6 border border-gray-100 bg-white hover:shadow-md transition-shadow duration-300">
+            <div class="rounded-2xl p-6 border border-gray-100 bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
                 <div class="flex items-center gap-3 mb-4">
                     <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
                          style="background: {{ $step['bg'] }};">
@@ -296,7 +296,7 @@
 {{-- ══════════════════════════════════════════
      TERRITOIRES D'INTERVENTION
 ══════════════════════════════════════════ --}}
-<section class="py-16 bg-institutional cf-net-bg">
+<section class="py-16 bg-institutional">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
 
         <div class="text-center mb-12 reveal">
@@ -389,7 +389,7 @@
 {{-- ══════════════════════════════════════════
      BIODIVERSITÉ
 ══════════════════════════════════════════ --}}
-<section class="py-16 bg-white cf-net-bg">
+<section class="py-16 bg-gray-50 cf-net-bg">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
