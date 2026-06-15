@@ -15,7 +15,7 @@ class NewsController extends Controller
 
     public function show(string $slug)
     {
-        $article = Article::where('slug', $slug)->where('published', true)->firstOrFail();
+        $article = Article::where('slug', $slug)->where('status', 'published')->firstOrFail();
         $related = Article::published()->where('id', '!=', $article->id)->limit(3)->get();
         return view('news.show', compact('article', 'related'));
     }
