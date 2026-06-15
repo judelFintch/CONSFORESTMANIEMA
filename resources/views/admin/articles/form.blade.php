@@ -609,13 +609,18 @@ function videoEmbed() {
     };
 }
 
+@php
+$initialTags = old('tags_raw')
+    ? array_values(array_filter(array_map('trim', explode(',', old('tags_raw')))))
+    : ($article->tags ?? []);
+@endphp
 function articleForm() {
     return {
         title:       @json(old('title', $article->title ?? '')),
         slug:        @json($article->slug ?? ''),
         status:      @json(old('status', $article->status ?? 'draft')),
         category:    @json(old('category', $article->category ?? 'actualite')),
-        tags:        @json(old('tags_raw') ? array_values(array_filter(array_map('trim', explode(',', old('tags_raw'))))) : ($article->tags ?? [])),
+        tags:        @json($initialTags),
         content:     '',
         excerptLen:  {{ strlen(old('excerpt', $article->excerpt ?? '')) }},
         metaTitle:   @json(old('meta_title',       $article->meta_title       ?? '')),
