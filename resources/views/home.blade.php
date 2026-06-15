@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('title', 'ConsForest Maniema – Conservation Forestière & Crédit Carbone en RDC')
-@section('description', 'BFD SARL et New Goshen protègent les forêts du Maniema et génèrent des crédits carbone certifiés REDD+ en République Démocratique du Congo.')
-@section('keywords', 'ConsForest Maniema, conservation forêt RDC, crédit carbone Congo, BFD SARL, New Goshen, REDD+, Maniema, Kindu')
+@section('description', 'BFD SARL et NEW GOSHEN protègent les forêts du Maniema et génèrent des crédits carbone certifiés REDD+ en République Démocratique du Congo.')
+@section('keywords', 'ConsForest Maniema, conservation forêt RDC, crédit carbone Congo, BFD SARL, NEW GOSHEN, REDD+, Maniema, Kindu')
 
 @section('content')
 
@@ -150,7 +150,7 @@
 
         <p class="hero-subtitle hero-a4">
             <strong class="text-white/80 font-semibold not-italic">BFD SARL</strong> &amp;
-            <strong class="text-white/80 font-semibold not-italic">New Goshen</strong> —
+            <strong class="text-white/80 font-semibold not-italic">NEW GOSHEN</strong> —
             conservation forestière et crédits carbone certifiés REDD+
             au cœur du Maniema.
         </p>
@@ -275,7 +275,7 @@
 
 
 {{-- ══════════════════════════════════════════
-     LES ACTEURS — BFD + New Goshen
+     LES ACTEURS — BFD + NEW GOSHEN
 ══════════════════════════════════════════ --}}
 <section class="py-16 bg-white cf-net-bg">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -312,7 +312,7 @@
                 </div>
             </div>
 
-            {{-- New Goshen --}}
+            {{-- NEW GOSHEN --}}
             <div class="reveal rounded-2xl border border-gray-100 p-6 hover:border-blue-200 hover:shadow-sm transition-all duration-300">
                 <div class="flex items-center gap-3 mb-4">
                     <div class="w-10 h-10 rounded-xl bg-blue-maniema-50 flex items-center justify-center flex-shrink-0">
@@ -322,7 +322,7 @@
                     </div>
                     <div>
                         <p class="text-[10px] font-bold tracking-[0.2em] uppercase text-blue-maniema-600">Partenaire carbone</p>
-                        <h3 class="font-bold text-gray-900 text-lg leading-tight">New Goshen</h3>
+                        <h3 class="font-bold text-gray-900 text-lg leading-tight">NEW GOSHEN</h3>
                     </div>
                 </div>
                 <p class="text-gray-500 text-sm leading-relaxed mb-4">
@@ -585,7 +585,7 @@
                 </div>
                 <div class="min-w-0">
                     <p class="font-bold text-white text-sm leading-tight">BASADILA Bienvenue-David</p>
-                    <p class="text-xs font-semibold mt-0.5" style="color:#93c5fd;">Gérant New Goshen</p>
+                    <p class="text-xs font-semibold mt-0.5" style="color:#93c5fd;">Gérant NEW GOSHEN</p>
                     <p class="text-white/35 text-xs mt-1 leading-snug">Partenaire carbone REDD+ & marchés volontaires</p>
                 </div>
             </div>
@@ -708,14 +708,14 @@
                 <div class="partner-card-bar" style="background: #16a34a;"></div>
             </div>
 
-            {{-- New Goshen --}}
+            {{-- NEW GOSHEN --}}
             <div class="partner-card-main group" style="--pc: #1d6fa8;">
                 <div class="partner-monogram" style="background: rgba(29,111,168,0.10); color: #1d6fa8;">
                     NG
                 </div>
                 <div class="flex-1 min-w-0">
                     <div class="flex items-center gap-2 mb-1">
-                        <h3 class="font-bold text-gray-900 text-base leading-tight">New Goshen</h3>
+                        <h3 class="font-bold text-gray-900 text-base leading-tight">NEW GOSHEN</h3>
                         <span class="partner-badge" style="background: rgba(29,111,168,0.10); color: #1d6fa8;">
                             Partenaire carbone
                         </span>

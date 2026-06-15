@@ -12,6 +12,8 @@ use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CertificationController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\ArticleController;
 
 // Accueil
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -47,3 +49,26 @@ Route::post('/newsletter/subscribe', [NewsletterController::class, 'store'])->na
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+// ── Administration ─────────────────────────────────────────────
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    // Auth (invités uniquement)
+    Route::middleware('guest')->group(function () {
+        Route::get('login',  [AuthController::class, 'showLogin'])->name('login');
+        Route::post('login', [AuthController::class, 'login']);
+    });
+
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+    // Zone protégée
+    Route::middleware('auth')->group(function () {
+        Route::get('/', fn () => redirect()->route('admin.articles.index'));
+
+        Route::resource('articles', ArticleController::class)
+            ->except(['show']);
+
+        Route::patch('articles/{article}/toggle', [ArticleController::class, 'togglePublish'])
+            ->name('articles.toggle');
+    });
+});
