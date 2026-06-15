@@ -87,6 +87,9 @@
                 @endif
 
                 {{-- Contenu riche --}}
+                @php
+                    $isHtml = $article->content && $article->content !== strip_tags($article->content);
+                @endphp
                 <div class="prose prose-lg prose-gray max-w-none
                             prose-headings:font-bold prose-headings:text-gray-900 prose-headings:leading-tight
                             prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-gray-100 prose-h2:pb-3
@@ -99,7 +102,13 @@
                             prose-blockquote:border-l-4 prose-blockquote:border-green-500 prose-blockquote:bg-green-50
                             prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:rounded-r-lg
                             prose-blockquote:text-gray-700 prose-blockquote:not-italic prose-blockquote:font-medium">
-                    {!! $article->content !!}
+                    @if($isHtml)
+                        {!! $article->content !!}
+                    @else
+                        @foreach(array_filter(array_map('trim', preg_split('/\n{2,}/', $article->content))) as $para)
+                            <p>{{ $para }}</p>
+                        @endforeach
+                    @endif
                 </div>
 
                 {{-- Vidéo BOTTOM --}}
