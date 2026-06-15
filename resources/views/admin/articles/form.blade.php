@@ -106,6 +106,132 @@
                 <p class="mt-1.5 text-xs text-gray-400">Idéalement entre 120 et 160 caractères pour un bon aperçu.</p>
             </div>
 
+            {{-- Vidéo --}}
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4" x-data="videoEmbed()">
+                <div class="flex items-center gap-2 mb-4">
+                    <h3 class="font-semibold text-gray-700 text-sm">Vidéo</h3>
+                    <span class="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">YouTube · Vimeo</span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="text-xs font-medium text-gray-500 mb-1.5 block">Lien YouTube ou Vimeo</label>
+                    <div class="flex gap-2">
+                        <input
+                            type="url"
+                            name="video_url"
+                            x-model="url"
+                            @input.debounce.400ms="parse()"
+                            placeholder="https://www.youtube.com/watch?v=… ou https://vimeo.com/…"
+                            class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent transition"
+                            value="{{ old('video_url', $article->video_url) }}"
+                        >
+                        <button type="button" x-show="url" @click="url=''; embedSrc=''"
+                            class="px-3 py-2 text-xs text-gray-400 hover:text-red-500 border border-gray-200 rounded-lg transition">
+                            Retirer
+                        </button>
+                    </div>
+                    <p x-show="url && !embedSrc" class="mt-1.5 text-xs text-red-500">
+                        URL non reconnue — utilisez un lien YouTube ou Vimeo valide.
+                    </p>
+                </div>
+
+                {{-- Prévisualisation embed --}}
+                <div x-show="embedSrc" x-transition class="rounded-xl overflow-hidden bg-black aspect-video mb-4 shadow-sm">
+                    <iframe :src="embedSrc" class="w-full h-full" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+
+                {{-- Séparateur OU --}}
+                <div class="relative my-4">
+                    <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-gray-200"></div></div>
+                    <div class="relative flex justify-center">
+                        <span class="bg-white px-3 text-xs text-gray-400 font-medium uppercase tracking-wider">ou fichier vidéo</span>
+                    </div>
+                </div>
+
+                {{-- Upload fichier vidéo --}}
+                <div>
+                    <label class="text-xs font-medium text-gray-500 mb-1.5 block">
+                        Téléverser une vidéo
+                        <span class="text-gray-400 font-normal">(MP4, WebM, MOV, AVI — max 200 Mo)</span>
+                    </label>
+
+                    {{-- Fichier existant --}}
+                    @if($article->exists && $article->video_file)
+                    <div class="mb-3 bg-gray-50 border border-gray-200 rounded-xl p-3 flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center shrink-0">
+                            <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm12.553 1.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-medium text-gray-700 truncate">{{ basename($article->video_file) }}</p>
+                            <a href="{{ Storage::url($article->video_file) }}" target="_blank"
+                                class="text-xs text-blue-500 hover:underline">Voir la vidéo ↗</a>
+                        </div>
+                        <label class="flex items-center gap-1.5 cursor-pointer shrink-0">
+                            <input type="checkbox" name="remove_video_file" value="1" class="text-red-500 rounded focus:ring-red-500">
+                            <span class="text-xs text-red-500 font-medium">Supprimer</span>
+                        </label>
+                    </div>
+                    @endif
+
+                    {{-- Zone de dépôt --}}
+                    <div
+                        class="border-2 border-dashed rounded-xl p-5 text-center transition-colors"
+                        :class="videoDrag ? 'border-green-500 bg-green-50 cursor-copy' : 'border-gray-200 hover:border-gray-300 cursor-pointer'"
+                        @dragover.prevent="videoDrag = true"
+                        @dragleave.prevent="videoDrag = false"
+                        @drop.prevent="dropVideo($event)"
+                        @click="$refs.videoInput.click()"
+                    >
+                        <div x-show="!videoName">
+                            <svg class="mx-auto h-10 w-10 text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M15 10l4.553-2.069A1 1 0 0121 8.862v6.276a1 1 0 01-1.447.894L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/>
+                            </svg>
+                            <p class="text-sm text-gray-500">Glissez un fichier ici ou <span class="text-green-600 font-medium">cliquez pour parcourir</span></p>
+                        </div>
+                        <div x-show="videoName" class="flex items-center justify-center gap-3">
+                            <svg class="w-6 h-6 text-green-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm12.553 1.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                            </svg>
+                            <div class="text-left">
+                                <p class="text-sm font-medium text-gray-800" x-text="videoName"></p>
+                                <p class="text-xs text-gray-400" x-text="videoSize"></p>
+                            </div>
+                            <button type="button" @click.stop="clearVideo()"
+                                class="ml-2 text-xs text-red-400 hover:text-red-600 font-medium">Retirer</button>
+                        </div>
+                        <input type="file" name="video_file" accept="video/mp4,video/webm,video/quicktime,video/x-msvideo"
+                            class="sr-only" x-ref="videoInput" @change="pickVideo($event)">
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1.5">
+                        Si une URL et un fichier sont tous deux renseignés, l'URL YouTube/Vimeo sera prioritaire.
+                    </p>
+                </div>
+
+                {{-- Position --}}
+                <div x-show="embedSrc || videoName || {{ $article->exists && $article->video_file ? 'true' : 'false' }}" x-transition>
+                    <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 block">Position dans l'article</label>
+                    <div class="flex gap-3">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="video_position" value="top"
+                                {{ old('video_position', $article->video_position ?? 'top') === 'top' ? 'checked' : '' }}
+                                class="text-green-600 focus:ring-green-500">
+                            <span class="text-sm text-gray-600">Avant le contenu</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="video_position" value="bottom"
+                                {{ old('video_position', $article->video_position ?? 'top') === 'bottom' ? 'checked' : '' }}
+                                class="text-green-600 focus:ring-green-500">
+                            <span class="text-sm text-gray-600">Après le contenu</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
             {{-- Médias --}}
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
                 <h3 class="font-semibold text-gray-700 text-sm mb-4">Médias</h3>
@@ -433,6 +559,56 @@
 @push('scripts')
 <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
 <script>
+function videoEmbed() {
+    return {
+        url:       @json(old('video_url', $article->video_url ?? '')),
+        embedSrc:  '',
+        videoName: '',
+        videoSize: '',
+        videoDrag: false,
+
+        init() {
+            if (this.url) this.parse();
+        },
+
+        parse() {
+            const url = this.url.trim();
+            let src = '';
+            const yt = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+            if (yt) src = `https://www.youtube.com/embed/${yt[1]}?rel=0&modestbranding=1`;
+            const vi = url.match(/vimeo\.com\/(\d+)/);
+            if (vi) src = `https://player.vimeo.com/video/${vi[1]}?title=0&byline=0`;
+            this.embedSrc = src;
+        },
+
+        pickVideo(e) {
+            const file = e.target.files[0];
+            if (file) this.setVideoFile(file);
+        },
+
+        dropVideo(e) {
+            this.videoDrag = false;
+            const file = e.dataTransfer.files[0];
+            if (!file) return;
+            const dt = new DataTransfer();
+            dt.items.add(file);
+            this.$refs.videoInput.files = dt.files;
+            this.setVideoFile(file);
+        },
+
+        setVideoFile(file) {
+            this.videoName = file.name;
+            this.videoSize = (file.size / (1024 * 1024)).toFixed(1) + ' Mo';
+        },
+
+        clearVideo() {
+            this.videoName = '';
+            this.videoSize = '';
+            this.$refs.videoInput.value = '';
+        },
+    };
+}
+
 function articleForm() {
     return {
         title:       @json(old('title', $article->title ?? '')),

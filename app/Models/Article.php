@@ -14,6 +14,7 @@ class Article extends Model
         'status', 'published_at', 'scheduled_at',
         'featured', 'reading_time', 'views_count',
         'meta_title', 'meta_description',
+        'video_url', 'video_file', 'video_position',
     ];
 
     protected $casts = [
@@ -90,5 +91,31 @@ class Article extends Model
     {
         $min = $this->reading_time ?? 1;
         return $min <= 1 ? '1 min' : "{$min} min";
+    }
+
+    public function getEmbedUrlAttribute(): ?string
+    {
+        if (! $this->video_url) {
+            return null;
+        }
+
+        $url = trim($this->video_url);
+
+        // YouTube : watch?v=ID ou youtu.be/ID ou /embed/ID
+        if (preg_match('/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/', $url, $m)) {
+            return "https://www.youtube.com/embed/{$m[1]}?rel=0&modestbranding=1";
+        }
+
+        // Vimeo : vimeo.com/ID
+        if (preg_match('/vimeo\.com\/(\d+)/', $url, $m)) {
+            return "https://player.vimeo.com/video/{$m[1]}?title=0&byline=0";
+        }
+
+        return null;
+    }
+
+    public function getHasVideoAttribute(): bool
+    {
+        return ! empty($this->video_url) || ! empty($this->video_file);
     }
 }

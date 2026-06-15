@@ -91,6 +91,11 @@ class ArticleController extends Controller
         }
         $data['gallery'] = $this->storeGallery($request);
 
+        $video = $this->storeVideoFile($request);
+        if ($video) {
+            $data['video_file'] = $video;
+        }
+
         Article::create($data);
 
         return redirect()->route('admin.articles.index')
@@ -108,7 +113,7 @@ class ArticleController extends Controller
 
     public function update(Request $request, Article $article)
     {
-        $data = $this->validated($request, $article);
+        $data = $this->validated($request);
         $data['tags']         = $this->parseTags($request->input('tags_raw', ''));
         $data['published_at'] = $this->resolvePublishedAt($article->published_at, $data['status'], $request);
         $data['scheduled_at'] = $data['status'] === 'scheduled'
@@ -137,6 +142,19 @@ class ArticleController extends Controller
         }
         $data['gallery'] = $gallery ?: null;
 
+        // Vidéo uploadée
+        if ($request->hasFile('video_file')) {
+            if ($article->video_file) {
+                Storage::disk('public')->delete($article->video_file);
+            }
+            $data['video_file'] = $this->storeVideoFile($request);
+        }
+        // Suppression manuelle de la vidéo uploadée
+        if ($request->boolean('remove_video_file') && $article->video_file) {
+            Storage::disk('public')->delete($article->video_file);
+            $data['video_file'] = null;
+        }
+
         $article->update($data);
 
         return redirect()->route('admin.articles.index')
@@ -147,6 +165,9 @@ class ArticleController extends Controller
     {
         if ($article->cover_image) {
             Storage::disk('public')->delete($article->cover_image);
+        }
+        if ($article->video_file) {
+            Storage::disk('public')->delete($article->video_file);
         }
         foreach ($article->gallery ?? [] as $path) {
             Storage::disk('public')->delete($path);
@@ -173,7 +194,7 @@ class ArticleController extends Controller
 
     // ── Helpers ───────────────────────────────────────────────
 
-    private function validated(Request $request, ?Article $article = null): array
+    private function validated(Request $request): array
     {
         $validated = $request->validate([
             'title'            => ['required', 'string', 'max:255'],
@@ -189,6 +210,9 @@ class ArticleController extends Controller
             'scheduled_at'     => ['nullable', 'date', 'after:now', 'required_if:status,scheduled'],
             'meta_title'       => ['nullable', 'string', 'max:70'],
             'meta_description' => ['nullable', 'string', 'max:160'],
+            'video_url'        => ['nullable', 'url', 'max:500'],
+            'video_file'       => ['nullable', 'file', 'mimetypes:video/mp4,video/webm,video/quicktime,video/x-msvideo', 'max:204800'],
+            'video_position'   => ['nullable', 'in:top,bottom'],
         ], [
             'title.required'       => 'Le titre est obligatoire.',
             'category.required'    => 'Choisissez une catégorie.',
@@ -199,6 +223,8 @@ class ArticleController extends Controller
             'cover_image.max'      => "L'image ne doit pas dépasser 4 Mo.",
             'gallery_new.*.image'  => 'Chaque fichier de galerie doit être une image.',
             'gallery_new.*.max'    => 'Chaque image de galerie ne doit pas dépasser 4 Mo.',
+            'video_file.mimetypes' => 'Le fichier vidéo doit être au format MP4, WebM, MOV ou AVI.',
+            'video_file.max'       => 'La vidéo ne doit pas dépasser 200 Mo.',
             'scheduled_at.required_if' => 'Indiquez une date de publication programmée.',
             'scheduled_at.after'   => 'La date programmée doit être dans le futur.',
             'meta_title.max'       => 'Le méta-titre ne doit pas dépasser 70 caractères.',
@@ -206,9 +232,17 @@ class ArticleController extends Controller
         ]);
 
         // Les fichiers sont gérés séparément
-        unset($validated['cover_image'], $validated['gallery_new']);
+        unset($validated['cover_image'], $validated['gallery_new'], $validated['video_file']);
 
         return $validated;
+    }
+
+    private function storeVideoFile(Request $request): ?string
+    {
+        if (! $request->hasFile('video_file')) {
+            return null;
+        }
+        return $request->file('video_file')->store('articles/videos', 'public');
     }
 
     private function storeCoverImage(Request $request): ?string

@@ -41,15 +41,39 @@
 <section class="py-16 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
+        {{-- Image de couverture --}}
         @if($article->cover_image)
         <div class="rounded-3xl overflow-hidden mb-10 shadow-xl">
-            <img src="{{ asset('storage/' . $article->cover_image) }}"
-                 alt="{{ $article->title }}"
+            <img src="{{ Storage::url($article->cover_image) }}"
+                 alt="{{ $article->cover_image_alt ?: $article->title }}"
                  class="w-full h-72 md:h-96 object-cover">
         </div>
         @endif
 
-        {{-- Content --}}
+        @php
+            $videoHtml = null;
+            if ($article->embed_url) {
+                $videoHtml = '<div class="rounded-2xl overflow-hidden shadow-xl mb-10 aspect-video bg-black">
+                    <iframe src="' . e($article->embed_url) . '" class="w-full h-full" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>';
+            } elseif ($article->video_file) {
+                $videoHtml = '<div class="rounded-2xl overflow-hidden shadow-xl mb-10 bg-black">
+                    <video controls class="w-full max-h-[520px]" preload="metadata">
+                        <source src="' . e(Storage::url($article->video_file)) . '">
+                        Votre navigateur ne supporte pas la lecture vidéo.
+                    </video>
+                </div>';
+            }
+        @endphp
+
+        {{-- Vidéo position TOP --}}
+        @if($videoHtml && ($article->video_position ?? 'top') === 'top')
+            {!! $videoHtml !!}
+        @endif
+
+        {{-- Contenu --}}
         <div class="prose prose-lg prose-gray max-w-none
                     prose-headings:font-bold prose-headings:text-gray-900
                     prose-p:text-gray-600 prose-p:leading-relaxed
@@ -57,8 +81,40 @@
                     prose-strong:text-gray-900
                     prose-ul:text-gray-600 prose-ol:text-gray-600
                     prose-blockquote:border-green-500 prose-blockquote:text-gray-700 prose-blockquote:italic">
-            {!! nl2br(e($article->content)) !!}
+            {!! $article->content !!}
         </div>
+
+        {{-- Vidéo position BOTTOM --}}
+        @if($videoHtml && ($article->video_position ?? 'top') === 'bottom')
+            <div class="mt-10">{!! $videoHtml !!}</div>
+        @endif
+
+        {{-- Tags --}}
+        @if($article->tags)
+        <div class="flex flex-wrap gap-2 mt-8">
+            @foreach($article->tags as $tag)
+            <span class="text-xs bg-green-50 text-green-700 border border-green-100 px-3 py-1 rounded-full font-medium">
+                {{ $tag }}
+            </span>
+            @endforeach
+        </div>
+        @endif
+
+        {{-- Galerie --}}
+        @if($article->gallery && count($article->gallery) > 0)
+        <div class="mt-10">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Galerie</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                @foreach($article->gallery as $img)
+                <a href="{{ Storage::url($img) }}" target="_blank"
+                    class="block rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+                    <img src="{{ Storage::url($img) }}" alt="Photo galerie"
+                        class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300">
+                </a>
+                @endforeach
+            </div>
+        </div>
+        @endif
 
         {{-- Share --}}
         <div class="mt-12 pt-8 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

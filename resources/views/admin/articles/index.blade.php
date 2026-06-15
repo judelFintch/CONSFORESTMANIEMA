@@ -154,7 +154,14 @@
                             </svg>
                             @endif
                             <div>
+                                <div class="flex items-center gap-1.5">
                                 <p class="font-semibold text-gray-800 leading-tight line-clamp-1">{{ $article->title }}</p>
+                                @if($article->has_video)
+                                <svg class="w-3.5 h-3.5 text-red-500 shrink-0" fill="currentColor" viewBox="0 0 20 20" title="Contient une vidéo">
+                                    <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm12.553 1.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                                </svg>
+                                @endif
+                            </div>
                                 <p class="text-xs text-gray-400 mt-0.5 line-clamp-1">{{ $article->excerpt }}</p>
                                 <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-1">
                                     <span class="text-xs text-gray-400">{{ $article->author }}</span>
