@@ -11,12 +11,19 @@ use Illuminate\Support\Facades\Storage;
 class ArticleController extends Controller
 {
     private array $categories = [
+        'actualite'    => 'Actualité',
         'conservation' => 'Conservation',
         'carbone'      => 'Crédit Carbone',
         'communaute'   => 'Communautés',
         'partenariat'  => 'Partenariat',
         'evenement'    => 'Événement',
-        'actualite'    => 'Actualité',
+    ];
+
+    private array $statuses = [
+        'draft'     => 'Brouillon',
+        'published' => 'Publié',
+        'scheduled' => 'Programmé',
+        'archived'  => 'Archivé',
     ];
 
     public function index(Request $request)
@@ -24,20 +31,38 @@ class ArticleController extends Controller
         $query = Article::latest();
 
         if ($request->filled('search')) {
-            $query->where('title', 'like', '%'.$request->search.'%');
+            $s = $request->search;
+            $query->where(fn ($q) => $q
+                ->where('title', 'like', "%{$s}%")
+                ->orWhere('author', 'like', "%{$s}%")
+                ->orWhere('excerpt', 'like', "%{$s}%")
+            );
         }
         if ($request->filled('category')) {
             $query->where('category', $request->category);
         }
         if ($request->filled('status')) {
-            $query->where('published', $request->status === 'published');
+            $query->where('status', $request->status);
+        }
+        if ($request->boolean('featured')) {
+            $query->where('featured', true);
         }
 
         $articles = $query->paginate(15)->withQueryString();
 
+        $stats = [
+            'total'     => Article::count(),
+            'published' => Article::where('status', 'published')->count(),
+            'draft'     => Article::where('status', 'draft')->count(),
+            'scheduled' => Article::where('status', 'scheduled')->count(),
+            'featured'  => Article::where('featured', true)->count(),
+        ];
+
         return view('admin.articles.index', [
             'articles'   => $articles,
             'categories' => $this->categories,
+            'statuses'   => $this->statuses,
+            'stats'      => $stats,
         ]);
     }
 
@@ -46,16 +71,25 @@ class ArticleController extends Controller
         return view('admin.articles.form', [
             'article'    => new Article,
             'categories' => $this->categories,
+            'statuses'   => $this->statuses,
         ]);
     }
 
     public function store(Request $request)
     {
         $data = $this->validated($request);
+        $data['slug']         = $this->uniqueSlug($data['title']);
+        $data['tags']         = $this->parseTags($request->input('tags_raw', ''));
+        $data['published_at'] = $this->resolvePublishedAt(null, $data['status'], $request);
+        $data['scheduled_at'] = $data['status'] === 'scheduled'
+            ? $request->input('scheduled_at')
+            : null;
 
-        $data['cover_image'] = $this->handleImage($request);
-        $data['slug'] = $this->uniqueSlug($data['title']);
-        $data['published_at'] = $data['published'] ? now() : null;
+        $cover = $this->storeCoverImage($request);
+        if ($cover) {
+            $data['cover_image'] = $cover;
+        }
+        $data['gallery'] = $this->storeGallery($request);
 
         Article::create($data);
 
@@ -68,23 +102,40 @@ class ArticleController extends Controller
         return view('admin.articles.form', [
             'article'    => $article,
             'categories' => $this->categories,
+            'statuses'   => $this->statuses,
         ]);
     }
 
     public function update(Request $request, Article $article)
     {
         $data = $this->validated($request, $article);
+        $data['tags']         = $this->parseTags($request->input('tags_raw', ''));
+        $data['published_at'] = $this->resolvePublishedAt($article->published_at, $data['status'], $request);
+        $data['scheduled_at'] = $data['status'] === 'scheduled'
+            ? $request->input('scheduled_at')
+            : null;
 
+        // Image principale
         if ($request->hasFile('cover_image')) {
             if ($article->cover_image) {
                 Storage::disk('public')->delete($article->cover_image);
             }
-            $data['cover_image'] = $this->handleImage($request);
+            $data['cover_image'] = $this->storeCoverImage($request);
         }
 
-        if ($data['published'] && ! $article->published_at) {
-            $data['published_at'] = now();
+        // Galerie : retrait des images cochées
+        $gallery = $article->gallery ?? [];
+        if ($request->filled('remove_gallery')) {
+            foreach ($request->input('remove_gallery', []) as $path) {
+                Storage::disk('public')->delete($path);
+                $gallery = array_values(array_filter($gallery, fn ($p) => $p !== $path));
+            }
         }
+        // Galerie : ajout de nouvelles images
+        if ($request->hasFile('gallery_new')) {
+            $gallery = array_merge($gallery, $this->storeGallery($request));
+        }
+        $data['gallery'] = $gallery ?: null;
 
         $article->update($data);
 
@@ -97,6 +148,9 @@ class ArticleController extends Controller
         if ($article->cover_image) {
             Storage::disk('public')->delete($article->cover_image);
         }
+        foreach ($article->gallery ?? [] as $path) {
+            Storage::disk('public')->delete($path);
+        }
         $article->delete();
 
         return redirect()->route('admin.articles.index')
@@ -105,36 +159,59 @@ class ArticleController extends Controller
 
     public function togglePublish(Article $article)
     {
+        $newStatus = $article->status === 'published' ? 'draft' : 'published';
         $article->update([
-            'published'    => ! $article->published,
-            'published_at' => ! $article->published ? now() : $article->published_at,
+            'status'       => $newStatus,
+            'published_at' => $newStatus === 'published'
+                ? ($article->published_at ?? now())
+                : $article->published_at,
         ]);
 
-        return back()->with('success', $article->published ? 'Article publié.' : 'Article dépublié.');
+        $msg = $newStatus === 'published' ? 'Article publié.' : 'Article repassé en brouillon.';
+        return back()->with('success', $msg);
     }
 
-    // ── Private helpers ────────────────────────────────────────
+    // ── Helpers ───────────────────────────────────────────────
 
     private function validated(Request $request, ?Article $article = null): array
     {
-        return $request->validate([
-            'title'       => ['required', 'string', 'max:255'],
-            'category'    => ['required', 'in:'.implode(',', array_keys($this->categories))],
-            'excerpt'     => ['required', 'string', 'max:500'],
-            'content'     => ['required', 'string'],
-            'author'      => ['required', 'string', 'max:255'],
-            'published'   => ['boolean'],
-            'cover_image' => $article ? ['nullable', 'image', 'max:4096'] : ['nullable', 'image', 'max:4096'],
+        $validated = $request->validate([
+            'title'            => ['required', 'string', 'max:255'],
+            'category'         => ['required', 'in:' . implode(',', array_keys($this->categories))],
+            'excerpt'          => ['required', 'string', 'max:500'],
+            'content'          => ['required', 'string'],
+            'author'           => ['required', 'string', 'max:255'],
+            'cover_image'      => ['nullable', 'image', 'max:4096'],
+            'cover_image_alt'  => ['nullable', 'string', 'max:125'],
+            'gallery_new.*'    => ['nullable', 'image', 'max:4096'],
+            'status'           => ['required', 'in:' . implode(',', array_keys($this->statuses))],
+            'featured'         => ['boolean'],
+            'scheduled_at'     => ['nullable', 'date', 'after:now', 'required_if:status,scheduled'],
+            'meta_title'       => ['nullable', 'string', 'max:70'],
+            'meta_description' => ['nullable', 'string', 'max:160'],
         ], [
-            'title.required'   => 'Le titre est obligatoire.',
-            'content.required' => 'Le contenu est obligatoire.',
-            'excerpt.required' => 'Le résumé est obligatoire.',
-            'cover_image.image' => 'Le fichier doit être une image.',
-            'cover_image.max'   => 'L\'image ne doit pas dépasser 4 Mo.',
+            'title.required'       => 'Le titre est obligatoire.',
+            'category.required'    => 'Choisissez une catégorie.',
+            'excerpt.required'     => "L'extrait est obligatoire.",
+            'content.required'     => 'Le contenu est obligatoire.',
+            'author.required'      => "L'auteur est obligatoire.",
+            'cover_image.image'    => 'Le fichier doit être une image (JPG, PNG, WEBP).',
+            'cover_image.max'      => "L'image ne doit pas dépasser 4 Mo.",
+            'gallery_new.*.image'  => 'Chaque fichier de galerie doit être une image.',
+            'gallery_new.*.max'    => 'Chaque image de galerie ne doit pas dépasser 4 Mo.',
+            'scheduled_at.required_if' => 'Indiquez une date de publication programmée.',
+            'scheduled_at.after'   => 'La date programmée doit être dans le futur.',
+            'meta_title.max'       => 'Le méta-titre ne doit pas dépasser 70 caractères.',
+            'meta_description.max' => 'La méta-description ne doit pas dépasser 160 caractères.',
         ]);
+
+        // Les fichiers sont gérés séparément
+        unset($validated['cover_image'], $validated['gallery_new']);
+
+        return $validated;
     }
 
-    private function handleImage(Request $request): ?string
+    private function storeCoverImage(Request $request): ?string
     {
         if (! $request->hasFile('cover_image')) {
             return null;
@@ -142,10 +219,39 @@ class ArticleController extends Controller
         return $request->file('cover_image')->store('articles', 'public');
     }
 
+    private function storeGallery(Request $request): array
+    {
+        $paths = [];
+        if ($request->hasFile('gallery_new')) {
+            foreach ($request->file('gallery_new') as $file) {
+                $paths[] = $file->store('articles/gallery', 'public');
+            }
+        }
+        return $paths;
+    }
+
+    private function parseTags(string $raw): array
+    {
+        return array_values(array_filter(
+            array_map('trim', explode(',', $raw))
+        ));
+    }
+
     private function uniqueSlug(string $title): string
     {
-        $slug = Str::slug($title);
-        $count = Article::where('slug', 'like', $slug.'%')->count();
-        return $count ? $slug.'-'.$count : $slug;
+        $slug  = Str::slug($title);
+        $count = Article::where('slug', 'like', "{$slug}%")->count();
+        return $count ? "{$slug}-{$count}" : $slug;
+    }
+
+    private function resolvePublishedAt(mixed $existing, string $status, Request $request): mixed
+    {
+        if ($status === 'published') {
+            return $existing ?? now();
+        }
+        if ($status === 'scheduled' && $request->filled('scheduled_at')) {
+            return $request->input('scheduled_at');
+        }
+        return $existing;
     }
 }

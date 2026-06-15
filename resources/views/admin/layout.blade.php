@@ -7,6 +7,7 @@
     <title>@yield('title', 'Backoffice') – ConsForest Maniema</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('styles')
 </head>
 <body class="h-full font-sans antialiased" x-data="{ sidebarOpen: false }">
 
@@ -123,5 +124,6 @@
         </footer>
     </div>
 
+    @stack('scripts')
 </body>
 </html>
