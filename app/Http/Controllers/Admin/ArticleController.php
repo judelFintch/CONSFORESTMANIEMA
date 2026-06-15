@@ -264,8 +264,11 @@ class ArticleController extends Controller
         return $paths;
     }
 
-    private function parseTags(string $raw): array
+    private function parseTags(?string $raw): array
     {
+        if (! $raw) {
+            return [];
+        }
         return array_values(array_filter(
             array_map('trim', explode(',', $raw))
         ));
