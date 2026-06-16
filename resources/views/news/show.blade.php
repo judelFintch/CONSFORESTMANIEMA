@@ -5,13 +5,41 @@
 
 @section('content')
 
+@php
+    $articleUrl = url()->current();
+    $coverUrl = $article->cover_image ? Storage::url($article->cover_image) : asset('images/hero-foret.jpg');
+    $coverAlt = $article->cover_image_alt ?: $article->title;
+    $publishedIso = optional($article->published_at)->toIso8601String();
+@endphp
+
+@push('head')
+<script type="application/ld+json">
+{
+    "@@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": @json($article->title),
+    "description": @json($article->excerpt),
+    "image": @json($coverUrl),
+    "datePublished": @json($publishedIso),
+    "author": {
+        "@type": "Organization",
+        "name": @json($article->author)
+    },
+    "publisher": {
+        "@type": "Organization",
+        "name": "ConsForest Maniema"
+    }
+}
+</script>
+@endpush
+
 {{-- ══ HERO ══ --}}
-<div class="page-header pt-32 pb-20"
-     @if($article->cover_image)
-     style="background-image: linear-gradient(to bottom, rgba(3,15,33,0.82) 0%, rgba(6,26,12,0.78) 100%), url('{{ Storage::url($article->cover_image) }}'); background-size: cover; background-position: center;"
-     @endif
->
-    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="page-header relative overflow-hidden pt-32 pb-24 lg:pb-32"
+     style="background-image: linear-gradient(135deg, rgba(2,13,6,0.92) 0%, rgba(3,15,33,0.82) 52%, rgba(10,59,26,0.78) 100%), url('{{ $coverUrl }}'); background-size: cover; background-position: center;">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_28%,rgba(240,180,41,0.16),transparent_28%),radial-gradient(circle_at_82%_12%,rgba(22,163,74,0.14),transparent_32%)]"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {{-- Breadcrumb --}}
         <nav class="breadcrumb flex items-center gap-2 text-sm mb-6 flex-wrap">
@@ -23,32 +51,33 @@
         </nav>
 
         {{-- Catégorie + date --}}
-        <div class="flex flex-wrap items-center gap-3 mb-5">
-            <span class="text-xs font-semibold bg-green-500/25 text-green-300 border border-green-500/30 px-3 py-1 rounded-full uppercase tracking-wider">
+        <div class="flex flex-wrap items-center gap-3 mb-6">
+            <span class="section-badge white">
                 {{ $article->category_label }}
             </span>
-            <span class="text-white/50 text-sm">{{ $article->formatted_date }}</span>
+            <span class="text-white/65 text-sm">{{ $article->formatted_date }}</span>
             @if($article->reading_time)
-            <span class="text-white/40 text-xs flex items-center gap-1">
+            <span class="text-white/55 text-sm flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
-                {{ $article->reading_time_text }} de lecture
+                {{ $article->reading_time_text }}
             </span>
             @endif
         </div>
 
         {{-- Titre --}}
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-5 leading-tight tracking-tight">
+        <h1 style="font-family: var(--font-display);"
+            class="max-w-5xl text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 leading-[0.98]">
             {{ $article->title }}
         </h1>
 
         {{-- Extrait --}}
-        <p class="text-white/75 text-lg max-w-3xl leading-relaxed mb-6">{{ $article->excerpt }}</p>
+        <p class="text-white/75 text-lg sm:text-xl max-w-3xl leading-relaxed mb-8">{{ $article->excerpt }}</p>
 
         {{-- Auteur --}}
-        <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-full bg-green-600 flex items-center justify-center text-white text-sm font-bold shrink-0">
+        <div class="flex flex-wrap items-center gap-4">
+            <div class="w-11 h-11 rounded-full bg-gold-400 flex items-center justify-center text-forest-950 text-sm font-bold shrink-0">
                 {{ strtoupper(mb_substr($article->author, 0, 1)) }}
             </div>
             <div>
@@ -62,9 +91,20 @@
 </div>
 
 {{-- ══ CORPS DE L'ARTICLE ══ --}}
-<section class="bg-white py-12 lg:py-16">
+<section class="bg-white pb-14 lg:pb-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-16">
+
+        @if($article->cover_image)
+        <figure class="relative z-20 -mt-14 lg:-mt-20 mb-12 overflow-hidden rounded-lg bg-gray-100 shadow-2xl shadow-forest-950/15">
+            <img src="{{ $coverUrl }}" alt="{{ $coverAlt }}"
+                 class="h-[260px] sm:h-[420px] lg:h-[520px] w-full object-cover">
+            <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/75 to-transparent px-5 py-5 text-sm text-white/80">
+                {{ $coverAlt }}
+            </figcaption>
+        </figure>
+        @endif
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14">
 
             {{-- ── Contenu principal ── --}}
             <article class="lg:col-span-8 min-w-0">
@@ -81,27 +121,33 @@
 
                 {{-- Vidéo TOP --}}
                 @if($videoBlock && $videoPos === 'top')
-                <div class="mb-10">
+                <div class="mb-10 overflow-hidden rounded-lg border border-gray-100 shadow-sm">
                     @include('news._video', ['article' => $article, 'type' => $videoBlock])
                 </div>
                 @endif
+
+                <div class="mb-9 border-l-4 border-gold-400 bg-gold-50/70 px-5 py-5 sm:px-6">
+                    <p class="text-sm font-semibold uppercase tracking-[0.18em] text-gold-700 mb-2">À retenir</p>
+                    <p class="text-gray-800 text-lg leading-relaxed">{{ $article->excerpt }}</p>
+                </div>
 
                 {{-- Contenu riche --}}
                 @php
                     $isHtml = $article->content && $article->content !== strip_tags($article->content);
                 @endphp
                 <div class="prose prose-lg prose-gray max-w-none
-                            prose-headings:font-bold prose-headings:text-gray-900 prose-headings:leading-tight
-                            prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-gray-100 prose-h2:pb-3
+                            prose-headings:font-bold prose-headings:text-gray-950 prose-headings:leading-tight
+                            prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-5 prose-h2:font-display
                             prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                            prose-p:text-gray-600 prose-p:leading-[1.85] prose-p:mb-5
-                            prose-a:text-green-700 prose-a:font-medium prose-a:no-underline hover:prose-a:underline
+                            prose-p:text-gray-700 prose-p:leading-[1.9] prose-p:mb-6
+                            prose-a:text-forest-700 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
                             prose-strong:text-gray-900 prose-strong:font-semibold
-                            prose-ul:text-gray-600 prose-ol:text-gray-600
-                            prose-li:leading-relaxed prose-li:mb-1
-                            prose-blockquote:border-l-4 prose-blockquote:border-green-500 prose-blockquote:bg-green-50
-                            prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:rounded-r-lg
-                            prose-blockquote:text-gray-700 prose-blockquote:not-italic prose-blockquote:font-medium">
+                            prose-ul:text-gray-700 prose-ol:text-gray-700
+                            prose-li:leading-relaxed prose-li:mb-2
+                            prose-blockquote:border-l-4 prose-blockquote:border-forest-600 prose-blockquote:bg-forest-50
+                            prose-blockquote:py-4 prose-blockquote:px-5 prose-blockquote:rounded-r-lg
+                            prose-blockquote:text-gray-800 prose-blockquote:not-italic prose-blockquote:font-medium
+                            prose-img:rounded-lg prose-img:shadow-lg prose-img:shadow-gray-900/10">
                     @if($isHtml)
                         {!! $article->content !!}
                     @else
@@ -113,18 +159,18 @@
 
                 {{-- Vidéo BOTTOM --}}
                 @if($videoBlock && $videoPos === 'bottom')
-                <div class="mt-10">
+                <div class="mt-10 overflow-hidden rounded-lg border border-gray-100 shadow-sm">
                     @include('news._video', ['article' => $article, 'type' => $videoBlock])
                 </div>
                 @endif
 
                 {{-- Tags --}}
                 @if($article->tags && count($article->tags) > 0)
-                <div class="mt-10 pt-8 border-t border-gray-100">
-                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Tags</p>
+                <div class="mt-12 pt-8 border-t border-gray-100">
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-[0.16em] mb-3">Tags</p>
                     <div class="flex flex-wrap gap-2">
                         @foreach($article->tags as $tag)
-                        <span class="text-sm bg-gray-50 text-gray-600 border border-gray-200 px-3 py-1 rounded-full hover:bg-green-50 hover:text-green-700 hover:border-green-200 transition-colors cursor-default">
+                        <span class="text-sm bg-gray-50 text-gray-600 border border-gray-200 px-3 py-1 rounded-full hover:bg-forest-50 hover:text-forest-700 hover:border-forest-200 transition-colors cursor-default">
                             #{{ $tag }}
                         </span>
                         @endforeach
@@ -134,13 +180,13 @@
 
                 {{-- Galerie --}}
                 @if($article->gallery && count($article->gallery) > 0)
-                <div class="mt-10" x-data="{ open: false, src: '' }">
-                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Galerie photos</p>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+                <div class="mt-12" x-data="{ open: false, src: '' }">
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-[0.16em] mb-4">Galerie photos</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                         @foreach($article->gallery as $img)
                         <button type="button"
                             @click="src = '{{ Storage::url($img) }}'; open = true"
-                            class="block rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow group aspect-[4/3]">
+                            class="block rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow group aspect-[4/3]">
                             <img src="{{ Storage::url($img) }}" alt="Photo"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         </button>
@@ -167,9 +213,9 @@
 
                 {{-- Partage mobile --}}
                 <div class="mt-10 pt-8 border-t border-gray-100 lg:hidden">
-                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Partager</p>
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-[0.16em] mb-3">Partager</p>
                     <div class="flex gap-2">
-                        @include('news._share', ['url' => url()->current(), 'title' => $article->title])
+                        @include('news._share', ['url' => $articleUrl, 'title' => $article->title])
                     </div>
                 </div>
 
@@ -189,66 +235,81 @@
             <aside class="hidden lg:block lg:col-span-4">
                 <div class="sticky top-24 space-y-6">
 
-                    {{-- Auteur --}}
-                    <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
-                        <div class="flex items-center gap-4 mb-3">
-                            <div class="w-12 h-12 rounded-full bg-green-700 flex items-center justify-center text-white font-bold text-lg shrink-0">
-                                {{ strtoupper(mb_substr($article->author, 0, 1)) }}
+                    {{-- En bref --}}
+                    <div class="bg-forest-950 text-white rounded-lg p-6 shadow-xl shadow-forest-950/10">
+                        <p class="text-xs font-semibold text-gold-300 uppercase tracking-[0.18em] mb-5">En bref</p>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 h-2 w-2 rounded-full bg-gold-400"></div>
+                                <div>
+                                    <p class="text-xs text-white/45 uppercase tracking-wider">Catégorie</p>
+                                    <p class="text-sm font-semibold">{{ $article->category_label }}</p>
+                                </div>
                             </div>
-                            <div>
-                                <p class="font-semibold text-gray-900 text-sm">{{ $article->author }}</p>
-                                <p class="text-gray-500 text-xs mt-0.5">ConsForest Maniema</p>
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 h-2 w-2 rounded-full bg-forest-400"></div>
+                                <div>
+                                    <p class="text-xs text-white/45 uppercase tracking-wider">Publication</p>
+                                    <p class="text-sm font-semibold">{{ $article->formatted_date }}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 h-2 w-2 rounded-full bg-blue-maniema-300"></div>
+                                <div>
+                                    <p class="text-xs text-white/45 uppercase tracking-wider">Auteur</p>
+                                    <p class="text-sm font-semibold">{{ $article->author }}</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-2 text-xs text-center mt-4">
-                            <div class="bg-white rounded-lg p-2.5 border border-gray-100">
-                                <p class="font-bold text-gray-800 text-base">{{ $article->reading_time_text }}</p>
-                                <p class="text-gray-400 mt-0.5">de lecture</p>
+                        <div class="grid grid-cols-2 gap-3 text-xs text-center mt-6">
+                            <div class="bg-white/8 rounded-lg p-3 border border-white/10">
+                                <p class="font-bold text-white text-lg">{{ $article->reading_time_text }}</p>
+                                <p class="text-white/45 mt-0.5">lecture</p>
                             </div>
-                            <div class="bg-white rounded-lg p-2.5 border border-gray-100">
-                                <p class="font-bold text-gray-800 text-base">{{ number_format($article->views_count) }}</p>
-                                <p class="text-gray-400 mt-0.5">vues</p>
+                            <div class="bg-white/8 rounded-lg p-3 border border-white/10">
+                                <p class="font-bold text-white text-lg">{{ number_format($article->views_count) }}</p>
+                                <p class="text-white/45 mt-0.5">vues</p>
                             </div>
                         </div>
                     </div>
 
                     {{-- Partage --}}
-                    <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
-                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Partager</p>
+                    <div class="bg-gray-50 rounded-lg p-5 border border-gray-100">
+                        <p class="text-xs font-semibold text-gray-500 uppercase tracking-[0.16em] mb-3">Partager</p>
                         <div class="flex flex-col gap-2">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}"
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($articleUrl) }}"
                                target="_blank" rel="noopener"
-                               class="flex items-center gap-3 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-xl transition-colors">
+                               class="flex items-center gap-3 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors">
                                 <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
                                 Facebook
                             </a>
-                            <a href="https://twitter.com/intent/tweet?text={{ urlencode($article->title) }}&url={{ urlencode(url()->current()) }}"
+                            <a href="https://twitter.com/intent/tweet?text={{ urlencode($article->title) }}&url={{ urlencode($articleUrl) }}"
                                target="_blank" rel="noopener"
-                               class="flex items-center gap-3 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-medium rounded-xl transition-colors">
+                               class="flex items-center gap-3 px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white text-sm font-medium rounded-lg transition-colors">
                                 <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
                                 Twitter / X
                             </a>
-                            <a href="https://wa.me/?text={{ urlencode($article->title . ' – ' . url()->current()) }}"
+                            <a href="https://wa.me/?text={{ urlencode($article->title . ' – ' . $articleUrl) }}"
                                target="_blank" rel="noopener"
-                               class="flex items-center gap-3 px-4 py-2.5 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-xl transition-colors">
+                               class="flex items-center gap-3 px-4 py-2.5 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg transition-colors">
                                 <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                                 WhatsApp
                             </a>
-                            <button onclick="navigator.clipboard.writeText('{{ url()->current() }}').then(() => this.textContent = 'Lien copié ✓')"
-                                class="flex items-center gap-3 px-4 py-2.5 bg-white hover:bg-gray-100 text-gray-700 text-sm font-medium rounded-xl border border-gray-200 transition-colors">
+                            <button onclick="navigator.clipboard.writeText('{{ $articleUrl }}').then(() => this.querySelector('span').textContent = 'Lien copié')"
+                                class="flex items-center gap-3 px-4 py-2.5 bg-white hover:bg-gray-100 text-gray-700 text-sm font-medium rounded-lg border border-gray-200 transition-colors">
                                 <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                                 </svg>
-                                Copier le lien
+                                <span>Copier le lien</span>
                             </button>
                         </div>
                     </div>
 
                     {{-- Tags sidebar --}}
                     @if($article->tags && count($article->tags) > 0)
-                    <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100">
-                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Tags</p>
+                    <div class="bg-gray-50 rounded-lg p-5 border border-gray-100">
+                        <p class="text-xs font-semibold text-gray-500 uppercase tracking-[0.16em] mb-3">Tags</p>
                         <div class="flex flex-wrap gap-1.5">
                             @foreach($article->tags as $tag)
                             <span class="text-xs bg-white text-gray-600 border border-gray-200 px-2.5 py-1 rounded-full">
