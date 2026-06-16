@@ -170,6 +170,7 @@
         <div class="space-y-5 reveal">
             @foreach([
                 [
+                    'logo'  => 'p1.jpeg',
                     'init'  => 'RDC',
                     'name'  => 'Gouvernement de la RDC',
                     'full'  => 'République Démocratique du Congo',
@@ -179,6 +180,7 @@
                     'color' => '#1d4ed8', 'bg' => 'rgba(29,78,216,0.08)',
                 ],
                 [
+                    'logo'  => 'p2.jpeg',
                     'init'  => 'ME',
                     'name'  => "Ministère de l'Environnement",
                     'full'  => 'Ministère de l\'Environnement et Développement Durable',
@@ -188,6 +190,7 @@
                     'color' => '#16a34a', 'bg' => 'rgba(22,163,74,0.08)',
                 ],
                 [
+                    'logo'  => 'p3.jpeg',
                     'init'  => 'MAN',
                     'name'  => 'Province du Maniema',
                     'full'  => 'Gouvernorat Provincial – Province du Maniema',
@@ -199,9 +202,16 @@
             ] as $p)
             <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex flex-col sm:flex-row gap-5">
-                    <div class="flex-shrink-0">
-                        <div class="w-14 h-14 rounded-xl flex items-center justify-center font-bold text-sm"
-                             style="background: {{ $p['bg'] }}; color: {{ $p['color'] }};">
+                    <div class="flex-shrink-0" style="width: 140px;">
+                        <div class="rounded-xl overflow-hidden"
+                             style="width:140px; height:90px; background:#fff; border:1.5px solid #e5e7eb; box-shadow:0 4px 12px rgba(0,0,0,0.07);">
+                            <img src="{{ asset('images/' . $p['logo']) }}"
+                                 alt="Logo {{ $p['name'] }}"
+                                 style="width:100%; height:100%; object-fit:contain; padding:14px; box-sizing:border-box; display:block;"
+                                 onerror="this.parentElement.style.display='none';this.parentElement.nextElementSibling.style.display='flex';">
+                        </div>
+                        <div class="rounded-xl flex items-center justify-center font-bold text-sm"
+                             style="display:none; width:56px; height:56px; background:{{ $p['bg'] }}; color:{{ $p['color'] }};">
                             {{ $p['init'] }}
                         </div>
                     </div>

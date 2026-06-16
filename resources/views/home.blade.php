@@ -734,31 +734,25 @@
             <p class="text-center text-[10px] text-gray-300 uppercase tracking-[0.28em] font-semibold mb-6">
                 Cadre institutionnel
             </p>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="grid grid-cols-3 gap-4">
                 @foreach([
-                    ['init' => 'RDC',  'name' => 'Gouvernement RDC',   'role' => 'Autorité nationale',        'color' => '#374151', 'bg' => 'rgba(55,65,81,0.08)'],
-                    ['init' => 'ME',   'name' => 'Min. Environnement', 'role' => 'Tutelle sectorielle',       'color' => '#374151', 'bg' => 'rgba(55,65,81,0.08)'],
-                    ['init' => 'MAN',  'name' => 'Province Maniema',   'role' => 'Autorité provinciale',      'color' => '#d97706', 'bg' => 'rgba(217,119,6,0.09)',  'logo' => true],
-                    ['init' => 'ONG',  'name' => 'Partenaires Intl.',  'role' => 'Organisations techniques', 'color' => '#6b7280', 'bg' => 'rgba(107,114,128,0.08)'],
+                    ['logo' => 'p1.jpeg', 'init' => 'RDC', 'name' => 'Gouvernement RDC',   'role' => 'Autorité nationale',  'color' => '#374151', 'bg' => 'rgba(55,65,81,0.08)'],
+                    ['logo' => 'p2.jpeg', 'init' => 'ME',  'name' => 'Min. Environnement', 'role' => 'Tutelle sectorielle', 'color' => '#374151', 'bg' => 'rgba(55,65,81,0.08)'],
+                    ['logo' => 'p3.jpeg', 'init' => 'MAN', 'name' => 'Province Maniema',   'role' => 'Autorité provinciale','color' => '#d97706', 'bg' => 'rgba(217,119,6,0.09)'],
                 ] as $p)
                 <div class="partner-card-inst text-center">
-                    @if(isset($p['logo']))
-                        <img src="{{ asset('images/logo-maniema.png') }}"
-                             alt="Maniema"
-                             class="w-10 h-10 rounded-full object-cover mx-auto mb-2 ring-2 ring-amber-200"
-                             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-                        <div class="w-10 h-10 rounded-full items-center justify-center mx-auto mb-2 text-xs font-bold"
-                             style="display:none; background: {{ $p['bg'] }}; color: {{ $p['color'] }};">
-                            {{ $p['init'] }}
+                    @if($p['logo'])
+                        <div class="partner-logo-wrap">
+                            <img src="{{ asset('images/' . $p['logo']) }}"
+                                 alt="{{ $p['name'] }}"
+                                 onerror="this.parentElement.style.display='none';this.parentElement.nextElementSibling.style.cssText='display:flex;width:44px;height:44px;border-radius:50%;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:{{ $p['bg'] }};color:{{ $p['color'] }};margin:0 auto 0.75rem';">
                         </div>
+                        <div style="display:none;"></div>
                     @else
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2 text-xs font-bold"
-                             style="background: {{ $p['bg'] }}; color: {{ $p['color'] }};">
+                        <div style="width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;background:{{ $p['bg'] }};color:{{ $p['color'] }};margin:0 auto 0.75rem;">
                             {{ $p['init'] }}
                         </div>
                     @endif
-                    <p class="font-semibold text-gray-800 text-xs leading-tight mb-0.5">{{ $p['name'] }}</p>
-                    <p class="text-gray-400 text-[10px] leading-tight">{{ $p['role'] }}</p>
                 </div>
                 @endforeach
             </div>
